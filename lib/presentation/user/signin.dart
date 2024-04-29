@@ -53,7 +53,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
 
         if (success) {
           if (userType == 'mahasiswa') {
-            profileID = data['auth']['user']['nim']; // Simpan value NIM
+            profileID =
+                data['auth']['user']['nim'].toString(); // Simpan value NIM
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const Home()),
