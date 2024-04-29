@@ -25,7 +25,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
   var email = TextEditingController();
   var password = TextEditingController();
   bool isVisible = false;
-  late int profileID; // Variabel untuk menyimpan NIM
+  String profileID = ''; // Variabel untuk menyimpan NIM
 
   @override
   void initState() {
