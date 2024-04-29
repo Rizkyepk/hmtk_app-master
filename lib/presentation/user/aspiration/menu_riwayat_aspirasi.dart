@@ -1,9 +1,6 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/aspiration/menu_aspiration.dart';
-import 'package:hmtk_app/presentation/user/home.dart';
 import 'package:hmtk_app/widget/button.dart';
-import 'package:hmtk_app/widget/main_navigator.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 
 import '../drawer/drawer_user.dart';
@@ -14,7 +11,7 @@ class MenuRiwayatAspirasi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerUserScren(),
@@ -24,9 +21,9 @@ class MenuRiwayatAspirasi extends StatelessWidget {
       ),
       body: MyPage(
           widget: ListView(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         children: [
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Row(
@@ -37,7 +34,7 @@ class MenuRiwayatAspirasi extends StatelessWidget {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MenuAspiration(),
+                        builder: (context) => const MenuAspiration(),
                       ));
                 },
                 child: MyButton(
@@ -50,7 +47,7 @@ class MenuRiwayatAspirasi extends StatelessWidget {
                   BoxShadow(
                       blurRadius: 10,
                       color: Colors.black.withOpacity(0.3),
-                      offset: Offset(0, 5))
+                      offset: const Offset(0, 5))
                 ]),
                 child: MyButton(
                   txt: 'Riwayat Aspirasi',
@@ -59,25 +56,25 @@ class MenuRiwayatAspirasi extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Container(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
             ),
             child: Table(
-              columnWidths: {
+              columnWidths: const {
                 0: FixedColumnWidth(20),
                 1: FixedColumnWidth(80),
                 2: FixedColumnWidth(80),
                 3: FixedColumnWidth(80),
               },
               border: TableBorder.symmetric(
-                  outside: BorderSide.none, inside: BorderSide()),
-              children: [
+                  outside: BorderSide.none, inside: const BorderSide()),
+              children: const [
                 TableRow(children: [
                   Text('No',
                       textAlign: TextAlign.center,

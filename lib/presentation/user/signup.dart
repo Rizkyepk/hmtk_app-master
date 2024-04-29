@@ -92,7 +92,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
         widget: ListView(
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 20),
+              margin: const EdgeInsets.only(bottom: 20),
               height: MediaQuery.of(context).size.height * 0.2,
               child: Image.asset(
                 'assets/LOGO TK.png',
@@ -100,9 +100,9 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               height: MediaQuery.of(context).size.height * 0.75,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
                 color: Colors.white,
               ),
@@ -140,8 +140,8 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 15),
-                    padding: EdgeInsets.only(left: 15, right: 15),
+                    margin: const EdgeInsets.only(bottom: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: ColorPallete.greenprim.withOpacity(0.3),
@@ -154,7 +154,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                         prefixIcon: Container(
                           width: 100,
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: const Text(
                             'Full Name',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
@@ -163,8 +163,8 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 15),
-                    padding: EdgeInsets.only(left: 15, right: 15),
+                    margin: const EdgeInsets.only(bottom: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: ColorPallete.greenprim.withOpacity(0.3),
@@ -177,7 +177,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                         prefixIcon: Container(
                           width: 100,
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: const Text(
                             'NIM',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
@@ -186,8 +186,8 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 15),
-                    padding: EdgeInsets.only(left: 15, right: 15),
+                    margin: const EdgeInsets.only(bottom: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: ColorPallete.greenprim.withOpacity(0.3),
@@ -200,7 +200,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                         prefixIcon: Container(
                           width: 100,
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: const Text(
                             'No Telp',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
@@ -209,8 +209,8 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 15),
-                    padding: EdgeInsets.only(left: 15, right: 15),
+                    margin: const EdgeInsets.only(bottom: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: ColorPallete.greenprim.withOpacity(0.3),
@@ -223,7 +223,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                         prefixIcon: Container(
                           width: 100,
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: const Text(
                             'Email',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
@@ -232,8 +232,8 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 15),
-                    padding: EdgeInsets.only(left: 15, right: 15),
+                    margin: const EdgeInsets.only(bottom: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: ColorPallete.greenprim.withOpacity(0.3),
@@ -257,7 +257,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                         prefixIcon: Container(
                           width: 100,
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: const Text(
                             'Password',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
@@ -268,7 +268,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
+                      const Text(
                         'Already a member?',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
@@ -277,10 +277,10 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SignIn(),
+                                builder: (context) => const SignIn(),
                               ));
                         },
-                        child: Text('Login'),
+                        child: const Text('Login'),
                       )
                     ],
                   ),

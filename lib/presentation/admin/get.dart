@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
 
 class Get extends StatelessWidget {
   const Get({super.key});
@@ -15,19 +13,19 @@ class Get extends StatelessWidget {
           Positioned(
             top: 100,
             child: Container(
-                child: Center(
+                child: const Center(
               child: Image(
                 image: AssetImage('assets/LogoTK3.png'),
               ),
             )),
           ),
-          Positioned(
+          const Positioned(
             bottom: 0.100,
             child: Image(
               image: AssetImage('assets/getback.png'),
             ),
           ),
-          Positioned(
+          const Positioned(
             bottom: 0.100,
             child: Image(
               image: AssetImage('assets/getfront.png'),
@@ -39,7 +37,7 @@ class Get extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'My-HMTK',
                     style: TextStyle(
                       fontSize: 25,
@@ -47,7 +45,7 @@ class Get extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -55,28 +53,28 @@ class Get extends StatelessWidget {
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             // primary: Color.fromARGB(255, 248, 248, 248),
-                            backgroundColor: Color.fromARGB(255, 255, 255, 255)
+                            backgroundColor: const Color.fromARGB(255, 255, 255, 255)
                                 .withOpacity(0.4),
                             foregroundColor:
                                 const Color.fromARGB(255, 255, 255, 255),
                             fixedSize: const Size(80, 50),
                           ),
                           onPressed: () {},
-                          child: Text('Admin')),
-                      SizedBox(
+                          child: const Text('Admin')),
+                      const SizedBox(
                         width: 10,
                       ),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             // primary: Color.fromARGB(255, 248, 248, 248),
-                            backgroundColor: Color.fromARGB(255, 255, 255, 255)
+                            backgroundColor: const Color.fromARGB(255, 255, 255, 255)
                                 .withOpacity(0.4),
                             foregroundColor:
                                 const Color.fromARGB(255, 255, 255, 255),
                             fixedSize: const Size(80, 50),
                           ),
                           onPressed: () {},
-                          child: Text('User')),
+                          child: const Text('User')),
                     ],
                   )
                 ],

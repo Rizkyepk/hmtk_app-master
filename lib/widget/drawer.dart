@@ -6,17 +6,19 @@ import 'package:hmtk_app/presentation/user/start.dart';
 import 'activity.dart';
 
 class DrawerScren extends StatelessWidget {
+  const DrawerScren({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+      margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.centerRight,
-          end: Alignment(0.0, 0.1),
+          end: const Alignment(0.0, 0.1),
           colors: [Colors.white.withOpacity(0.8), Colors.white], //
         ),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomRight: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
@@ -35,7 +37,7 @@ class DrawerScren extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return Dashboard(); //
+                  return const Dashboard(); //
                 },
               );
             },
@@ -46,7 +48,7 @@ class DrawerScren extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return ActivityDialog(); //
+                  return const ActivityDialog(); //
                 },
               );
             },
@@ -57,7 +59,7 @@ class DrawerScren extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return FuntkDialog(); //
+                  return const FuntkDialog(); //
                 },
               );
             },
@@ -68,7 +70,7 @@ class DrawerScren extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return ShopDialog(); //
+                  return const ShopDialog(); //
                 },
               );
             },
@@ -79,7 +81,7 @@ class DrawerScren extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return LabDialog(); //
+                  return const LabDialog(); //
                 },
               );
             },
@@ -90,7 +92,7 @@ class DrawerScren extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AspirasiDialog(); //
+                  return const AspirasiDialog(); //
                 },
               );
             },
@@ -101,7 +103,7 @@ class DrawerScren extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return MaterialBankDialog(); //
+                  return const MaterialBankDialog(); //
                 },
               );
             },
@@ -112,7 +114,7 @@ class DrawerScren extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return TimelineDialog(); //
+                  return const TimelineDialog(); //
                 },
               );
             },
@@ -123,7 +125,7 @@ class DrawerScren extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AboutUsDialog(); //
+                  return const AboutUsDialog(); //
                 },
               );
             },
@@ -134,7 +136,7 @@ class DrawerScren extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return VisiMisiDialog(); //
+                  return const VisiMisiDialog(); //
                 },
               );
             },
@@ -145,7 +147,7 @@ class DrawerScren extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return BphDialog(); //
+                  return const BphDialog(); //
                 },
               );
             },
@@ -155,7 +157,7 @@ class DrawerScren extends StatelessWidget {
               'Logout',
               style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
             ),
-            trailing: Icon(
+            trailing: const Icon(
               Icons.logout,
               color: Colors.red,
             ),
@@ -169,7 +171,7 @@ class DrawerScren extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Start(),
+                        builder: (context) => const Start(),
                       ),
                       (route) => false);
                 },

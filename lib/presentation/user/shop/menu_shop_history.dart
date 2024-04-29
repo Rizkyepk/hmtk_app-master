@@ -9,27 +9,27 @@ class MenuShopHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('History'),
+        title: const Text('History'),
       ),
       body: MyPage(
         widget: ListView.builder(
           itemCount: 7,
           shrinkWrap: true,
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           itemBuilder: (context, index) => InkWell(
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MenuShopDataPemesanan(
+                    builder: (context) => const MenuShopDataPemesanan(
                         title: 'Jersey Pemain',
                         harga: 'Rp 150.000',
                         gambar: 'assets/jersey pemain detail.png'),
                   ));
             },
             child: Container(
-              padding: EdgeInsets.all(15),
-              margin: EdgeInsets.only(bottom: 25),
+              padding: const EdgeInsets.all(15),
+              margin: const EdgeInsets.only(bottom: 25),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20), color: Colors.white),
               child: Row(
@@ -38,10 +38,10 @@ class MenuShopHistory extends StatelessWidget {
                     'assets/jersey pemain detail.png',
                     height: 80,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
-                  Column(
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -58,7 +58,7 @@ class MenuShopHistory extends StatelessWidget {
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            padding: EdgeInsets.only(left: 10, right: 10),
                             child: Text(
                               '-',
                               style: TextStyle(

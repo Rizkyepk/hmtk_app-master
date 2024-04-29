@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/account.dart';
@@ -16,10 +15,10 @@ class MainNavigator extends StatefulWidget {
 
 class _MainNavigatorState extends State<MainNavigator> {
   int _selectedIndex = 1;
-  List<Widget> _screen = [
-    Timeline(),
-    Home(),
-    Account(),
+  final List<Widget> _screen = [
+    const Timeline(),
+    const Home(),
+    const Account(),
   ];
 
   @override
@@ -42,13 +41,13 @@ class _MainNavigatorState extends State<MainNavigator> {
                   BottomNavigationBarItem(
                       icon: Image.asset('assets/timeline.png'),
                       label: 'Timeline'),
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                       icon: Icon(
                         Icons.home,
                         color: Colors.white,
                       ),
                       label: 'Home'),
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                       icon: Icon(
                         Icons.person,
                         color: Colors.white,

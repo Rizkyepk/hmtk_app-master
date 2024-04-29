@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 
 import 'drawer_user.dart';
@@ -10,7 +9,7 @@ class BphHmtk extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerUserScren(),
@@ -20,17 +19,17 @@ class BphHmtk extends StatelessWidget {
       ),
       body: MyPage(
           widget: ListView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         children: [
           Image.asset(
             'assets/LogoTK3.png',
             height: 200,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Container(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -41,7 +40,7 @@ class BphHmtk extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'BPH HMTK',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -52,21 +51,21 @@ class BphHmtk extends StatelessWidget {
                   ],
                 ),
                 Image.asset('assets/bph-hmtk.png'),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                Text(
+                const Text(
                   'Selamat Datang di Aplikasi Mobile  Program Studi S1 Teknik Komputer Telkom. Selamat Datang di Website Program Studi S1 Teknik Komputer Telkom, Selamat Datang di Website Program Studi S1 Teknik Komputer Telkom',
                   textAlign: TextAlign.justify,
                 )
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Container(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -77,7 +76,7 @@ class BphHmtk extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'BPH HMTK',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -87,10 +86,10 @@ class BphHmtk extends StatelessWidget {
                     Image.asset('assets/logo-beraksi.png')
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                Row(
+                const Row(
                   children: [
                     Text(
                       'KABINET ',
@@ -99,7 +98,7 @@ class BphHmtk extends StatelessWidget {
                     Text('BERAKSI'),
                   ],
                 ),
-                Row(
+                const Row(
                   children: [
                     Text('Filosofi Logo '),
                     Text(
@@ -109,24 +108,24 @@ class BphHmtk extends StatelessWidget {
                     Text('BERAKSI'),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   '1. Singa melambangkan keberanian dan kekuatan, sesuai dengan arti beraksi yang merupakan bergerak melakukan sesuatu untuk mencapai tujuan dengan keberanian dan kekuatan selama prosesnya',
                   textAlign: TextAlign.justify,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Text(
+                const Text(
                   '2. Mata yang berwarna merah melambangkan energi dan semangat dalam melihat semua pandangan dan perbedaan yang ada',
                   textAlign: TextAlign.justify,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Text(
+                const Text(
                   '''3. Corak pendek surai singa yang berbeda warna yaitu :
 \n1 warna abu-abu melambangkan departemen kaderisasi yang berjalan dalam hal keseriusan, kemandirian, dan tanggung jawab
 \n2 warna biru melambangkan departemen akprof dan departemen mnb yang berjalan dalam hal kecerdasan, intuisi, imajinasi, kedamaian, dan ketertiban
@@ -135,21 +134,21 @@ class BphHmtk extends StatelessWidget {
 \n2 warna emas melambangkan departemen kwu dan departemen kesma yang berjalan dalam hal kemakmuran, kesuksesan, dan kemewahan''',
                   textAlign: TextAlign.justify,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Text(
+                const Text(
                   '4. Satu surai panjang yang menyatukan semua corak bermakna bahwa kabinet beraksi terdiri dari 8 departemen yang mengampu tugasnya masing-masing tetapi tetap memiliki satu tujuan. Campuran warna biru dan hijau mempresentasikan HMTK yang memiliki kebijaksanaan, produktivitas, kecerdasan, dan kepercayaan',
                   textAlign: TextAlign.justify,
                 )
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Container(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -157,7 +156,7 @@ class BphHmtk extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'TURN ON\nTHE FUTURE',
                   style: TextStyle(
                       fontSize: 30,

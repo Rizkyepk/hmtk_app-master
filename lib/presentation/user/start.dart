@@ -31,11 +31,11 @@ class Start extends StatelessWidget {
             child: Container(
               height: 300,
               width: double.maxFinite,
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                   color: ColorPallete.greenprim,
                   borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(50))),
+                      const BorderRadius.vertical(top: Radius.circular(50))),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -44,15 +44,15 @@ class Start extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SignIn(),
+                            builder: (context) => const SignIn(),
                           ));
                     },
                     child: MyButton(
                       txt: 'Login',
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
+                  const Padding(
+                    padding: EdgeInsets.all(15.0),
                     child: Text(
                       'or',
                       style: TextStyle(
@@ -66,7 +66,7 @@ class Start extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SignUp(),
+                            builder: (context) => const SignUp(),
                           ));
                     },
                     child: MyButton(

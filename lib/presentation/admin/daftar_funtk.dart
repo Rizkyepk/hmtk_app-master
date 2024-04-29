@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class DaftarFuntk extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerScren(),
@@ -31,18 +30,18 @@ class DaftarFuntk extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ActivityFrame()),
+                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
                 child: SizedBox.fromSize(
-                  size: Size.fromRadius(38), // Image radius
+                  size: const Size.fromRadius(38), // Image radius
                   child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
                 ),
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -56,8 +55,8 @@ class DaftarFuntk extends StatelessWidget {
       body: ListView(
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
-            child: Text(
+            padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+            child: const Text(
               "Daftar Fun TK",
               style: TextStyle(
                 fontSize: 18,
@@ -71,12 +70,24 @@ class DaftarFuntk extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(10, 10, 10, 2),
+                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 2),
                     child: Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(3),
-                          child: Column(
+                          padding: const EdgeInsets.all(3),
+                          height: 50,
+                          width: 150,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 1,
+                                    spreadRadius: 1,
+                                    color: Colors.black.withOpacity(0.1))
+                              ],
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10))),
+                          child: const Column(
                             children: [
                               Text(
                                 'Tanggal',
@@ -88,25 +99,9 @@ class DaftarFuntk extends StatelessWidget {
                               ),
                             ],
                           ),
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10))),
                         ),
                         Container(
-                          padding: EdgeInsets.all(15),
-                          child: Text(
-                            'File Foto',
-                            textAlign: TextAlign.center,
-                          ),
+                          padding: const EdgeInsets.all(15),
                           height: 50,
                           width: 100,
                           decoration: BoxDecoration(
@@ -117,12 +112,28 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
+                          child: const Text(
+                            'File Foto',
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                         Container(
-                          padding: EdgeInsets.all(3),
-                          child: Column(
+                          padding: const EdgeInsets.all(3),
+                          height: 50,
+                          width: 150,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 1,
+                                    spreadRadius: 1,
+                                    color: Colors.black.withOpacity(0.1))
+                              ],
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(0))),
+                          child: const Column(
                             children: [
                               Text(
                                 'Waktu',
@@ -134,6 +145,9 @@ class DaftarFuntk extends StatelessWidget {
                               ),
                             ],
                           ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(15),
                           height: 50,
                           width: 150,
                           decoration: BoxDecoration(
@@ -144,15 +158,15 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(15),
-                          child: Text(
+                          child: const Text(
                             'Lokasi',
                             textAlign: TextAlign.center,
                           ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(15),
                           height: 50,
                           width: 150,
                           decoration: BoxDecoration(
@@ -163,34 +177,15 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(15),
-                          child: Text(
+                          child: const Text(
                             'Informasi',
                             textAlign: TextAlign.center,
                           ),
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
                         ),
                         Container(
-                          padding: EdgeInsets.all(15),
-                          child: Text(
-                            'Aksi',
-                            textAlign: TextAlign.center,
-                          ),
+                          padding: const EdgeInsets.all(15),
                           height: 50,
                           width: 100,
                           decoration: BoxDecoration(
@@ -201,14 +196,18 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(10))),
+                          child: const Text(
+                            'Aksi',
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: Row(
                       children: [
                         Container(
@@ -222,7 +221,7 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
                         ),
                         Container(
@@ -236,7 +235,7 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
                         ),
                         Container(
@@ -250,7 +249,7 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
                         ),
                         Container(
@@ -264,7 +263,7 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
                         ),
                         Container(
@@ -278,10 +277,22 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
                         ),
                         Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 1,
+                                    spreadRadius: 1,
+                                    color: Colors.black.withOpacity(0.1))
+                              ],
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(0))),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -297,38 +308,26 @@ class DaftarFuntk extends StatelessWidget {
                                             btnCancelOnPress: () {})
                                         .show();
                                   },
-                                  child: Image(
+                                  child: const Image(
                                       image: AssetImage('assets/Vector.png'))),
                               InkWell(
                                   onTap: () {
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => EditFunTk(),
+                                          builder: (context) => const EditFunTk(),
                                         ));
                                   },
-                                  child: Image(
+                                  child: const Image(
                                       image: AssetImage('assets/icon.png'))),
                             ],
                           ),
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(0))),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                    margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                     child: Row(
                       children: [
                         Container(
@@ -342,7 +341,7 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(10))),
                         ),
                         Container(
@@ -356,7 +355,7 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
                         ),
                         Container(
@@ -370,7 +369,7 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
                         ),
                         Container(
@@ -384,7 +383,7 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
                         ),
                         Container(
@@ -398,10 +397,22 @@ class DaftarFuntk extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.1))
                               ],
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(0))),
                         ),
                         Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 1,
+                                    spreadRadius: 1,
+                                    color: Colors.black.withOpacity(0.1))
+                              ],
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.only(
+                                  bottomRight: Radius.circular(10))),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -417,32 +428,20 @@ class DaftarFuntk extends StatelessWidget {
                                             btnCancelOnPress: () {})
                                         .show();
                                   },
-                                  child: Image(
+                                  child: const Image(
                                       image: AssetImage('assets/Vector.png'))),
                               InkWell(
                                   onTap: () {
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => EditFunTk(),
+                                          builder: (context) => const EditFunTk(),
                                         ));
                                   },
-                                  child: Image(
+                                  child: const Image(
                                       image: AssetImage('assets/icon.png'))),
                             ],
                           ),
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(10))),
                         ),
                       ],
                     ),

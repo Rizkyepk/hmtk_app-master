@@ -17,7 +17,7 @@ class _ItemActivityState extends State<ItemActivity> {
           borderRadius: BorderRadius.circular(20),
           child: Container(
             height: 300,
-            decoration: BoxDecoration(color: Colors.white),
+            decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               children: [
                 ClipRRect(
@@ -30,8 +30,8 @@ class _ItemActivityState extends State<ItemActivity> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(15),
-                  child: Text(
+                  padding: const EdgeInsets.all(15),
+                  child: const Text(
                     'Glotroopers menang dramatis lewat adu penalti!',
                     style: TextStyle(color: Colors.green),
                   ),
@@ -52,12 +52,12 @@ class _ItemActivityState extends State<ItemActivity> {
                   });
                 },
                 icon: tapFavorite
-                    ? Icon(
+                    ? const Icon(
                         Icons.favorite,
                         color: Colors.red,
                         size: 25,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.favorite,
                         color: Colors.white,
                         size: 25,

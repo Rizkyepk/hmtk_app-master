@@ -20,13 +20,13 @@ class _TimelineState extends State<Timeline> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerUserScren(),
       ),
       appBar: AppBar(
-        title: Text('Timeline'),
+        title: const Text('Timeline'),
         actions: [
           PopupMenuButton(
             child: Image.asset('assets/filter.png'),
@@ -44,12 +44,13 @@ class _TimelineState extends State<Timeline> {
             itemBuilder: (BuildContext context) {
               return [
                 PopupMenuItem(
-                  child: Container(
+                  value: 0,
+                  child: SizedBox(
                     width: 100,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "All Post",
                         ),
                         Image.asset(
@@ -59,22 +60,21 @@ class _TimelineState extends State<Timeline> {
                       ],
                     ),
                   ),
-                  value: 0,
                 ),
                 PopupMenuItem(
-                  child: Container(
+                  value: 1,
+                  child: SizedBox(
                     width: 100,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "My Post",
                         ),
                         Image.asset('assets/my-post.png')
                       ],
                     ),
                   ),
-                  value: 1,
                 ),
               ];
             },
@@ -84,11 +84,11 @@ class _TimelineState extends State<Timeline> {
       body: MyPage(
           widget: SafeArea(
         child: ListView.builder(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           itemCount: itemCount,
           itemBuilder: (context, index) => Container(
-            margin: EdgeInsets.only(bottom: 20),
-            padding: EdgeInsets.all(15),
+            margin: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20), color: Colors.white),
             child: Column(
@@ -103,10 +103,10 @@ class _TimelineState extends State<Timeline> {
                           'assets/profile.png',
                           height: 50,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        Column(
+                        const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -133,6 +133,7 @@ class _TimelineState extends State<Timeline> {
                       itemBuilder: (BuildContext context) {
                         return const [
                           PopupMenuItem(
+                            value: '1',
                             child: Row(
                               children: [
                                 Text(
@@ -142,17 +143,16 @@ class _TimelineState extends State<Timeline> {
                                 Icon(Icons.delete, color: Colors.red)
                               ],
                             ),
-                            value: '1',
                           ),
                         ];
                       },
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   'Info futsal slurrr kabeh..',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -160,22 +160,22 @@ class _TimelineState extends State<Timeline> {
                   color: Colors.grey.shade300,
                   height: 200,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
                   children: [
                     IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.favorite_border, color: Colors.blue)),
-                    Text(
+                        icon: const Icon(Icons.favorite_border, color: Colors.blue)),
+                    const Text(
                       '12.036 suka',
                       style: TextStyle(color: Colors.blue),
                     )
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 10),
                   child: Divider(
                     color: Colors.grey,
                     thickness: 0.8,
@@ -194,17 +194,17 @@ class _TimelineState extends State<Timeline> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           isLike
-                              ? Icon(
+                              ? const Icon(
                                   Icons.favorite,
                                   color: Colors.red,
                                 )
-                              : Icon(
+                              : const Icon(
                                   Icons.favorite_border,
                                 ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
-                          Text('Suka')
+                          const Text('Suka')
                         ],
                       ),
                     ),
@@ -212,17 +212,17 @@ class _TimelineState extends State<Timeline> {
                       onTap: () {
                         showModalBottomSheet(
                           context: context,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(35))),
                           builder: (context) => Container(
                             height: MediaQuery.of(context).size.height * 0.6,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 20),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Expanded(
+                                const Expanded(
                                   flex: 1,
                                   child: Column(
                                     children: [
@@ -248,7 +248,7 @@ class _TimelineState extends State<Timeline> {
                                   child: ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: 3,
-                                    padding: EdgeInsets.only(top: 15),
+                                    padding: const EdgeInsets.only(top: 15),
                                     itemBuilder: (context, index) => InkWell(
                                       child: Padding(
                                         padding:
@@ -263,10 +263,10 @@ class _TimelineState extends State<Timeline> {
                                                   'assets/profile.png',
                                                   width: 40,
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 10,
                                                 ),
-                                                Column(
+                                                const Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
@@ -311,6 +311,7 @@ class _TimelineState extends State<Timeline> {
                                                   (BuildContext context) {
                                                 return const [
                                                   PopupMenuItem(
+                                                    value: '1',
                                                     child: Row(
                                                       children: [
                                                         Text(
@@ -323,7 +324,6 @@ class _TimelineState extends State<Timeline> {
                                                             color: Colors.red)
                                                       ],
                                                     ),
-                                                    value: '1',
                                                   ),
                                                 ];
                                               },
@@ -337,8 +337,8 @@ class _TimelineState extends State<Timeline> {
                                 Expanded(
                                   flex: 1,
                                   child: Container(
-                                    padding: EdgeInsets.only(left: 5, right: 5),
-                                    margin: EdgeInsets.all(5),
+                                    padding: const EdgeInsets.only(left: 5, right: 5),
+                                    margin: const EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
                                         color: Colors.grey.shade300),
@@ -348,7 +348,7 @@ class _TimelineState extends State<Timeline> {
                                             flex: 1,
                                             child:
                                                 Image.asset('assets/girl.png')),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Expanded(
@@ -357,7 +357,7 @@ class _TimelineState extends State<Timeline> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Expanded(
+                                              const Expanded(
                                                 flex: 4,
                                                 child: TextField(
                                                   decoration: InputDecoration(
@@ -372,7 +372,7 @@ class _TimelineState extends State<Timeline> {
                                                   flex: 1,
                                                   child: IconButton(
                                                       onPressed: () {},
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                         Icons.send,
                                                         color: Colors.blue,
                                                       )))
@@ -388,7 +388,7 @@ class _TimelineState extends State<Timeline> {
                           ),
                         );
                       },
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
@@ -405,7 +405,7 @@ class _TimelineState extends State<Timeline> {
                     ),
                     InkWell(
                       onTap: () {},
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Icon(
@@ -427,17 +427,17 @@ class _TimelineState extends State<Timeline> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => TimelinePost(),
+                builder: (context) => const TimelinePost(),
               ));
         },
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           height: 50,
           width: 110,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               color: ColorPallete.blue),
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircleAvatar(

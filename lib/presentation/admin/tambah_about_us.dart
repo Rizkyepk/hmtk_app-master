@@ -1,11 +1,9 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/daftar_about_us.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
-import 'package:image_picker/image_picker.dart';
 
 class TambahAboutUs extends StatelessWidget {
   const TambahAboutUs({super.key});
@@ -13,7 +11,7 @@ class TambahAboutUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerScren(),
@@ -29,18 +27,18 @@ class TambahAboutUs extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ActivityFrame()),
+                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
                 child: SizedBox.fromSize(
-                  size: Size.fromRadius(38), // Image radius
+                  size: const Size.fromRadius(38), // Image radius
                   child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
                 ),
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -57,7 +55,7 @@ class TambahAboutUs extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                const Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
                     child: Text(
                       'Tambah About Us',
@@ -67,8 +65,8 @@ class TambahAboutUs extends StatelessWidget {
                       ),
                     )),
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                  child: Text(
+                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                  child: const Text(
                     'Form yang di unggah akan di tampilkan di halaman About Us',
                     style: TextStyle(fontSize: 12),
                   ),
@@ -77,8 +75,8 @@ class TambahAboutUs extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.all(20),
-            padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            margin: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   blurRadius: 1,
@@ -88,16 +86,16 @@ class TambahAboutUs extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Form Tambah Halaman About Us",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                   ),
                 ),
-                Column(
+                const Column(
                   children: [
-                    const Divider(
+                    Divider(
                       color: Color.fromARGB(255, 219, 219, 219),
                       height: 15,
                       thickness: 2,
@@ -110,7 +108,7 @@ class TambahAboutUs extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Judul About Us",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -118,28 +116,28 @@ class TambahAboutUs extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.only(left: 10),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         height: 30,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                             color:
-                                Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: TextField(
+                        child: const TextField(
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
-                      Text(
+                      const Text(
                         "Deskripsi",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -147,25 +145,25 @@ class TambahAboutUs extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.only(left: 10),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         height: 90,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                             color:
-                                Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: TextField(
+                        child: const TextField(
                           maxLines: 2,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
@@ -173,17 +171,17 @@ class TambahAboutUs extends StatelessWidget {
                         alignment: Alignment.center,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: const Color.fromARGB(255, 1, 122, 5),
+                              backgroundColor: const Color.fromARGB(255, 1, 122, 5),
                             ),
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 // DetailPage adalah halaman yang dituju
                                 MaterialPageRoute(
-                                    builder: (context) => DaftarAboutUs()),
+                                    builder: (context) => const DaftarAboutUs()),
                               );
                             },
-                            child: Text('Tambah')),
+                            child: const Text('Tambah')),
                       )
                     ],
                   ),

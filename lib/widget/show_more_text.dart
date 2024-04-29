@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class DescriptionTextWidget extends StatefulWidget {
   final String text;
 
-  DescriptionTextWidget({required this.text});
+  const DescriptionTextWidget({super.key, required this.text});
 
   @override
   _DescriptionTextWidgetState createState() =>
-      new _DescriptionTextWidgetState();
+      _DescriptionTextWidgetState();
 }
 
 class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
@@ -33,25 +33,25 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: secondHalf!.isEmpty
-          ? new Text(
+          ? Text(
               firstHalf!,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
               textAlign: TextAlign.justify,
             )
-          : new Column(
+          : Column(
               children: <Widget>[
-                new Text(
-                  flag ? (firstHalf! + "...") : (firstHalf! + secondHalf!),
+                Text(
+                  flag ? ("${firstHalf!}...") : (firstHalf! + secondHalf!),
                   textAlign: TextAlign.justify,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
-                new InkWell(
-                  child: new Row(
+                InkWell(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      new Text(
+                      Text(
                         flag ? "show more" : "show less",
-                        style: new TextStyle(color: Colors.blue),
+                        style: const TextStyle(color: Colors.blue),
                       ),
                     ],
                   ),

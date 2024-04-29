@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hmtk_app/presentation/user/start.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,8 +16,8 @@ class _SplashScreenState extends State<SplashScreen> {
   int _start = 1;
 
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
       oneSec,
       (Timer timer) {
         if (_start == 0) {
@@ -28,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Start(),
+                  builder: (context) => const Start(),
                 ));
           });
         } else {
@@ -58,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
           ),
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

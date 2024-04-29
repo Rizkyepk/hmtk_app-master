@@ -1,11 +1,9 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
-import 'package:image_picker/image_picker.dart';
 
 class AccountEdit extends StatelessWidget {
   const AccountEdit({super.key});
@@ -13,7 +11,7 @@ class AccountEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerScren(),
@@ -28,18 +26,18 @@ class AccountEdit extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ActivityFrame()),
+                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
                 child: SizedBox.fromSize(
-                  size: Size.fromRadius(38), // Image radius
+                  size: const Size.fromRadius(38), // Image radius
                   child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
                 ),
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -53,7 +51,7 @@ class AccountEdit extends StatelessWidget {
       body: ListView(
         children: [
           Container(
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
@@ -69,8 +67,8 @@ class AccountEdit extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.all(20),
-            padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            margin: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   blurRadius: 1,
@@ -80,16 +78,16 @@ class AccountEdit extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "My Profile",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                   ),
                 ),
-                Column(
+                const Column(
                   children: [
-                    const Divider(
+                    Divider(
                       color: Color.fromARGB(255, 219, 219, 219),
                       height: 15,
                       thickness: 2,
@@ -102,11 +100,11 @@ class AccountEdit extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
-                      Text(
+                      const Text(
                         "Nama",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -114,25 +112,25 @@ class AccountEdit extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.all(3),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.all(3),
                         height: 30,
                         width: 330,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                             color:
-                                Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: Text('Ivan Daniar'),
+                        child: const Text('Ivan Daniar'),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
-                      Text(
+                      const Text(
                         "Email",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -140,21 +138,21 @@ class AccountEdit extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.all(3),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.all(3),
                         height: 30,
                         width: 330,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                             color:
-                                Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: Text('lulustepatwaktu@gmail.com '),
+                        child: const Text('lulustepatwaktu@gmail.com '),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
@@ -164,12 +162,12 @@ class AccountEdit extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
-            margin: EdgeInsets.all(20),
-            padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            margin: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   blurRadius: 1,
@@ -179,16 +177,16 @@ class AccountEdit extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Edit Profilee ",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                   ),
                 ),
-                Column(
+                const Column(
                   children: [
-                    const Divider(
+                    Divider(
                       color: Color.fromARGB(255, 219, 219, 219),
                       height: 15,
                       thickness: 2,
@@ -201,11 +199,11 @@ class AccountEdit extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
-                      Text(
+                      const Text(
                         "Nama",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -213,28 +211,28 @@ class AccountEdit extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.only(left: 10),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         height: 30,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                             color:
-                                Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: TextField(
+                        child: const TextField(
                           decoration: InputDecoration(
                             enabledBorder: InputBorder.none,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
-                      Text(
+                      const Text(
                         "Email",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -242,28 +240,28 @@ class AccountEdit extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.only(left: 10),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         height: 30,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                             color:
-                                Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: TextField(
+                        child: const TextField(
                           decoration: InputDecoration(
                             enabledBorder: InputBorder.none,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
-                      Text(
+                      const Text(
                         "Password",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -271,28 +269,28 @@ class AccountEdit extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.only(left: 10),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         height: 30,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                             color:
-                                Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: TextField(
+                        child: const TextField(
                           decoration: InputDecoration(
                             enabledBorder: InputBorder.none,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
-                      Text(
+                      const Text(
                         "Confitm Password",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -300,18 +298,18 @@ class AccountEdit extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.only(left: 10),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         height: 30,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                             color:
-                                Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: TextField(
+                        child: const TextField(
                           decoration: InputDecoration(
                             enabledBorder: InputBorder.none,
                           ),
@@ -321,10 +319,10 @@ class AccountEdit extends StatelessWidget {
                         alignment: Alignment.center,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: const Color.fromARGB(255, 1, 122, 5),
+                              backgroundColor: const Color.fromARGB(255, 1, 122, 5),
                             ),
                             onPressed: () {},
-                            child: Text('Simpan')),
+                            child: const Text('Simpan')),
                       )
                     ],
                   ),

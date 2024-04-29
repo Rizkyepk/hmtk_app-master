@@ -16,9 +16,9 @@ class TambahLab extends StatefulWidget {
 
 File? image;
 Future getImage() async {
-  final ImagePicker _picker = ImagePicker();
+  final ImagePicker picker = ImagePicker();
   final XFile? imagePicked =
-      await _picker.pickImage(source: ImageSource.gallery);
+      await picker.pickImage(source: ImageSource.gallery);
   image = File(imagePicked!.path);
 }
 
@@ -27,7 +27,7 @@ class _TambahActivtyState extends State<TambahLab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerScren(),
@@ -43,18 +43,18 @@ class _TambahActivtyState extends State<TambahLab> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ActivityFrame()),
+                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
                 child: SizedBox.fromSize(
-                  size: Size.fromRadius(38), // Image radius
+                  size: const Size.fromRadius(38), // Image radius
                   child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
                 ),
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -71,7 +71,7 @@ class _TambahActivtyState extends State<TambahLab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                const Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
                     child: Text(
                       'Tambah Laboratory',
@@ -81,8 +81,8 @@ class _TambahActivtyState extends State<TambahLab> {
                       ),
                     )),
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 0, 10),
-                  child: Text(
+                  padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
+                  child: const Text(
                     'Form yang di unggah akan di tampilkan di halaman Laboratory',
                     style: TextStyle(fontSize: 12),
                   ),
@@ -91,8 +91,8 @@ class _TambahActivtyState extends State<TambahLab> {
             ),
           ),
           Container(
-            margin: EdgeInsets.all(20),
-            padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            margin: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   blurRadius: 1,
@@ -102,16 +102,16 @@ class _TambahActivtyState extends State<TambahLab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Form Unggah Halaman Laboratory",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                   ),
                 ),
-                Column(
+                const Column(
                   children: [
-                    const Divider(
+                    Divider(
                       color: Color.fromARGB(255, 219, 219, 219),
                       height: 15,
                       thickness: 2,
@@ -124,7 +124,7 @@ class _TambahActivtyState extends State<TambahLab> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Jenis Laboratory",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -132,15 +132,15 @@ class _TambahActivtyState extends State<TambahLab> {
                         ),
                       ),
                       Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          padding: EdgeInsets.only(left: 10),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.only(left: 10),
                           height: 30,
                           decoration: BoxDecoration(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
+                                const BorderRadius.all(Radius.circular(5.0)),
                             border: Border.all(
                               color:
-                                  Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                                  const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                               width: 2.0,
                             ),
                           ),
@@ -149,30 +149,30 @@ class _TambahActivtyState extends State<TambahLab> {
                               isExpanded: true,
                               isDense: true,
                               // style: TextStyle(fontSize: 16),
-                              items: [
+                              items: const [
                                 DropdownMenuItem(
-                                  child: Text('MAGICS Laboratory'),
                                   value: 'MAGICS Laboratory',
+                                  child: Text('MAGICS Laboratory'),
                                 ),
                                 DropdownMenuItem(
-                                  child: Text('SEA Laboratory'),
                                   value: 'SEA Laboratory',
+                                  child: Text('SEA Laboratory'),
                                 ),
                                 DropdownMenuItem(
-                                  child: Text('RnEST Laboratory'),
                                   value: 'RnEST Laboratory',
+                                  child: Text('RnEST Laboratory'),
                                 ),
                                 DropdownMenuItem(
-                                  child: Text('i-SMILE Laboratory'),
                                   value: 'i-SMILE Laboratory',
+                                  child: Text('i-SMILE Laboratory'),
                                 ),
                                 DropdownMenuItem(
-                                  child: Text('Security Laboratory'),
                                   value: 'Security Laboratory',
+                                  child: Text('Security Laboratory'),
                                 ),
                                 DropdownMenuItem(
-                                  child: Text('Evconn Laboratory'),
                                   value: 'Evconn Laboratory',
+                                  child: Text('Evconn Laboratory'),
                                 ),
                               ],
                               onChanged: (val) {
@@ -181,7 +181,7 @@ class _TambahActivtyState extends State<TambahLab> {
                                 });
                               })),
                       Container(
-                        padding: EdgeInsets.fromLTRB(20, 5, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
                       ),
                     ],
                   ),
@@ -190,7 +190,7 @@ class _TambahActivtyState extends State<TambahLab> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Judul Laboratory",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -198,28 +198,28 @@ class _TambahActivtyState extends State<TambahLab> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.only(left: 10),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         height: 30,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                             color:
-                                Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: TextField(
+                        child: const TextField(
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
-                      Text(
+                      const Text(
                         "Uploud Foto",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -230,17 +230,6 @@ class _TambahActivtyState extends State<TambahLab> {
                         children: [
                           InkWell(
                             child: Container(
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "choose file",
-                                    style: TextStyle(fontSize: 11),
-                                  )
-                                ],
-                              ),
-
-                              // margin: EdgeInsets.only(bottom: 10),
-                              // padding: EdgeInsets.only(left: 10),
                               height: 20,
                               width: 70,
                               decoration: BoxDecoration(
@@ -249,21 +238,29 @@ class _TambahActivtyState extends State<TambahLab> {
                                   width: 2.0,
                                 ),
                               ),
+                              child: const Column(
+                                children: [
+                                  Text(
+                                    "choose file",
+                                    style: TextStyle(fontSize: 11),
+                                  )
+                                ],
+                              ),
                             ),
                             onTap: () async {
                               await getImage();
                             },
                           ),
                           Container(
-                              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                              child: Text(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                              child: const Text(
                                 'no file chosen',
                                 style: TextStyle(fontSize: 11),
                               ))
                         ],
                       ),
                       Container(
-                        child: Column(
+                        child: const Column(
                           children: [
                             Text(
                               'ukuran file foto max 5 mb ( jpg atau png)',
@@ -272,11 +269,11 @@ class _TambahActivtyState extends State<TambahLab> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
-                      Text(
+                      const Text(
                         "Deskripsi",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -284,24 +281,24 @@ class _TambahActivtyState extends State<TambahLab> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.only(left: 10),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         height: 90,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                             color:
-                                Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: TextField(
+                        child: const TextField(
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                         width: 10,
                       ),
@@ -309,17 +306,17 @@ class _TambahActivtyState extends State<TambahLab> {
                         alignment: Alignment.center,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: const Color.fromARGB(255, 1, 122, 5),
+                              backgroundColor: const Color.fromARGB(255, 1, 122, 5),
                             ),
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 // DetailPage adalah halaman yang dituju
                                 MaterialPageRoute(
-                                    builder: (context) => DaftarLaboratory()),
+                                    builder: (context) => const DaftarLaboratory()),
                               );
                             },
-                            child: Text('Tambah')),
+                            child: const Text('Tambah')),
                       )
                     ],
                   ),

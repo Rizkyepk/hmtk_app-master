@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hmtk_app/presentation/admin/account.dart';
 import 'package:hmtk_app/presentation/admin/daftar_about_us.dart';
 import 'package:hmtk_app/presentation/admin/daftar_aktivity.dart';
@@ -10,17 +9,7 @@ import 'package:hmtk_app/presentation/admin/daftar_shop.dart';
 import 'package:hmtk_app/presentation/admin/daftar_timeline.dart';
 import 'package:hmtk_app/presentation/admin/daftar_visi_misi.dart';
 import 'package:hmtk_app/presentation/admin/daftar_laboratory.dart';
-import 'package:hmtk_app/presentation/admin/dashboard.dart';
 import 'package:hmtk_app/presentation/admin/data_pesanan.dart';
-import 'package:hmtk_app/presentation/admin/edit_about_us.dart';
-import 'package:hmtk_app/presentation/admin/edit_aktivity.dart';
-import 'package:hmtk_app/presentation/admin/edit_bph.dart';
-import 'package:hmtk_app/presentation/admin/edit_fun_tk.dart';
-import 'package:hmtk_app/presentation/admin/edit_lab.dart';
-import 'package:hmtk_app/presentation/admin/edit_material_bank.dart';
-import 'package:hmtk_app/presentation/admin/edit_shop.dart';
-import 'package:hmtk_app/presentation/admin/edit_visi_misi.dart';
-import 'package:hmtk_app/presentation/admin/get.dart';
 import 'package:hmtk_app/presentation/admin/tambah_about_us.dart';
 import 'package:hmtk_app/presentation/admin/tambah_aktivty.dart';
 import 'package:hmtk_app/presentation/admin/tambah_bph.dart';
@@ -29,16 +18,16 @@ import 'package:hmtk_app/presentation/admin/tambah_lab.dart';
 import 'package:hmtk_app/presentation/admin/tambah_material_bank.dart';
 import 'package:hmtk_app/presentation/admin/tambah_shop.dart';
 import 'package:hmtk_app/presentation/admin/tambah_visi_misi.dart';
-import 'package:hmtk_app/presentation/user/signin.dart';
 
 import 'package:hmtk_app/presentation/user/start.dart';
 
 import 'package:hmtk_app/utils/color_pallete.dart';
 
 import '../presentation/admin/daftar_aspirasi.dart';
-import '../presentation/admin/input_daftar_aspirasi.dart';
 
 class ActivityDialog extends StatelessWidget {
+  const ActivityDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -103,6 +92,8 @@ class ActivityDialog extends StatelessWidget {
 }
 
 class AspirasiDialog extends StatelessWidget {
+  const AspirasiDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -169,6 +160,8 @@ class AspirasiDialog extends StatelessWidget {
 }
 
 class ActivityFrame extends StatelessWidget {
+  const ActivityFrame({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -258,6 +251,8 @@ class ActivityFrame extends StatelessWidget {
 }
 
 class FuntkDialog extends StatelessWidget {
+  const FuntkDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -322,6 +317,8 @@ class FuntkDialog extends StatelessWidget {
 }
 
 class ShopDialog extends StatelessWidget {
+  const ShopDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -419,6 +416,8 @@ class ShopDialog extends StatelessWidget {
 }
 
 class LabDialog extends StatelessWidget {
+  const LabDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -483,6 +482,8 @@ class LabDialog extends StatelessWidget {
 }
 
 class MaterialBankDialog extends StatelessWidget {
+  const MaterialBankDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -547,6 +548,8 @@ class MaterialBankDialog extends StatelessWidget {
 }
 
 class AboutUsDialog extends StatelessWidget {
+  const AboutUsDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -611,6 +614,8 @@ class AboutUsDialog extends StatelessWidget {
 }
 
 class VisiMisiDialog extends StatelessWidget {
+  const VisiMisiDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -675,6 +680,8 @@ class VisiMisiDialog extends StatelessWidget {
 }
 
 class BphDialog extends StatelessWidget {
+  const BphDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -739,6 +746,8 @@ class BphDialog extends StatelessWidget {
 }
 
 class TimelineDialog extends StatelessWidget {
+  const TimelineDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

@@ -20,7 +20,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profil'),
+        title: const Text('Profil'),
       ),
       body: Stack(
         children: [
@@ -31,12 +31,12 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
             fit: BoxFit.cover,
           ),
           ListView(
-            padding: EdgeInsets.fromLTRB(25, 20, 25, 10),
+            padding: const EdgeInsets.fromLTRB(25, 20, 25, 10),
             children: [
               Container(
                 // height: 300,
                 width: double.maxFinite,
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white),
@@ -46,7 +46,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                       widget.gambar,
                       height: 70,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     DescriptionTextWidget(
@@ -62,16 +62,16 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               ListView.builder(
-                physics: ClampingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: 2,
                 itemBuilder: (context, index) => Container(
-                  margin: EdgeInsets.only(bottom: 30),
-                  padding: EdgeInsets.all(15),
+                  margin: const EdgeInsets.only(bottom: 30),
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white),
@@ -92,7 +92,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Column(
@@ -100,11 +100,11 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                 children: [
                                   Text(
                                     widget.title,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16),
                                   ),
-                                  Text(
+                                  const Text(
                                     '8 jam yang lalu',
                                     style: TextStyle(
                                         color: Colors.grey, fontSize: 12),
@@ -115,10 +115,10 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      Text(
+                      const Text(
                         'Info Running Modul Pengolaan sinyal digital',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -126,22 +126,22 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                         color: Colors.grey.shade300,
                         height: 200,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
                         children: [
                           IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.favorite_border,
+                              icon: const Icon(Icons.favorite_border,
                                   color: Colors.blue)),
-                          Text(
+                          const Text(
                             '12.036 suka',
                             style: TextStyle(color: Colors.blue),
                           )
                         ],
                       ),
-                      Divider(
+                      const Divider(
                         color: Colors.grey,
                         thickness: 0.8,
                       ),
@@ -153,28 +153,28 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                             children: [
                               IconButton(
                                   onPressed: () {},
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.favorite_border,
                                   )),
-                              Text('Suka')
+                              const Text('Suka')
                             ],
                           ),
                           InkWell(
                             onTap: () {
                               showModalBottomSheet(
                                 context: context,
-                                shape: RoundedRectangleBorder(
+                                shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.vertical(
                                         top: Radius.circular(35))),
                                 builder: (context) => Container(
                                   height:
                                       MediaQuery.of(context).size.height * 0.6,
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 20),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Expanded(
+                                      const Expanded(
                                         flex: 1,
                                         child: Column(
                                           children: [
@@ -200,7 +200,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                         child: ListView.builder(
                                           shrinkWrap: true,
                                           itemCount: 0,
-                                          padding: EdgeInsets.only(top: 15),
+                                          padding: const EdgeInsets.only(top: 15),
                                           itemBuilder: (context, index) =>
                                               InkWell(
                                             child: Padding(
@@ -217,10 +217,10 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                                         'assets/profile.png',
                                                         width: 40,
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         width: 10,
                                                       ),
-                                                      Column(
+                                                      const Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
@@ -267,6 +267,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                                         (BuildContext context) {
                                                       return const [
                                                         PopupMenuItem(
+                                                          value: '1',
                                                           child: Row(
                                                             children: [
                                                               Text(
@@ -280,7 +281,6 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                                                       .red)
                                                             ],
                                                           ),
-                                                          value: '1',
                                                         ),
                                                       ];
                                                     },
@@ -294,9 +294,9 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                       Expanded(
                                         flex: 1,
                                         child: Container(
-                                          padding: EdgeInsets.only(
+                                          padding: const EdgeInsets.only(
                                               left: 5, right: 5),
-                                          margin: EdgeInsets.all(5),
+                                          margin: const EdgeInsets.all(5),
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(15),
@@ -307,7 +307,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                                   flex: 1,
                                                   child: Image.asset(
                                                       'assets/girl.png')),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 10,
                                               ),
                                               Expanded(
@@ -317,7 +317,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                    Expanded(
+                                                    const Expanded(
                                                       flex: 4,
                                                       child: TextField(
                                                         decoration: InputDecoration(
@@ -335,7 +335,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                                         flex: 1,
                                                         child: IconButton(
                                                             onPressed: () {},
-                                                            icon: Icon(
+                                                            icon: const Icon(
                                                               Icons.send,
                                                               color:
                                                                   Colors.blue,
@@ -352,7 +352,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                 ),
                               );
                             },
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
@@ -372,10 +372,10 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                             children: [
                               IconButton(
                                   onPressed: () {},
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.share,
                                   )),
-                              Text('Bagi')
+                              const Text('Bagi')
                             ],
                           ),
                         ],

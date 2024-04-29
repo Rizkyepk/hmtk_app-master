@@ -72,7 +72,7 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
                           ],
                           color: Colors.white),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 150,
                     ),
                   ],
@@ -84,11 +84,15 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
                   height: MediaQuery.of(context).size.height * 0.45,
                   width: double.maxFinite,
                   padding:
-                      EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 10),
+                      const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 10),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(30))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
+                      const Align(
                         alignment: Alignment.center,
                         child: Text(
                           'Lapangan Rajawali',
@@ -96,19 +100,19 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Text(
+                      const Text(
                         'Informasi',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                      Text(
+                      const Text(
                         'Glotroopers menang dramatis lewat adu penalti!',
                         style: TextStyle(fontSize: 14, color: Colors.green),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Text(
+                      const Text(
                         'Lokasi',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
@@ -120,10 +124,6 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
                       )
                     ],
                   ),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(30))),
                 ),
               ),
             ],

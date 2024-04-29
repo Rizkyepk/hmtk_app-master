@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/account.dart';
 import 'package:hmtk_app/presentation/user/aspiration/menu_aspiration.dart';
 import 'package:hmtk_app/presentation/user/detail_activity.dart';
-import 'package:hmtk_app/presentation/user/drawer/drawer.dart';
 import 'package:hmtk_app/presentation/user/drawer/drawer_user.dart';
 import 'package:hmtk_app/presentation/user/fun-tk/menu_jadwal_funtk.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/widget/item_activity.dart';
-import 'package:hmtk_app/widget/template_page.dart';
 
 import 'laboratory/menu_laboratory.dart';
 import 'shop/menu_shop.dart';
@@ -19,7 +17,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerUserScren(),
@@ -33,10 +31,10 @@ class Home extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(bottom: 25, left: 20, right: 20),
+                  padding: const EdgeInsets.only(bottom: 25, left: 20, right: 20),
                   height: 240,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.vertical(
+                      borderRadius: const BorderRadius.vertical(
                         bottom: Radius.circular(30),
                       ),
                       color: ColorPallete.greenprim),
@@ -56,7 +54,7 @@ class Home extends StatelessWidget {
                       //       color: Colors.white,
                       //       size: 30,
                       //     )),
-                      SizedBox(
+                      const SizedBox(
                         height: 0,
                       ),
                       Padding(
@@ -64,7 +62,7 @@ class Home extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
+                            const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -89,7 +87,7 @@ class Home extends StatelessWidget {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Account()));
+                                        builder: (context) => const Account()));
                               },
                               child: CircleAvatar(
                                 radius: 28,
@@ -106,12 +104,12 @@ class Home extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: Container(
                           height: 50,
-                          margin: EdgeInsets.only(top: 20, bottom: 20),
-                          padding: EdgeInsets.only(left: 20, right: 20),
+                          margin: const EdgeInsets.only(top: 20, bottom: 20),
+                          padding: const EdgeInsets.only(left: 20, right: 20),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
                               color: Colors.white),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
@@ -129,7 +127,7 @@ class Home extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 )
               ],
@@ -137,7 +135,7 @@ class Home extends StatelessWidget {
             Positioned(
               // alignment: Alignment.bottomCenter,
               bottom: 0,
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -147,7 +145,7 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MenuShop(),
+                              builder: (context) => const MenuShop(),
                             ));
                       },
                       child: Column(
@@ -155,19 +153,19 @@ class Home extends StatelessWidget {
                           Container(
                             height: 70,
                             width: 70,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                   begin: Alignment.centerLeft,
                                   end: Alignment.topRight,
                                   colors: [
-                                    const Color.fromARGB(255, 90, 209, 94),
+                                    Color.fromARGB(255, 90, 209, 94),
                                     Color.fromARGB(255, 70, 163, 73)
                                   ]),
                               shape: BoxShape.circle,
                             ),
                             child: Image.asset('assets/shop.png'),
                           ),
-                          Text(
+                          const Text(
                             'Shop',
                             style: TextStyle(color: Colors.green),
                           )
@@ -179,7 +177,7 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MenuJadwalFunTK(),
+                              builder: (context) => const MenuJadwalFunTK(),
                             ));
                       },
                       child: Column(
@@ -187,19 +185,19 @@ class Home extends StatelessWidget {
                           Container(
                             height: 70,
                             width: 70,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                   begin: Alignment.centerLeft,
                                   end: Alignment.topRight,
                                   colors: [
-                                    const Color.fromARGB(255, 90, 209, 94),
+                                    Color.fromARGB(255, 90, 209, 94),
                                     Color.fromARGB(255, 70, 163, 73)
                                   ]),
                               shape: BoxShape.circle,
                             ),
                             child: Image.asset('assets/fun-tk.png'),
                           ),
-                          Text(
+                          const Text(
                             'Fun-TK',
                             style: TextStyle(color: Colors.green),
                           )
@@ -211,7 +209,7 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MenuLaboratory(),
+                              builder: (context) => const MenuLaboratory(),
                             ));
                       },
                       child: Column(
@@ -219,19 +217,19 @@ class Home extends StatelessWidget {
                           Container(
                             height: 70,
                             width: 70,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                   begin: Alignment.centerLeft,
                                   end: Alignment.topRight,
                                   colors: [
-                                    const Color.fromARGB(255, 90, 209, 94),
+                                    Color.fromARGB(255, 90, 209, 94),
                                     Color.fromARGB(255, 70, 163, 73)
                                   ]),
                               shape: BoxShape.circle,
                             ),
                             child: Image.asset('assets/laboratory.png'),
                           ),
-                          Text(
+                          const Text(
                             'Laboratory',
                             style: TextStyle(color: Colors.green),
                           )
@@ -243,7 +241,7 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MenuAspiration(),
+                              builder: (context) => const MenuAspiration(),
                             ));
                       },
                       child: Column(
@@ -251,19 +249,19 @@ class Home extends StatelessWidget {
                           Container(
                             height: 70,
                             width: 70,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                   begin: Alignment.centerLeft,
                                   end: Alignment.topRight,
                                   colors: [
-                                    const Color.fromARGB(255, 90, 209, 94),
+                                    Color.fromARGB(255, 90, 209, 94),
                                     Color.fromARGB(255, 70, 163, 73)
                                   ]),
                               shape: BoxShape.circle,
                             ),
                             child: Image.asset('assets/aspiration.png'),
                           ),
-                          Text(
+                          const Text(
                             'Aspiration',
                             style: TextStyle(color: Colors.green),
                           )
@@ -276,19 +274,19 @@ class Home extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 25,
         ),
         Container(
-          padding: EdgeInsets.only(left: 25, right: 25),
+          padding: const EdgeInsets.only(left: 25, right: 25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Activity',
                 style: TextStyle(color: Colors.green),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               InkWell(
@@ -296,14 +294,14 @@ class Home extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DetailActivity()));
+                            builder: (context) => const DetailActivity()));
                   },
-                  child: ItemActivity()),
-              SizedBox(
+                  child: const ItemActivity()),
+              const SizedBox(
                 height: 30,
               ),
-              ItemActivity(),
-              SizedBox(
+              const ItemActivity(),
+              const SizedBox(
                 height: 30,
               ),
             ],

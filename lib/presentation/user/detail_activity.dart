@@ -23,18 +23,18 @@ class _DetailActivityState extends State<DetailActivity> {
                   });
                 },
                 icon: tapFavorite
-                    ? Icon(
+                    ? const Icon(
                         Icons.favorite,
                         color: Colors.red,
                         size: 25,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.favorite,
                         color: Colors.white,
                         size: 25,
                       )),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           )
         ],
@@ -54,7 +54,7 @@ class _DetailActivityState extends State<DetailActivity> {
                   fit: BoxFit.cover,
                 ),
               ),
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -83,11 +83,15 @@ class _DetailActivityState extends State<DetailActivity> {
                   height: MediaQuery.of(context).size.height * 0.45,
                   width: double.maxFinite,
                   padding:
-                      EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 10),
+                      const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 10),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(30))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
+                      const Align(
                         alignment: Alignment.center,
                         child: Text(
                           'KBAA Champion',
@@ -95,19 +99,19 @@ class _DetailActivityState extends State<DetailActivity> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Text(
+                      const Text(
                         'Informasi',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                      Text(
+                      const Text(
                         'Glotroopers menang dramatis lewat adu penalti!',
                         style: TextStyle(fontSize: 14, color: Colors.green),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Text(
+                      const Text(
                         'Lokasi',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
@@ -119,10 +123,6 @@ class _DetailActivityState extends State<DetailActivity> {
                       )
                     ],
                   ),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(30))),
                 ),
               ),
             ],
