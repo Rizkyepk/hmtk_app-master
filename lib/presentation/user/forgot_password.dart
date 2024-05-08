@@ -1,3 +1,4 @@
+import 'package:hmtk_app/presentation/user/signin.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 
@@ -63,7 +64,10 @@ class _ForgotPasswordState extends State<ForgotPassword>
           animType: AnimType.rightSlide,
           title: 'Email dikirim!',
           btnOkOnPress: () {
-            Navigator.pop(context);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => SignIn()),
+            );
           },
         ).show();
       } else {
