@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/widget/template_page.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 import '../../utils/color_pallete.dart';
@@ -150,5 +151,33 @@ class _TimelinePostState extends State<TimelinePost> {
         ],
       )),
     );
+  }
+}
+
+Future<http.Response> postData(
+    int posterId, String content, bool canComment, String? imgUrl) async {
+  try {
+    Map<String, String> params = {
+      'poster_id': posterId.toString(),
+      'content': content,
+      'post_date': DateTime.now().toIso8601String(),
+      // 'can_comment': canComment.toString(),
+      if (imgUrl != null) 'img_url': imgUrl,
+    };
+
+    var response = await http.post(
+        Uri(
+          scheme: 'https',
+          host: 'myhmtk.jeyy.xyz',
+          path: '/post',
+          queryParameters: params,
+        ),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+        });
+
+    return response;
+  } catch (e) {
+    throw Exception('Failed to load: $e');
   }
 }

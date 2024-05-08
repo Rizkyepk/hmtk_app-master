@@ -61,7 +61,7 @@ class _TimelineState extends State<Timeline> {
           } else {
             final posts = snapshot.data!;
             int itemCount = posts.length;
-            
+
             return Scaffold(
               drawer: const Drawer(
                 width: 200,
@@ -530,8 +530,6 @@ class _TimelineState extends State<Timeline> {
               ),
             );
           }
-
-          return Container();
         });
   }
 }
