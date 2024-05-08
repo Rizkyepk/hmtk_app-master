@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/timeline_post.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/widget/template_page.dart';
+import 'package:http/http.dart' as http;
 
 import 'drawer/drawer_user.dart';
 
@@ -13,13 +18,54 @@ class Timeline extends StatefulWidget {
 }
 
 class _TimelineState extends State<Timeline> {
+  Future<List<Map<String, dynamic>>> _posts() async {
+    try {
+      final response = await fetchData();
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        final bool success = data["success"];
+        if (!success) {
+          throw Exception("Not success");
+        }
+
+        return List<Map<String, dynamic>>.from(data["posts"]);
+
+      } else {
+        throw Exception("error");
+        }
+    } catch(e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Terjadi kesalahan: $e',
+        btnOkOnPress: () {},
+      ).show();
+      return [];
+    }
+  }
+
+
   var hapusKomentar = '';
   bool isLike = false;
-  int itemCount = 4;
+
+  
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: _posts(), 
+      builder: (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Text('Loading data...');
+      } else if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
+      } else {
+        final posts = snapshot.data!;
+        int itemCount = posts.length;
+    
+    Scaffold(
       drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
@@ -152,8 +198,8 @@ class _TimelineState extends State<Timeline> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
-                  'Info futsal slurrr kabeh..',
+                Text(
+                  'Info futsal slurrr kabeh.. ${posts.toString()}',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Container(
@@ -458,5 +504,29 @@ class _TimelineState extends State<Timeline> {
         ),
       ),
     );
+    }
+
+    return Container();
+    
+    });
+  }
+}
+
+Future<http.Response> fetchData() async {
+  try {
+    var response = await http.get(
+      Uri(
+        scheme: 'https',
+        host: 'myhmtk.jeyy.xyz',
+        path: '/post',
+      ),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+      }
+    );
+
+    return response;
+  } catch(e) {
+    throw Exception('Failed to load: $e');
   }
 }
