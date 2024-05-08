@@ -61,7 +61,7 @@ class _TimelineState extends State<Timeline> {
           } else {
             final posts = snapshot.data!;
             int itemCount = posts.length;
-            // return Text(posts.toString());
+            
             return Scaffold(
               drawer: const Drawer(
                 width: 200,
@@ -155,11 +155,11 @@ class _TimelineState extends State<Timeline> {
                                   children: [
                                     Text(
                                       posts[index]["poster"]["name"],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16),
                                     ),
-                                    Text(
+                                    const Text(
                                       '8 jam yang lalu',
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 12),
@@ -200,11 +200,16 @@ class _TimelineState extends State<Timeline> {
                         Text(
                           // 'Info futsal slurrr kabeh.. ${posts.toString()}',
                           posts[index]["content"],
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Container(
-                          color: Colors.grey.shade300,
+                        if (posts[index]["img_url"] != null)
+                        SizedBox(
                           height: 200,
+                          width: double.infinity,
+                          child: Image.network(
+                            posts[index]["img_url"],
+                            fit: BoxFit.cover
+                          )
                         ),
                         const SizedBox(
                           height: 10,
