@@ -48,11 +48,10 @@ class _ForgotPasswordState extends State<ForgotPassword>
         ),
         headers: {
           HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
-          "Access-Control-Allow-Origin":
-              "*", // Required for CORS support to work
-          "Access-Control-Allow-Credentials": "*",
-          "Access-Control-Allow-Headers": "*",
-          "Access-Control-Allow-Methods": "*",
+          // "Access-Control-Allow-Origin":"*",
+          // "Access-Control-Allow-Credentials": "*",
+          // "Access-Control-Allow-Headers": "*",
+          // "Access-Control-Allow-Methods": "*",
         },
       );
 
@@ -156,7 +155,18 @@ class _ForgotPasswordState extends State<ForgotPassword>
                     alignment: Alignment.center,
                     child: InkWell(
                       onTap: () {
-                        fetchData(email.text);
+                        if (email.text.isEmpty) {
+                          // Show Awesome Dialog for prompting to enter email
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.info,
+                            title: 'Awesom!',
+                            desc: 'Masukkan email terlebih dahulu.',
+                            btnOkOnPress: () {},
+                          ).show();
+                        } else {
+                          fetchData(email.text);
+                        }
                       },
                       child: MyButton(
                         txt: 'Kirim email',
