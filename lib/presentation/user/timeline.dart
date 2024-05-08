@@ -61,8 +61,8 @@ class _TimelineState extends State<Timeline> {
           } else {
             final posts = snapshot.data!;
             int itemCount = posts.length;
-
-            Scaffold(
+            // return Text(posts.toString());
+            return Scaffold(
               drawer: const Drawer(
                 width: 200,
                 backgroundColor: Colors.transparent,
@@ -150,11 +150,11 @@ class _TimelineState extends State<Timeline> {
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                const Column(
+                                Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Ivan Daniar',
+                                      posts[index]["poster"]["name"],
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16),
@@ -198,7 +198,8 @@ class _TimelineState extends State<Timeline> {
                           height: 20,
                         ),
                         Text(
-                          'Info futsal slurrr kabeh.. ${posts.toString()}',
+                          // 'Info futsal slurrr kabeh.. ${posts.toString()}',
+                          posts[index]["content"],
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Container(
