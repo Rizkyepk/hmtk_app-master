@@ -1,7 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/aspiration/menu_riwayat_aspirasi.dart';
-import 'package:hmtk_app/presentation/user/home.dart';
 import 'package:hmtk_app/widget/button.dart';
 import 'package:hmtk_app/widget/main_navigator.dart';
 import 'package:hmtk_app/widget/template_page.dart';
@@ -14,7 +13,7 @@ class MenuAspiration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerUserScren(),
@@ -24,9 +23,9 @@ class MenuAspiration extends StatelessWidget {
       ),
       body: MyPage(
           widget: ListView(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         children: [
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Row(
@@ -37,7 +36,7 @@ class MenuAspiration extends StatelessWidget {
                   BoxShadow(
                       blurRadius: 10,
                       color: Colors.black.withOpacity(0.3),
-                      offset: Offset(0, 5))
+                      offset: const Offset(0, 5))
                 ]),
                 child: MyButton(
                   txt: 'Input Aspirasi',
@@ -49,7 +48,7 @@ class MenuAspiration extends StatelessWidget {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MenuRiwayatAspirasi(),
+                        builder: (context) => const MenuRiwayatAspirasi(),
                       ));
                 },
                 child: MyButton(
@@ -59,21 +58,21 @@ class MenuAspiration extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 70,
           ),
-          Text(
+          const Text(
             'Input Response',
             style: TextStyle(
                 fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
+              const Expanded(
                   flex: 1,
                   child: Text(
                     'Judul',
@@ -83,24 +82,24 @@ class MenuAspiration extends StatelessWidget {
                   flex: 2,
                   child: Container(
                     height: 45,
-                    padding: EdgeInsets.only(left: 15, right: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextFormField(
-                      decoration: InputDecoration(border: InputBorder.none),
+                      decoration: const InputDecoration(border: InputBorder.none),
                       maxLines: 1,
                     ),
                   ))
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
+              const Expanded(
                   flex: 1,
                   child: Text(
                     'Isi Tanggapan',
@@ -110,18 +109,18 @@ class MenuAspiration extends StatelessWidget {
                   flex: 2,
                   child: Container(
                     height: 200,
-                    padding: EdgeInsets.only(left: 15, right: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextFormField(
-                      decoration: InputDecoration(border: InputBorder.none),
+                      decoration: const InputDecoration(border: InputBorder.none),
                       maxLines: 5,
                     ),
                   ))
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           Align(
@@ -137,7 +136,7 @@ class MenuAspiration extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MainNavigator(),
+                          builder: (context) => const MainNavigator(),
                         ),
                         (route) => false);
                   },

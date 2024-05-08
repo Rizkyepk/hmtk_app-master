@@ -11,7 +11,7 @@ class MenuLaboratory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerUserScren(),
@@ -25,7 +25,7 @@ class MenuLaboratory extends StatelessWidget {
           height: double.maxFinite,
           child: Column(
             children: [
-              Expanded(
+              const Expanded(
                   flex: 2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +47,7 @@ class MenuLaboratory extends StatelessWidget {
                   flex: 8,
                   child: Container(
                     width: double.maxFinite,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(35),
@@ -56,7 +56,7 @@ class MenuLaboratory extends StatelessWidget {
                     child: Stack(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(35),
                             topRight: Radius.circular(35),
                           ),
@@ -67,11 +67,11 @@ class MenuLaboratory extends StatelessWidget {
                           ),
                         ),
                         GridView.builder(
-                          padding: EdgeInsets.all(25),
+                          padding: const EdgeInsets.all(25),
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 30.0,
                             mainAxisSpacing: 20.0,
@@ -106,14 +106,14 @@ class MenuLaboratory extends StatelessWidget {
                                         DummyData.laboratory[index]['gambar'],
                                         height: 70,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       Text(
                                         DummyData.laboratory[index]['title'],
                                         textAlign: TextAlign.center,
                                         maxLines: 2,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.grey, fontSize: 17),
                                       )
                                     ],

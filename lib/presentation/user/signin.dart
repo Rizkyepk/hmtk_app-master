@@ -7,10 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/dashboard.dart';
 import 'package:hmtk_app/presentation/user/forgot_password.dart';
 import 'package:hmtk_app/presentation/user/home.dart';
-import 'package:hmtk_app/presentation/user/reset_password.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/widget/button.dart';
-import 'package:hmtk_app/widget/main_navigator.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 
 class SignIn extends StatefulWidget {
@@ -59,13 +57,13 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                 data['auth']['user']['nim'].toString(); // Simpan value NIM
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => Home()),
+              MaterialPageRoute(builder: (context) => const Home()),
               (route) => false,
             );
           } else if (userType == 'admin') {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => Dashboard()),
+              MaterialPageRoute(builder: (context) => const Dashboard()),
               (route) => false,
             );
           } else {
@@ -105,14 +103,14 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
           widget: ListView(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 20),
+            margin: const EdgeInsets.only(bottom: 20),
             height: MediaQuery.of(context).size.height * 0.25,
             child: Image.asset('assets/LOGO TK.png'),
           ),
           Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             height: MediaQuery.of(context).size.height * 0.7,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
                 color: Colors.white),
             child: Column(
@@ -145,8 +143,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                       ),
                     )),
                 Container(
-                  margin: EdgeInsets.only(bottom: 15),
-                  padding: EdgeInsets.only(left: 15, right: 15),
+                  margin: const EdgeInsets.only(bottom: 15),
+                  padding: const EdgeInsets.only(left: 15, right: 15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: ColorPallete.greenprim.withOpacity(0.3),
@@ -159,7 +157,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                       prefixIcon: Container(
                           width: 100,
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: const Text(
                             'Email',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
@@ -167,8 +165,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 15),
-                  padding: EdgeInsets.only(left: 15, right: 15),
+                  margin: const EdgeInsets.only(bottom: 15),
+                  padding: const EdgeInsets.only(left: 15, right: 15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: ColorPallete.greenprim.withOpacity(0.3),
@@ -191,7 +189,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                       prefixIcon: Container(
                           width: 100,
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: const Text(
                             'Password',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
@@ -206,10 +204,10 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ForgotPassword(),
+                                builder: (context) => const ForgotPassword(),
                               ));
                         },
-                        child: Text(
+                        child: const Text(
                           'Forgot password?',
                         ))
                   ],

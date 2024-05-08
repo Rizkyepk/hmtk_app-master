@@ -3,7 +3,6 @@ import 'package:hmtk_app/presentation/user/shop/menu_shop.dart';
 import 'package:hmtk_app/widget/button.dart';
 import 'package:hmtk_app/widget/main_navigator.dart';
 
-import '../home.dart';
 
 class MenuShopPesananBerhasil extends StatelessWidget {
   const MenuShopPesananBerhasil({super.key});
@@ -23,26 +22,26 @@ class MenuShopPesananBerhasil extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: double.maxFinite,
-              padding: EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.only(bottom: 20),
               height: 250,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
+                  const Text(
                     'Pesanan Berhasil',
                     style: TextStyle(
                         fontSize: 25,
                         color: Colors.green,
                         fontWeight: FontWeight.bold),
                   ),
-                  Text(
+                  const Text(
                     'Silahkan Menunggu',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.green,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   InkWell(
@@ -50,7 +49,7 @@ class MenuShopPesananBerhasil extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MainNavigator(),
+                            builder: (context) => const MainNavigator(),
                           ),
                           (route) => false);
                     },
@@ -64,7 +63,7 @@ class MenuShopPesananBerhasil extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MenuShop(),
+                            builder: (context) => const MenuShop(),
                           ),
                           (route) => false);
                     },

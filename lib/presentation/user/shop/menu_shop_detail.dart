@@ -37,12 +37,12 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back,
                         color: Colors.white,
                         size: 30,
                       ))),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
             ],
@@ -51,12 +51,12 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
             children: [
               Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 130,
                   ),
                   Container(
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.all(20),
+                    decoration: const BoxDecoration(
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(30),
                         ),
@@ -64,17 +64,17 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 150,
                         ),
                         Text(
-                          '${widget.title}',
-                          style: TextStyle(
+                          widget.title,
+                          style: const TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
                               color: Colors.green),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(
@@ -84,7 +84,7 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Jumlah',
                                       style: TextStyle(
                                           fontSize: 18, color: Colors.green),
@@ -102,11 +102,11 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                                   });
                                                 }
                                               },
-                                              icon: Icon(Icons.remove)),
+                                              icon: const Icon(Icons.remove)),
                                         ),
                                         Text(
                                           '$jumlah',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 20, color: Colors.blue),
                                         ),
                                         CircleAvatar(
@@ -116,7 +116,7 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                                   jumlah++;
                                                 });
                                               },
-                                              icon: Icon(Icons.add)),
+                                              icon: const Icon(Icons.add)),
                                         ),
                                       ],
                                     )
@@ -127,7 +127,7 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Ukuran',
                                       style: TextStyle(
                                           fontSize: 18, color: Colors.green),
@@ -135,7 +135,7 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                     DropdownButton(
                                       value: valueUkuran,
                                       focusColor: Colors.blue,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.blue, fontSize: 18),
                                       iconEnabledColor: Colors.blue,
                                       onChanged: (value) {
@@ -159,14 +159,14 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Harga',
                                       style: TextStyle(
                                           fontSize: 18, color: Colors.green),
                                     ),
                                     Text(
-                                      '${widget.harga}',
-                                      style: TextStyle(
+                                      widget.harga,
+                                      style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -174,36 +174,36 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                 ))
                           ],
                         ),
-                        SizedBox(height: 20),
-                        Text(
+                        const SizedBox(height: 20),
+                        const Text(
                           'Info Tambahan',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                        Text(
+                        const Text(
                           'Berikan informasi Tambahan Anda Di Sini',
                           style: TextStyle(fontSize: 16, color: Colors.green),
                         ),
                         Container(
                           height: 150,
-                          padding: EdgeInsets.only(left: 10, right: 10),
+                          padding: const EdgeInsets.only(left: 10, right: 10),
                           color: Colors.grey.shade300,
                           child: TextFormField(
                             decoration:
-                                InputDecoration(border: InputBorder.none),
+                                const InputDecoration(border: InputBorder.none),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Text(
+                        const SizedBox(height: 20),
+                        const Text(
                           'Deskripsi',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                        Text(
+                        const Text(
                           'Dapatkan jersey futsal pemain Glootropers dari HMTK dengan bahan premium kami yang ringan, tahan air, dan desain ekonomis untuk penampilan maksimal di lapangan dan terlihat kece pastinya.',
                           style: TextStyle(fontSize: 14, color: Colors.green),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         InkWell(
@@ -228,7 +228,7 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
               ),
               Align(
                   alignment: Alignment.topCenter,
-                  child: Image.asset('${widget.gambar}'))
+                  child: Image.asset(widget.gambar))
             ],
           ),
         ],

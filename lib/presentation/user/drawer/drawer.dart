@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/drawer/about_us.dart';
 import 'package:hmtk_app/presentation/user/drawer/bph_hmtk.dart';
 import 'package:hmtk_app/presentation/user/drawer/visi_misi.dart';
-import 'package:hmtk_app/widget/template_page.dart';
 
 import 'bank_materi.dart';
 
@@ -28,12 +27,12 @@ class _DrawerUserState extends State<DrawerUser> {
             fit: BoxFit.cover,
           ),
           Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset('assets/LogoTK3.png'),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 InkWell(
@@ -43,19 +42,19 @@ class _DrawerUserState extends State<DrawerUser> {
                   child: Container(
                     alignment: Alignment.centerLeft,
                     width: double.maxFinite,
-                    padding: EdgeInsets.only(left: 15),
+                    padding: const EdgeInsets.only(left: 15),
                     height: 70,
-                    margin: EdgeInsets.only(bottom: 20),
+                    margin: const EdgeInsets.only(bottom: 20),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         boxShadow: [
                           BoxShadow(
-                              offset: Offset(1, 1),
+                              offset: const Offset(1, 1),
                               blurRadius: 3,
                               color: Colors.black.withOpacity(0.3))
                         ],
                         color: Colors.white),
-                    child: Text(
+                    child: const Text(
                       'Home',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -65,14 +64,14 @@ class _DrawerUserState extends State<DrawerUser> {
                 Container(
                   alignment: Alignment.centerLeft,
                   width: double.maxFinite,
-                  padding: EdgeInsets.only(left: 15),
+                  padding: const EdgeInsets.only(left: 15),
                   height: 70,
-                  margin: EdgeInsets.only(bottom: 20),
+                  margin: const EdgeInsets.only(bottom: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
-                            offset: Offset(1, 1),
+                            offset: const Offset(1, 1),
                             blurRadius: 3,
                             color: Colors.black.withOpacity(0.3))
                       ],
@@ -80,13 +79,13 @@ class _DrawerUserState extends State<DrawerUser> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Profile',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       PopupMenuButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.arrow_drop_down_outlined,
                             size: 30,
                           ),
@@ -98,34 +97,34 @@ class _DrawerUserState extends State<DrawerUser> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => AboutUs(),
+                                    builder: (context) => const AboutUs(),
                                   ));
                             } else if (selecteditem == '1') {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => VisiMisi(),
+                                    builder: (context) => const VisiMisi(),
                                   ));
                             } else {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => BphHmtk(),
+                                    builder: (context) => const BphHmtk(),
                                   ));
                             }
                           },
                           itemBuilder: (context) => [
-                                PopupMenuItem(
-                                  child: Text('About Us'),
+                                const PopupMenuItem(
                                   value: '0',
+                                  child: Text('About Us'),
                                 ),
-                                PopupMenuItem(
-                                  child: Text('Vision & Mission'),
+                                const PopupMenuItem(
                                   value: '1',
+                                  child: Text('Vision & Mission'),
                                 ),
-                                PopupMenuItem(
-                                  child: Text('BPH HMTK'),
+                                const PopupMenuItem(
                                   value: '2',
+                                  child: Text('BPH HMTK'),
                                 ),
                               ])
                     ],
@@ -136,25 +135,25 @@ class _DrawerUserState extends State<DrawerUser> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => BankMateri(),
+                          builder: (context) => const BankMateri(),
                         ));
                   },
                   child: Container(
                     alignment: Alignment.centerLeft,
                     width: double.maxFinite,
-                    padding: EdgeInsets.only(left: 15),
+                    padding: const EdgeInsets.only(left: 15),
                     height: 70,
-                    margin: EdgeInsets.only(bottom: 20),
+                    margin: const EdgeInsets.only(bottom: 20),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         boxShadow: [
                           BoxShadow(
-                              offset: Offset(1, 1),
+                              offset: const Offset(1, 1),
                               blurRadius: 3,
                               color: Colors.black.withOpacity(0.3))
                         ],
                         color: Colors.white),
-                    child: Text(
+                    child: const Text(
                       'Material Bank',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

@@ -13,20 +13,21 @@ import 'package:hmtk_app/presentation/user/shop/menu_shop.dart';
 import 'package:hmtk_app/presentation/user/start.dart';
 
 import 'package:hmtk_app/presentation/user/timeline.dart';
-import 'package:hmtk_app/widget/main_navigator.dart';
 
 class DrawerUserScren extends StatelessWidget {
+  const DrawerUserScren({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+      margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.centerRight,
-          end: Alignment(0.0, 0.1),
+          end: const Alignment(0.0, 0.1),
           colors: [Colors.white.withOpacity(0.8), Colors.white], //
         ),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomRight: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
@@ -45,7 +46,7 @@ class DrawerUserScren extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Home(),
+                    builder: (context) => const Home(),
                   ));
             },
           ),
@@ -55,7 +56,7 @@ class DrawerUserScren extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Account(),
+                    builder: (context) => const Account(),
                   ));
             },
           ),
@@ -65,7 +66,7 @@ class DrawerUserScren extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AboutUs(),
+                    builder: (context) => const AboutUs(),
                   ));
             },
           ),
@@ -75,7 +76,7 @@ class DrawerUserScren extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => VisiMisi(),
+                    builder: (context) => const VisiMisi(),
                   ));
             },
           ),
@@ -85,7 +86,7 @@ class DrawerUserScren extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BphHmtk(),
+                    builder: (context) => const BphHmtk(),
                   ));
             },
           ),
@@ -95,7 +96,7 @@ class DrawerUserScren extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Timeline(),
+                    builder: (context) => const Timeline(),
                   ));
             },
           ),
@@ -105,7 +106,7 @@ class DrawerUserScren extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MenuShop(),
+                    builder: (context) => const MenuShop(),
                   ));
             },
           ),
@@ -115,7 +116,7 @@ class DrawerUserScren extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MenuJadwalFunTK(),
+                    builder: (context) => const MenuJadwalFunTK(),
                   ));
             },
           ),
@@ -125,7 +126,7 @@ class DrawerUserScren extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MenuLaboratory(),
+                    builder: (context) => const MenuLaboratory(),
                   ));
             },
           ),
@@ -135,7 +136,7 @@ class DrawerUserScren extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MenuAspiration(),
+                    builder: (context) => const MenuAspiration(),
                   ));
             },
           ),
@@ -145,7 +146,7 @@ class DrawerUserScren extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BankMateri(),
+                    builder: (context) => const BankMateri(),
                   ));
             },
           ),
@@ -154,14 +155,14 @@ class DrawerUserScren extends StatelessWidget {
               'Logout',
               style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
             ),
-            trailing: Icon(
+            trailing: const Icon(
               Icons.logout,
               color: Colors.red,
             ),
             onTap: () {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => Start()),
+                  MaterialPageRoute(builder: (context) => const Start()),
                   (route) => false);
             },
           )

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MenuShopMetodePembayaran extends StatefulWidget {
   String metode;
 
-  MenuShopMetodePembayaran({required this.metode});
+  MenuShopMetodePembayaran({super.key, required this.metode});
 
   @override
   State<MenuShopMetodePembayaran> createState() =>
@@ -14,13 +14,13 @@ class _MenuShopMetodePembayaranState extends State<MenuShopMetodePembayaran> {
   @override
   Widget build(BuildContext context) {
     if (widget.metode == 'transfer') {
-      return Transfer();
+      return const Transfer();
     } else if (widget.metode == 'dana') {
-      return Dana();
+      return const Dana();
     } else if (widget.metode == 'shopee') {
-      return Shopee();
+      return const Shopee();
     } else {
-      return COD();
+      return const COD();
     }
   }
 }
@@ -32,7 +32,7 @@ class Transfer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green.shade50,
-      body: Container(
+      body: const SizedBox(
         height: double.maxFinite,
         width: double.maxFinite,
         child: Column(
@@ -65,7 +65,7 @@ class Dana extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: double.maxFinite,
         width: double.maxFinite,
         child: Column(
@@ -78,10 +78,10 @@ class Dana extends StatelessWidget {
               width: 300,
               fit: BoxFit.contain,
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            SelectableText(
+            const SelectableText(
               '082169870918',
               style: TextStyle(
                   fontSize: 20,
@@ -101,7 +101,7 @@ class Shopee extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: double.maxFinite,
         width: double.maxFinite,
         child: Column(
@@ -114,10 +114,10 @@ class Shopee extends StatelessWidget {
               width: 300,
               fit: BoxFit.contain,
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            SelectableText(
+            const SelectableText(
               '082169870918',
               style: TextStyle(
                   fontSize: 20,
@@ -137,7 +137,7 @@ class COD extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: double.maxFinite,
         width: double.maxFinite,
         child: Column(
@@ -147,10 +147,10 @@ class COD extends StatelessWidget {
             Image.asset(
               'assets/success.png',
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            Text(
+            const Text(
               'Silahkan hubungi admin untuk melakukan COD',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),

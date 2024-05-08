@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hmtk_app/presentation/user/signin.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
@@ -12,7 +10,7 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerScren(),
@@ -30,18 +28,18 @@ class Dashboard extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ActivityFrame()),
+                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
                 child: SizedBox.fromSize(
-                  size: Size.fromRadius(38), // Image radius
+                  size: const Size.fromRadius(38), // Image radius
                   child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
                 ),
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -55,8 +53,8 @@ class Dashboard extends StatelessWidget {
       body: ListView(
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
-            child: Text(
+            padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+            child: const Text(
               "Dashboard",
               style: TextStyle(
                 fontSize: 18,
@@ -73,14 +71,27 @@ class Dashboard extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                          margin: EdgeInsets.fromLTRB(20, 5, 20, 2),
-                          decoration: BoxDecoration(
+                          margin: const EdgeInsets.fromLTRB(20, 5, 20, 2),
+                          decoration: const BoxDecoration(
                               color: Colors.blue,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: Container(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
+                            padding: const EdgeInsets.all(10),
+                            margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                            height: 100,
+                            width: 200,
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: 1,
+                                      spreadRadius: 1,
+                                      color: Colors.black.withOpacity(0.1))
+                                ],
+                                color: Colors.white,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10))),
+                            child: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Align(
@@ -102,7 +113,17 @@ class Dashboard extends StatelessWidget {
                                 )
                               ],
                             ),
-                            margin: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(0, 5, 20, 2),
+                          decoration: const BoxDecoration(
+                              color: Colors.green,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                             height: 100,
                             width: 200,
                             decoration: BoxDecoration(
@@ -114,18 +135,8 @@ class Dashboard extends StatelessWidget {
                                 ],
                                 color: Colors.white,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 5, 20, 2),
-                          decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
+                                    const BorderRadius.all(Radius.circular(10))),
+                            child: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Align(
@@ -147,7 +158,17 @@ class Dashboard extends StatelessWidget {
                                 )
                               ],
                             ),
-                            margin: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(0, 5, 20, 2),
+                          decoration: const BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                             height: 100,
                             width: 200,
                             decoration: BoxDecoration(
@@ -159,18 +180,8 @@ class Dashboard extends StatelessWidget {
                                 ],
                                 color: Colors.white,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 5, 20, 2),
-                          decoration: BoxDecoration(
-                              color: Colors.amber,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
+                                    const BorderRadius.all(Radius.circular(10))),
+                            child: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Align(
@@ -192,19 +203,6 @@ class Dashboard extends StatelessWidget {
                                 )
                               ],
                             ),
-                            margin: EdgeInsets.fromLTRB(8, 0, 0, 0),
-                            height: 100,
-                            width: 200,
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                      blurRadius: 1,
-                                      spreadRadius: 1,
-                                      color: Colors.black.withOpacity(0.1))
-                                ],
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
                           ),
                         )
                       ],
@@ -215,12 +213,12 @@ class Dashboard extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(20, 30, 0, 0),
+            padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   height: 150,
                   width: 210,
                   decoration: BoxDecoration(
@@ -235,7 +233,7 @@ class Dashboard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Projects',
                         style: TextStyle(
                           fontSize: 14,
@@ -249,10 +247,10 @@ class Dashboard extends StatelessWidget {
                         indent: 0.2,
                         endIndent: 0.2,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Row(
+                      const Row(
                         children: [
                           Text(
                             'Account Setup',
@@ -271,7 +269,7 @@ class Dashboard extends StatelessWidget {
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Container(
@@ -285,7 +283,7 @@ class Dashboard extends StatelessWidget {
                             ],
                             color: const Color.fromARGB(255, 112, 255, 117),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(50))),
+                                const BorderRadius.all(Radius.circular(50))),
                       )
                     ],
                   ),

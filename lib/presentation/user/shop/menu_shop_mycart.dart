@@ -46,7 +46,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
             padding: const EdgeInsets.all(20),
             itemBuilder: (context, index) => Container(
               padding: const EdgeInsets.all(15),
-              margin: EdgeInsets.only(bottom: 25),
+              margin: const EdgeInsets.only(bottom: 25),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20), color: Colors.white),
               child: Stack(
@@ -155,7 +155,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                             jumlahBarang--;
                           });
                         },
-                        icon: Icon(Icons.delete, color: Colors.red)),
+                        icon: const Icon(Icons.delete, color: Colors.red)),
                   )
                 ],
               ),
@@ -233,7 +233,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                                                 metode: 'transfer'),
                                       ));
                                 },
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -260,7 +260,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                                                 metode: 'dana'),
                                       ));
                                 },
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -287,7 +287,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                                                 metode: 'shopee'),
                                       ));
                                 },
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -314,7 +314,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                                                 metode: 'cod'),
                                       ));
                                 },
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -442,7 +442,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
             ),
           );
         },
-        child: Container(
+        child: SizedBox(
           height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -455,6 +455,9 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                 height: 40,
                 width: 120,
                 alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: ColorPallete.blue),
                 child: const Text(
                   'Rp 150.000',
                   style: TextStyle(
@@ -462,9 +465,6 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: ColorPallete.blue),
               )
             ],
           ),

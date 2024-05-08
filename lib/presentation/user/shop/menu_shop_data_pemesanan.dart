@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hmtk_app/widget/button.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 
 class MenuShopDataPemesanan extends StatefulWidget {
@@ -31,12 +30,12 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back,
                         color: Colors.white,
                         size: 30,
                       ))),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
             ],
@@ -45,14 +44,14 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
             children: [
               Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 90,
                   ),
                   Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     width: double.maxFinite,
                     height: MediaQuery.of(context).size.height * 0.8,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(30),
                         ),
@@ -60,20 +59,20 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 100,
                         ),
                         Text(
-                          '${widget.title}',
-                          style: TextStyle(
+                          widget.title,
+                          style: const TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
                               color: Colors.green),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
-                        Text(
+                        const Text(
                           'Full Name',
                           style: TextStyle(
                             fontSize: 18,
@@ -82,7 +81,7 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                         ),
                         Container(
                           width: double.maxFinite,
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             left: 15,
                             right: 15,
                           ),
@@ -93,18 +92,18 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                               BoxShadow(
                                   blurRadius: 10,
                                   color: Colors.grey.withOpacity(0.5),
-                                  offset: Offset(1, 1))
+                                  offset: const Offset(1, 1))
                             ],
                           ),
-                          child: Text(
+                          child: const Text(
                             'Ivan Daniar',
                             style: TextStyle(fontSize: 18, color: Colors.green),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        Text(
+                        const Text(
                           'NIM',
                           style: TextStyle(
                             fontSize: 18,
@@ -113,7 +112,7 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                         ),
                         Container(
                           width: double.maxFinite,
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             left: 15,
                             right: 15,
                           ),
@@ -124,18 +123,18 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                               BoxShadow(
                                   blurRadius: 10,
                                   color: Colors.grey.withOpacity(0.5),
-                                  offset: Offset(1, 1))
+                                  offset: const Offset(1, 1))
                             ],
                           ),
-                          child: Text(
+                          child: const Text(
                             '1100000009',
                             style: TextStyle(fontSize: 18, color: Colors.green),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        Text(
+                        const Text(
                           'No Telp',
                           style: TextStyle(
                             fontSize: 18,
@@ -144,7 +143,7 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                         ),
                         Container(
                           width: double.maxFinite,
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             left: 15,
                             right: 15,
                           ),
@@ -155,18 +154,18 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                               BoxShadow(
                                   blurRadius: 10,
                                   color: Colors.grey.withOpacity(0.5),
-                                  offset: Offset(1, 1))
+                                  offset: const Offset(1, 1))
                             ],
                           ),
-                          child: Text(
+                          child: const Text(
                             '084534780327',
                             style: TextStyle(fontSize: 18, color: Colors.green),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        Text(
+                        const Text(
                           'Email',
                           style: TextStyle(
                             fontSize: 18,
@@ -175,7 +174,7 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                         ),
                         Container(
                           width: double.maxFinite,
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             left: 15,
                             right: 15,
                           ),
@@ -186,18 +185,18 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                               BoxShadow(
                                   blurRadius: 10,
                                   color: Colors.grey.withOpacity(0.5),
-                                  offset: Offset(1, 1))
+                                  offset: const Offset(1, 1))
                             ],
                           ),
-                          child: Text(
+                          child: const Text(
                             'lulustepatwaktu@gmail.com',
                             style: TextStyle(fontSize: 18, color: Colors.green),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        Text(
+                        const Text(
                           'Informasi Tambahan',
                           style: TextStyle(
                             fontSize: 18,
@@ -206,7 +205,7 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                         ),
                         Container(
                           width: double.maxFinite,
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             left: 15,
                             right: 15,
                           ),
@@ -217,19 +216,19 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
                               BoxShadow(
                                   blurRadius: 10,
                                   color: Colors.grey.withOpacity(0.5),
-                                  offset: Offset(1, 1))
+                                  offset: const Offset(1, 1))
                             ],
                           ),
-                          child: Text(
+                          child: const Text(
                             'Nama Punggung Kita \nNomor Punggung 10',
                             textAlign: TextAlign.left,
                             style: TextStyle(fontSize: 18, color: Colors.green),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
@@ -295,7 +294,7 @@ class _MenuShopDataPemesananState extends State<MenuShopDataPemesanan> {
               Align(
                   alignment: Alignment.topCenter,
                   child: Image.asset(
-                    '${widget.gambar}',
+                    widget.gambar,
                     height: 200,
                   ))
             ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hmtk_app/presentation/user/detail_activity.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 
@@ -12,36 +11,36 @@ class MenuJadwalFunTK extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerUserScren(),
       ),
       appBar: AppBar(
         elevation: 0,
-        title: Text('Jadwal Fun TK'),
+        title: const Text('Jadwal Fun TK'),
       ),
       body: MyPage(
           widget: ListView.builder(
-        padding: EdgeInsets.all(40),
+        padding: const EdgeInsets.all(40),
         itemCount: 4,
         itemBuilder: (context, index) => InkWell(
           onTap: () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MenuDetailActivity(),
+                  builder: (context) => const MenuDetailActivity(),
                 ));
           },
           child: Container(
-            margin: EdgeInsets.only(bottom: 30),
+            margin: const EdgeInsets.only(bottom: 30),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.grey.withOpacity(0.8),
-                      offset: Offset(1, 4),
+                      offset: const Offset(1, 4),
                       blurRadius: 5)
                 ]),
             child: Column(
@@ -61,14 +60,14 @@ class MenuJadwalFunTK extends StatelessWidget {
                       Align(
                         alignment: Alignment.topRight,
                         child: Container(
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           height: 70,
                           width: 70,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               color: Colors.grey.withOpacity(0.6),
                               borderRadius: BorderRadius.circular(15)),
-                          child: Text(
+                          child: const Text(
                             '12\nDes',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -98,7 +97,7 @@ class MenuJadwalFunTK extends StatelessWidget {
                       Row(
                         children: [
                           Image.asset('assets/icon-lokasi.png'),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Text(

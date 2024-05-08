@@ -18,9 +18,9 @@ class _TimelinePostState extends State<TimelinePost> {
 
   File? image;
   Future getImage() async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     final XFile? imagePicked =
-        await _picker.pickImage(source: ImageSource.gallery);
+        await picker.pickImage(source: ImageSource.gallery);
     image = File(imagePicked!.path);
     // setState(() {});
   }
@@ -42,20 +42,20 @@ class _TimelinePostState extends State<TimelinePost> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_back,
                           color: Colors.white,
                         )),
                     InkWell(
                       onTap: () {},
                       child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         height: 50,
                         width: 100,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             color: ColorPallete.blue),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CircleAvatar(
@@ -81,11 +81,11 @@ class _TimelinePostState extends State<TimelinePost> {
           Expanded(
             flex: 5,
             child: Container(
-              padding: EdgeInsets.all(15),
-              margin: EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.all(15),
+              margin: const EdgeInsets.only(left: 20, right: 20),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20), color: Colors.white),
-              child: TextField(
+              child: const TextField(
                 maxLength: 300,
                 maxLines: 30,
                 decoration: InputDecoration(
@@ -105,7 +105,7 @@ class _TimelinePostState extends State<TimelinePost> {
                       onTap: () async {
                         await getImage();
                       },
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(
                             Icons.cloud_upload_outlined,
@@ -128,7 +128,7 @@ class _TimelinePostState extends State<TimelinePost> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Komentar',
                           style: TextStyle(
                               fontSize: 18,

@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/reset_password.dart';
-import 'package:hmtk_app/presentation/user/signin.dart';
-import 'package:hmtk_app/presentation/user/start.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'drawer/drawer_user.dart';
@@ -20,7 +18,7 @@ class _AccountState extends State<Account> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerUserScren(),
@@ -38,15 +36,15 @@ class _AccountState extends State<Account> {
           ),
           Container(
             child: ListView(
-              padding: EdgeInsets.all(25),
+              padding: const EdgeInsets.all(25),
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Account',
                       style: TextStyle(
                           fontSize: 20,
@@ -77,7 +75,7 @@ class _AccountState extends State<Account> {
                         // )
                       ],
                     ),
-                    Text(
+                    const Text(
                       'Ivan Daniar',
                       style: TextStyle(
                           fontSize: 30,
@@ -86,91 +84,91 @@ class _AccountState extends State<Account> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Text(
+                const Text(
                   'Full Name',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
                   readOnly: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       filled: true,
                       hintText: 'Ivan Daniar',
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'NIM',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
                   readOnly: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       filled: true,
                       hintText: '10070806',
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'No Telp',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
                   readOnly: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       filled: true,
                       hintText: '0896756747',
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Email',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
                   readOnly: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       filled: true,
                       hintText: 'lulustepat@gmail.com',
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 // Text(
@@ -191,7 +189,7 @@ class _AccountState extends State<Account> {
                 //       fillColor: Colors.white,
                 //       border: InputBorder.none),
                 // ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -204,11 +202,11 @@ class _AccountState extends State<Account> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => EditAccount(),
+                              builder: (context) => const EditAccount(),
                             ),
                           );
                         },
-                        child: Text('Edit account'),
+                        child: const Text('Edit account'),
                         // style: ElevatedButton.styleFrom(
                         //     backgroundColor: Colors.red,
                         //     minimumSize: Size(100, 40)),
@@ -221,11 +219,11 @@ class _AccountState extends State<Account> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ResetPassword(),
+                              builder: (context) => const ResetPassword(),
                             ),
                           );
                         },
-                        child: Text('Reset password'),
+                        child: const Text('Reset password'),
                         // style: ElevatedButton.styleFrom(
                         //     backgroundColor: Colors.red,
                         //     minimumSize: Size(100, 40)),
@@ -252,9 +250,9 @@ class EditAccount extends StatefulWidget {
 class _EditAccountState extends State<EditAccount> {
   File? image;
   Future getImage() async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     final XFile? imagePicked =
-        await _picker.pickImage(source: ImageSource.gallery);
+        await picker.pickImage(source: ImageSource.gallery);
     image = File(imagePicked!.path);
     // setState(() {});
   }
@@ -262,7 +260,7 @@ class _EditAccountState extends State<EditAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         width: 200,
         backgroundColor: Colors.transparent,
         child: DrawerUserScren(),
@@ -280,15 +278,15 @@ class _EditAccountState extends State<EditAccount> {
           ),
           Container(
             child: ListView(
-              padding: EdgeInsets.all(25),
+              padding: const EdgeInsets.all(25),
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Edit Account',
                       style: TextStyle(
                           fontSize: 20,
@@ -311,7 +309,7 @@ class _EditAccountState extends State<EditAccount> {
                                 onPressed: () async {
                                   await getImage();
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.edit,
                                   color: Colors.black,
                                 )),
@@ -319,7 +317,7 @@ class _EditAccountState extends State<EditAccount> {
                         )
                       ],
                     ),
-                    Text(
+                    const Text(
                       'Ivan Daniar',
                       style: TextStyle(
                           fontSize: 30,
@@ -328,90 +326,90 @@ class _EditAccountState extends State<EditAccount> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Text(
+                const Text(
                   'Full Name',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       filled: true,
                       hintText: 'Ivan Daniar',
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'NIM',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       filled: true,
                       hintText: '10070806',
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'No Telp',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       filled: true,
                       hintText: '0896756747',
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Email',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       filled: true,
                       hintText: 'lulustepat@gmail.com',
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -431,7 +429,7 @@ class _EditAccountState extends State<EditAccount> {
                             },
                           ).show();
                         },
-                        child: Text('Simpan'),
+                        child: const Text('Simpan'),
                         // style: ElevatedButton.styleFrom(
                         //     backgroundColor: Colors.red,
                         //     minimumSize: Size(100, 40)),
