@@ -66,7 +66,7 @@ class _ForgotPasswordState extends State<ForgotPassword>
           btnOkOnPress: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => SignIn()),
+              MaterialPageRoute(builder: (context) => const SignIn()),
             );
           },
         ).show();
