@@ -50,7 +50,7 @@ class _TimelineState extends State<Timeline> {
 
   @override
   Widget build(BuildContext context) {
-    int itemCount = 1;
+    // int itemCount = 1;
     return Scaffold(
       drawer: const Drawer(
         width: 200,
@@ -67,11 +67,11 @@ class _TimelineState extends State<Timeline> {
             onSelected: (value) {
               if (value == 0) {
                 setState(() {
-                  itemCount = 4;
+                  // itemCount = 4;
                 });
               } else {
                 setState(() {
-                  itemCount = 1;
+                  // itemCount = 1;
                 });
               }
             },
@@ -127,7 +127,7 @@ class _TimelineState extends State<Timeline> {
                       return Text('Error: ${snapshot.error}');
                     } else {
                       final posts = snapshot.data!;
-                      // itemCount = posts.length;
+                      int itemCount = posts.length;
 
                       return ListView.builder(
                         padding: const EdgeInsets.all(20),
