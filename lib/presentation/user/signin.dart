@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
@@ -23,18 +24,27 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
   var email = TextEditingController();
   var password = TextEditingController();
   bool isVisible = false;
-  String profileID = ''; // Variabel untuk menyimpan NIM
+  // String profileID = ''; // Variabel untuk menyimpan NIM
+  bool _rememberMe = true; // Tambahkan variabel rememberMe
+
+  SharedPreferences? prefs; // Deklarasikan variabel prefs
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+    _initializePreferences();
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  // Fungsi untuk menginisialisasi SharedPreferences
+  Future<void> _initializePreferences() async {
+    prefs = await SharedPreferences.getInstance();
   }
 
   //fungsi login
@@ -52,9 +62,12 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
         final String userType = data['auth']['user_type'];
 
         if (success) {
+          if (_rememberMe) {
+            prefs?.setString('userData', response.body);
+          }
           if (userType == 'mahasiswa') {
-            profileID =
-                data['auth']['user']['nim'].toString(); // Simpan value NIM
+            // profileID =
+            //     data['auth']['user']['nim'].toString(); // Simpan value NIM
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const Home()),
@@ -175,7 +188,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                     controller: password,
                     obscureText: isVisible,
                     decoration: InputDecoration(
-                      hintText: '',
+                      hintText: '******',
                       suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {
@@ -210,6 +223,23 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                         child: const Text(
                           'Forgot password?',
                         ))
+                  ],
+                ),
+                //user memilih untuk mengingat login-nya
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _rememberMe,
+                      onChanged: (value) {
+                        setState(() {
+                          _rememberMe = value!;
+                        });
+                      },
+                    ),
+                    Text(
+                      'Remember Me',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ],
                 ),
                 Align(
