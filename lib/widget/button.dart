@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
 
 class MyButton extends StatelessWidget {
-  String txt;
+  final String txt;
 
-  double height;
-  double width;
+  final double height;
+  final double width;
 
-  MyButton({super.key, required this.txt, this.height = 50, this.width = 100});
+  const MyButton({super.key, required this.txt, this.height = 50, this.width = 100});
 
   @override
   Widget build(BuildContext context) {

@@ -61,7 +61,9 @@ class _TimelineState extends State<Timeline> {
         title: const Text('Timeline'),
         actions: [
           PopupMenuButton(
-            child: Image.asset('assets/filter.png'),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 5),
+              child: Image.asset('assets/filter.png')),
             onSelected: (value) {
               if (value == 0) {
                 setState(() {

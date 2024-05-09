@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MenuShopMetodePembayaran extends StatefulWidget {
-  String metode;
+  final String metode;
 
-  MenuShopMetodePembayaran({super.key, required this.metode});
+  const MenuShopMetodePembayaran({super.key, required this.metode});
 
   @override
   State<MenuShopMetodePembayaran> createState() =>
