@@ -260,7 +260,7 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                     btnOkOnPress: () {},
                                   ).show();
                                 },
-                                child: MyButton(
+                                child: const MyButton(
                                   txt: 'Add to Cart',
                                   width: double.maxFinite,
                                 ),

@@ -5,8 +5,10 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/timeline_post.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 import 'package:http/http.dart' as http;
+import 'package:share_plus/share_plus.dart';
 
 import 'drawer/drawer_user.dart';
 
@@ -50,7 +52,7 @@ class _TimelineState extends State<Timeline> {
 
   @override
   Widget build(BuildContext context) {
-    int itemCount = 1;
+    // int itemCount = 1;
     return Scaffold(
       drawer: const Drawer(
         width: 200,
@@ -62,16 +64,16 @@ class _TimelineState extends State<Timeline> {
         actions: [
           PopupMenuButton(
             child: Padding(
-              padding: const EdgeInsets.only(right: 5),
-              child: Image.asset('assets/filter.png')),
+                padding: const EdgeInsets.only(right: 5),
+                child: Image.asset('assets/filter.png')),
             onSelected: (value) {
               if (value == 0) {
                 setState(() {
-                  itemCount = 4;
+                  // itemCount = 4;
                 });
               } else {
                 setState(() {
-                  itemCount = 1;
+                  // itemCount = 1;
                 });
               }
             },
@@ -127,7 +129,7 @@ class _TimelineState extends State<Timeline> {
                       return Text('Error: ${snapshot.error}');
                     } else {
                       final posts = snapshot.data!;
-                      // itemCount = posts.length;
+                      int itemCount = posts.length;
 
                       return ListView.builder(
                         padding: const EdgeInsets.all(20),
@@ -164,9 +166,10 @@ class _TimelineState extends State<Timeline> {
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 16),
                                           ),
-                                          const Text(
-                                            '8 jam yang lalu',
-                                            style: TextStyle(
+                                          Text(
+                                            // '8 jam yang lalu',
+                                            timeAgoFromIso(posts[index]["post_date"]),
+                                            style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 12),
                                           ),
@@ -500,7 +503,9 @@ class _TimelineState extends State<Timeline> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Share.share('${posts[index]["poster"]["name"]} memposting pada aplikasi MyHMTK ${timeAgoFromIso(posts[index]["post_date"])}:\n\n${posts[index]["content"]}', subject: 'Postingan ${posts[index]["poster"]["name"]} di MyHMTK');
+                                    },
                                     child: const Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
@@ -575,3 +580,4 @@ Future<http.Response> fetchData() async {
     throw Exception('Failed to load: $e');
   }
 }
+

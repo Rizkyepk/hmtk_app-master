@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/laboratory/menu_laboratory_detail.dart';
-import 'package:hmtk_app/utils/dummy_data.dart';
+import 'package:hmtk_app/utils/lab_data.dart';
 
 import '../../../widget/template_page.dart';
 import '../drawer/drawer_user.dart';
@@ -76,7 +76,7 @@ class MenuLaboratory extends StatelessWidget {
                             crossAxisSpacing: 30.0,
                             mainAxisSpacing: 20.0,
                           ),
-                          itemCount: DummyData.laboratory.length,
+                          itemCount: LabData.laboratory.length,
                           itemBuilder: (context, index) => InkWell(
                             onTap: () {
                               Navigator.push(
@@ -84,12 +84,14 @@ class MenuLaboratory extends StatelessWidget {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           MenuLaboratoryDetail(
-                                              gambar: DummyData
-                                                  .laboratory[index]['gambar'],
-                                              title: DummyData.laboratory[index]
+                                              lab: LabData.laboratory[index]
+                                                  ["lab"],
+                                              gambar: LabData.laboratory[index]
+                                                  ['gambar'],
+                                              title: LabData.laboratory[index]
                                                   ['title'],
                                               deskripsi:
-                                                  DummyData.laboratory[index]
+                                                  LabData.laboratory[index]
                                                       ['deskripsi'])));
                             },
                             child: SizedBox(
@@ -103,14 +105,14 @@ class MenuLaboratory extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Image.asset(
-                                        DummyData.laboratory[index]['gambar'],
+                                        LabData.laboratory[index]['gambar'],
                                         height: 70,
                                       ),
                                       const SizedBox(
                                         height: 10,
                                       ),
                                       Text(
-                                        DummyData.laboratory[index]['title'],
+                                        LabData.laboratory[index]['title'],
                                         textAlign: TextAlign.center,
                                         maxLines: 2,
                                         style: const TextStyle(
