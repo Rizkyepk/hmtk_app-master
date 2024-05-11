@@ -201,7 +201,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                   ),
                   child: TextFormField(
                     controller: password,
-                    obscureText: isVisible,
+                    obscureText: !isVisible,
                     decoration: InputDecoration(
                       hintText: '******',
                       suffixIcon: IconButton(
@@ -211,8 +211,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                             });
                           },
                           icon: Icon(isVisible
-                              ? Icons.visibility_off
-                              : Icons.visibility)),
+                              ? Icons.visibility
+                              : Icons.visibility_off)),
                       border: InputBorder.none,
                       prefixIcon: Container(
                           width: 100,
