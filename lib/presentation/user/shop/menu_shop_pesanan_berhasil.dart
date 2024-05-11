@@ -53,7 +53,7 @@ class MenuShopPesananBerhasil extends StatelessWidget {
                           ),
                           (route) => false);
                     },
-                    child: MyButton(
+                    child: const MyButton(
                       txt: 'Home',
                       width: 200,
                     ),
@@ -67,7 +67,7 @@ class MenuShopPesananBerhasil extends StatelessWidget {
                           ),
                           (route) => false);
                     },
-                    child: MyButton(
+                    child: const MyButton(
                       txt: 'Order Again',
                       width: 200,
                     ),

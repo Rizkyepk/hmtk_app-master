@@ -38,7 +38,7 @@ class MenuAspiration extends StatelessWidget {
                       color: Colors.black.withOpacity(0.3),
                       offset: const Offset(0, 5))
                 ]),
-                child: MyButton(
+                child: const MyButton(
                   txt: 'Input Aspirasi',
                   width: 150,
                 ),
@@ -51,7 +51,7 @@ class MenuAspiration extends StatelessWidget {
                         builder: (context) => const MenuRiwayatAspirasi(),
                       ));
                 },
-                child: MyButton(
+                child: const MyButton(
                   txt: 'Riwayat Aspirasi',
                   width: 150,
                 ),
@@ -142,7 +142,7 @@ class MenuAspiration extends StatelessWidget {
                   },
                 ).show();
               },
-              child: MyButton(txt: 'Kirim', height: 40),
+              child: const MyButton(txt: 'Kirim', height: 40),
             ),
           )
         ],

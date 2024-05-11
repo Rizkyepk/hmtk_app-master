@@ -229,7 +229,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            MenuShopMetodePembayaran(
+                                            const MenuShopMetodePembayaran(
                                                 metode: 'transfer'),
                                       ));
                                 },
@@ -256,7 +256,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            MenuShopMetodePembayaran(
+                                            const MenuShopMetodePembayaran(
                                                 metode: 'dana'),
                                       ));
                                 },
@@ -283,7 +283,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            MenuShopMetodePembayaran(
+                                            const MenuShopMetodePembayaran(
                                                 metode: 'shopee'),
                                       ));
                                 },
@@ -310,7 +310,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            MenuShopMetodePembayaran(
+                                            const MenuShopMetodePembayaran(
                                                 metode: 'cod'),
                                       ));
                                 },
@@ -431,7 +431,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                                   const MenuShopPesananBerhasil(),
                             ));
                       },
-                      child: MyButton(
+                      child: const MyButton(
                         txt: 'BAYAR SEKARANG',
                         width: 200,
                       ),

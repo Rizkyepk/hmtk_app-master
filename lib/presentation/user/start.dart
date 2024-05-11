@@ -47,7 +47,7 @@ class Start extends StatelessWidget {
                             builder: (context) => const SignIn(),
                           ));
                     },
-                    child: MyButton(
+                    child: const MyButton(
                       txt: 'Login',
                     ),
                   ),
@@ -69,7 +69,7 @@ class Start extends StatelessWidget {
                             builder: (context) => const SignUp(),
                           ));
                     },
-                    child: MyButton(
+                    child: const MyButton(
                       txt: 'Sign  Up',
                     ),
                   ),

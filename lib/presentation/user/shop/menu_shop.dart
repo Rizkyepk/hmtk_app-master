@@ -153,7 +153,7 @@ class MenuShop extends StatelessWidget {
                                               const MenuShopMycart(),
                                         ));
                                   },
-                                  child: Align(
+                                  child: const Align(
                                       alignment: Alignment.centerLeft,
                                       child: MyButton(txt: 'My Cart'))),
                               const SizedBox(
@@ -168,7 +168,7 @@ class MenuShop extends StatelessWidget {
                                               const MenuShopHistory(),
                                         ));
                                   },
-                                  child: Align(
+                                  child: const Align(
                                       alignment: Alignment.centerLeft,
                                       child: MyButton(txt: 'History')))
                             ],

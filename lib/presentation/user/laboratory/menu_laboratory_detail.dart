@@ -25,7 +25,7 @@ class MenuLaboratoryDetail extends StatefulWidget {
 class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
   @override
   Widget build(BuildContext context) {
-    Future<List<Map<String, dynamic>>> _posts(String lab) async {
+    Future<List<Map<String, dynamic>>> posts0(String lab) async {
       try {
         final response = await fetchData(lab);
 
@@ -93,7 +93,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                 height: 30,
               ),
               FutureBuilder<List<Map<String, dynamic>>>(
-                  future: _posts(widget.lab),
+                  future: posts0(widget.lab),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {

@@ -236,7 +236,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                         });
                       },
                     ),
-                    Text(
+                    const Text(
                       'Remember Me',
                       style: TextStyle(fontSize: 16),
                     ),
@@ -246,7 +246,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                   alignment: Alignment.center,
                   child: InkWell(
                     onTap: _login,
-                    child: MyButton(
+                    child: const MyButton(
                       txt: 'Login',
                       height: 45,
                     ),

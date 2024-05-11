@@ -125,7 +125,7 @@ class _SignInState extends State<ResetPassword>
                         },
                       ).show();
                     },
-                    child: MyButton(
+                    child: const MyButton(
                       txt: 'Reset',
                       height: 45,
                     ),

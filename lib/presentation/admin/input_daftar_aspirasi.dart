@@ -152,8 +152,8 @@ class InputAspirasi extends StatelessWidget {
                     },
                   ).show();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 180),
+                child: const Padding(
+                  padding: EdgeInsets.only(bottom: 180),
                   child: MyButton(
                     txt: 'Submit',
                     height: 45,

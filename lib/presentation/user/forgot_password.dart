@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hmtk_app/presentation/user/signin.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
@@ -56,13 +58,15 @@ class _ForgotPasswordState extends State<ForgotPassword>
         },
       );
 
-      if (response.statusCode == 200) {
+      Map data = json.decode(response.body);
+
+      if (response.statusCode == 200 && data["success"]) {
         // Show success dialog
         AwesomeDialog(
           context: context,
           dialogType: DialogType.success,
           animType: AnimType.rightSlide,
-          title: 'Email dikirim!',
+          title: 'Email dikirim!\n!CEK FOLDER SPAM ANDA!',
           btnOkOnPress: () {
             Navigator.pushReplacement(
               context,
@@ -72,18 +76,18 @@ class _ForgotPasswordState extends State<ForgotPassword>
         ).show();
       } else {
         // Show error dialog
-        throw Exception('Failed to reset password');
+        throw data["message"];
       }
     } catch (e) {
       // Show error dialog
-      String error = e.toString();
+      // String error = e.toString();
       AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
         title: 'Error',
-        desc: 'Failed to send: $error',
+        desc: 'Failed to send: $e',
         btnOkOnPress: () {
-          Navigator.pop(context);
+          // Navigator.pop(context);
         },
       ).show();
     }
@@ -172,7 +176,7 @@ class _ForgotPasswordState extends State<ForgotPassword>
                           fetchData(email.text);
                         }
                       },
-                      child: MyButton(
+                      child: const MyButton(
                         txt: 'Kirim email',
                         height: 45,
                         width: 130,

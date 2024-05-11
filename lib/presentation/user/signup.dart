@@ -288,7 +288,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                       alignment: Alignment.center,
                       child: InkWell(
                         onTap: _register,
-                        child: MyButton(
+                        child: const MyButton(
                           txt: 'Register',
                           height: 45,
                         ),
