@@ -1,29 +1,72 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/daftar_shop.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 class TambahShop extends StatefulWidget {
   const TambahShop({super.key});
 
   @override
-  State<TambahShop> createState() => _TambahActivtyState();
+  State<TambahShop> createState() => _TambahShopState();
 }
 
-File? image;
-Future getImage() async {
-  final ImagePicker picker = ImagePicker();
-  final XFile? imagePicked =
-      await picker.pickImage(source: ImageSource.gallery);
-  image = File(imagePicked!.path);
-  // setState(() {});
-}
+class _TambahShopState extends State<TambahShop> {
+  File? image;
+  final nameController = TextEditingController();
+  final priceController = TextEditingController();
+  final descriptionController = TextEditingController();
 
-class _TambahActivtyState extends State<TambahShop> {
+  Future<void> getImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        image = File(pickedFile.path);
+      }
+    });
+  }
+
+  Future<void> _tambahProduct() async {
+    final String inputName = nameController.text;
+    final String inputPrice = priceController.text;
+    final String inputDescription = descriptionController.text;
+
+    final response = await fetchData(
+      inputName,
+      inputPrice,
+      inputDescription,
+    );
+    try {
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        final bool success = data['success'];
+        if (success) {
+          // Berhasil menambahkan produk, tambahkan logika lain di sini jika diperlukan
+          final String message = data['message'];
+          throw message;
+          // print('Produk berhasil ditambahkan');
+        } else {
+          // Gagal menambahkan produk, mungkin ada pesan kesalahan dari server
+          final String errorMessage = data['message'];
+          throw errorMessage;
+        }
+      } else {
+        // Response tidak berhasil (kode status bukan 200)
+        throw 'Gagal menambahkan produk: ${response.statusCode}';
+      }
+    } catch (e) {
+      // Terjadi kesalahan selama proses
+      throw Exception("Error: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +88,8 @@ class _TambahActivtyState extends State<TambahShop> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
+                  MaterialPageRoute(
+                      builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
@@ -56,7 +100,8 @@ class _TambahActivtyState extends State<TambahShop> {
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0),
+                child: const Text('Hello, Ivan'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -94,7 +139,8 @@ class _TambahActivtyState extends State<TambahShop> {
           ),
           Container(
             margin: const EdgeInsets.all(20),
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   blurRadius: 1,
@@ -126,7 +172,7 @@ class _TambahActivtyState extends State<TambahShop> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Nama Barang",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -136,16 +182,18 @@ class _TambahActivtyState extends State<TambahShop> {
                       Container(
                         margin: const EdgeInsets.only(bottom: 10),
                         padding: const EdgeInsets.only(left: 10),
-                        height: 30,
+                        height: 50,
                         decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                            color: const Color.fromARGB(255, 0, 0, 0)
+                                .withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: const TextField(
+                        child: TextFormField(
+                          controller: nameController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -166,7 +214,7 @@ class _TambahActivtyState extends State<TambahShop> {
                         children: [
                           InkWell(
                             child: Container(
-                              height: 20,
+                              height: 25,
                               width: 70,
                               decoration: BoxDecoration(
                                 border: Border.all(
@@ -187,6 +235,7 @@ class _TambahActivtyState extends State<TambahShop> {
                               await getImage();
                             },
                           ),
+                          //belum bisa masukin gambar
                           Container(
                               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                               child: const Text(
@@ -209,31 +258,32 @@ class _TambahActivtyState extends State<TambahShop> {
                         height: 10,
                         width: 10,
                       ),
-                      const Text(
-                        "Jumlah",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                            width: 2.0,
-                          ),
-                        ),
-                        child: const TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
+                      // const Text(
+                      //   "Jumlah",
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 12,
+                      //   ),
+                      // ),
+                      // Container(
+                      //   margin: const EdgeInsets.only(bottom: 10),
+                      //   padding: const EdgeInsets.only(left: 10),
+                      //   height: 30,
+                      //   decoration: BoxDecoration(
+                      //     borderRadius:
+                      //         const BorderRadius.all(Radius.circular(5.0)),
+                      //     border: Border.all(
+                      //       color: const Color.fromARGB(255, 0, 0, 0)
+                      //           .withOpacity(0.3),
+                      //       width: 2.0,
+                      //     ),
+                      //   ),
+                      //   child: const TextField(
+                      //     decoration: InputDecoration(
+                      //       border: InputBorder.none,
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 10,
                         width: 10,
@@ -248,16 +298,18 @@ class _TambahActivtyState extends State<TambahShop> {
                       Container(
                         margin: const EdgeInsets.only(bottom: 10),
                         padding: const EdgeInsets.only(left: 10),
-                        height: 30,
+                        height: 50,
                         decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                            color: const Color.fromARGB(255, 0, 0, 0)
+                                .withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: const TextField(
+                        child: TextFormField(
+                          controller: priceController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -277,16 +329,18 @@ class _TambahActivtyState extends State<TambahShop> {
                       Container(
                         margin: const EdgeInsets.only(bottom: 10),
                         padding: const EdgeInsets.only(left: 10),
-                        height: 30,
+                        height: 100,
                         decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                            color: const Color.fromARGB(255, 0, 0, 0)
+                                .withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: const TextField(
+                        child: TextFormField(
+                          controller: descriptionController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -296,38 +350,41 @@ class _TambahActivtyState extends State<TambahShop> {
                         height: 10,
                         width: 10,
                       ),
-                      const Text(
-                        "Info Tambahan",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                            width: 2.0,
-                          ),
-                        ),
-                        child: const TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
+                      // const Text(
+                      //   "Info Tambahan",
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 12,
+                      //   ),
+                      // ),
+                      // Container(
+                      //   margin: const EdgeInsets.only(bottom: 10),
+                      //   padding: const EdgeInsets.only(left: 10),
+                      //   height: 30,
+                      //   decoration: BoxDecoration(
+                      //     borderRadius:
+                      //         const BorderRadius.all(Radius.circular(5.0)),
+                      //     border: Border.all(
+                      //       color: const Color.fromARGB(255, 0, 0, 0)
+                      //           .withOpacity(0.3),
+                      //       width: 2.0,
+                      //     ),
+                      //   ),
+                      //   child: const TextField(
+                      //     decoration: InputDecoration(
+                      //       border: InputBorder.none,
+                      //     ),
+                      //   ),
+                      // ),
                       Container(
                         alignment: Alignment.center,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(255, 1, 122, 5),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 1, 122, 5),
                             ),
                             onPressed: () {
+                              _tambahProduct();
                               Navigator.push(
                                 context,
                                 // DetailPage adalah halaman yang dituju
@@ -335,7 +392,10 @@ class _TambahActivtyState extends State<TambahShop> {
                                     builder: (context) => const DaftarShop()),
                               );
                             },
-                            child: const Text('Tambah')),
+                            child: const Text(
+                              'Tambah',
+                              selectionColor: Colors.white,
+                            )),
                       )
                     ],
                   ),
@@ -346,5 +406,32 @@ class _TambahActivtyState extends State<TambahShop> {
         ],
       ),
     );
+  }
+
+  Future<http.Response> fetchData(
+      String inputName, String inputPrice, String inputDescription) async {
+    try {
+      Map<String, String> params = {
+        'name': inputName,
+        'price': inputPrice,
+        'description': inputDescription,
+      };
+
+      var response = await http.post(
+        Uri(
+          scheme: 'https',
+          host: 'myhmtk.jeyy.xyz',
+          path: '/auth/login',
+          queryParameters: params,
+        ),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+        },
+      );
+
+      return response;
+    } catch (e) {
+      throw Exception('Failed to load: $e');
+    }
   }
 }
