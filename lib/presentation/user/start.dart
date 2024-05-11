@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:hmtk_app/presentation/user/home.dart';
 import 'package:hmtk_app/presentation/user/signin.dart';
 import 'package:hmtk_app/presentation/user/signup.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/button.dart';
 
 import '../../utils/color_pallete.dart';
 
-class Start extends StatelessWidget {
+class Start extends StatefulWidget {
   const Start({super.key});
+
+  @override
+  State<Start> createState() => _StartState();
+}
+
+class _StartState extends State<Start> {
+  @override
+  void initState() {
+    super.initState();
+    checkLogin();
+  }
+
+  Future<void> checkLogin() async {
+    var auth = await SaveData.getAuth();
+    if (auth != null) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const Home()),
+        (route) => false,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
