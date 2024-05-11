@@ -19,6 +19,7 @@ class MenuShopDetail extends StatefulWidget {
 
 class _MenuShopDetailState extends State<MenuShopDetail> {
   int jumlah = 1;
+  Map<String, dynamic>? data;
 
   List<String> ukurans = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
   String valueUkuran = 'S';
@@ -72,12 +73,13 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
             future: _product(widget.productId),
             builder: (BuildContext context,
                 AsyncSnapshot<Map<String, dynamic>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (snapshot.connectionState == ConnectionState.waiting && data == null) {
                 return const Text('Loading data...');
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
                 final product = snapshot.data!;
+                data = product;
                 return Stack(
                   children: [
                     Column(
