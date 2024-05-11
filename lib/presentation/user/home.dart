@@ -11,7 +11,6 @@ import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/item_activity.dart';
 import 'package:http/http.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'laboratory/menu_laboratory.dart';
 import 'shop/menu_shop.dart';

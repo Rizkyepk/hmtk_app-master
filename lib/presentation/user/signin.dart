@@ -39,7 +39,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
     super.initState();
     _controller = AnimationController(vsync: this);
     _initializePreferences();
-    // loadLoginInfo();
   }
 
   @override

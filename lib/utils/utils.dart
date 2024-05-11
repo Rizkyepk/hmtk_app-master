@@ -38,13 +38,14 @@ class SaveData {
     await prefs.setString(_mapKey, jsonData);
   }
 
-  static Future<Map<String, dynamic>?> getAuth() async {
+  static Future<Map<String, dynamic>> getAuth() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonData = prefs.getString(_mapKey);
     if (jsonData != null) {
       return jsonDecode(jsonData) as Map<String, dynamic>;
     }
-    return null;
+
+    throw Exception("Error: No authentication found.");
   }
 
   static Future<void> clearAuth() async {
