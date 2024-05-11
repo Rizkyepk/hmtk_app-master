@@ -63,307 +63,305 @@ class DaftarAspirasi extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 2),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10))),
-                          child: const Text(
-                            'Nama',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          height: 50,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                          child: const Text(
-                            'NIM',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                          child: const Text(
-                            'Tanggal',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                          child: const Text(
-                            'Aspirasi',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          height: 50,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(10))),
-                          child: const Text(
-                            'Aksi',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(0))),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              InkWell(
-                                  onTap: () {
-                                    AwesomeDialog(
-                                            context: context,
-                                            dialogType: DialogType.question,
-                                            animType: AnimType.rightSlide,
-                                            title:
-                                                'Yakin ingin menghapus data?',
-                                            btnOkOnPress: () {},
-                                            btnCancelOnPress: () {})
-                                        .show();
-                                  },
-                                  child: const Image(
-                                      image: AssetImage('assets/Vector.png'))),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.fromLTRB(10, 10, 10, 2),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
                             ],
-                          ),
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(10))),
+                        child: const Text(
+                          'Nama',
+                          textAlign: TextAlign.center,
                         ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(10))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  bottomRight: Radius.circular(10))),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              InkWell(
-                                  onTap: () {
-                                    AwesomeDialog(
-                                            context: context,
-                                            dialogType: DialogType.question,
-                                            animType: AnimType.rightSlide,
-                                            title:
-                                                'Yakin ingin menghapus data?',
-                                            btnOkOnPress: () {},
-                                            btnCancelOnPress: () {})
-                                        .show();
-                                  },
-                                  child: const Image(
-                                      image: AssetImage('assets/Vector.png'))),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        height: 50,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
                             ],
-                          ),
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                        child: const Text(
+                          'NIM',
+                          textAlign: TextAlign.center,
                         ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                        child: const Text(
+                          'Tanggal',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                        child: const Text(
+                          'Aspirasi',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        height: 50,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(10))),
+                        child: const Text(
+                          'Aksi',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(0))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.question,
+                                          animType: AnimType.rightSlide,
+                                          title:
+                                              'Yakin ingin menghapus data?',
+                                          btnOkOnPress: () {},
+                                          btnCancelOnPress: () {})
+                                      .show();
+                                },
+                                child: const Image(
+                                    image: AssetImage('assets/Vector.png'))),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(10))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                bottomRight: Radius.circular(10))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.question,
+                                          animType: AnimType.rightSlide,
+                                          title:
+                                              'Yakin ingin menghapus data?',
+                                          btnOkOnPress: () {},
+                                          btnCancelOnPress: () {})
+                                      .show();
+                                },
+                                child: const Image(
+                                    image: AssetImage('assets/Vector.png'))),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
         ],

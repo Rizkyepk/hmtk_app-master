@@ -113,28 +113,26 @@ class _TambahShopState extends State<TambahShop> {
       ),
       body: ListView(
         children: [
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
-                    child: Text(
-                      'Tambah Produk',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    )),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
-                  child: const Text(
-                    'Form yang di unggah akan ditampilkan di halaman Shop',
-                    style: TextStyle(fontSize: 12),
-                  ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+                  child: Text(
+                    'Tambah Produk',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  )),
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
+                child: const Text(
+                  'Form yang di unggah akan ditampilkan di halaman Shop',
+                  style: TextStyle(fontSize: 12),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           Container(
             margin: const EdgeInsets.all(20),
@@ -167,237 +165,233 @@ class _TambahShopState extends State<TambahShop> {
                     ),
                   ],
                 ),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Nama Barang",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Nama Barang",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
+                          width: 2.0,
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 0, 0, 0)
-                                .withOpacity(0.3),
-                            width: 2.0,
-                          ),
-                        ),
-                        child: TextFormField(
-                          controller: nameController,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
+                      child: TextFormField(
+                        controller: nameController,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Uploud Foto",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
                       ),
-                      const Text(
-                        "Uploud Foto",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          InkWell(
-                            child: Container(
-                              height: 25,
-                              width: 70,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2.0,
-                                ),
-                              ),
-                              child: const Column(
-                                children: [
-                                  Text(
-                                    "choose file",
-                                    style: TextStyle(fontSize: 11),
-                                  )
-                                ],
+                    ),
+                    Row(
+                      children: [
+                        InkWell(
+                          child: Container(
+                            height: 25,
+                            width: 70,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 2.0,
                               ),
                             ),
-                            onTap: () async {
-                              await getImage();
-                            },
-                          ),
-                          //belum bisa masukin gambar
-                          Container(
-                              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                              child: const Text(
-                                'no file chosen',
-                                style: TextStyle(fontSize: 11),
-                              ))
-                        ],
-                      ),
-                      Container(
-                        child: const Column(
-                          children: [
-                            Text(
-                              'ukuran file foto max 5 mb ( jpg atau png)',
-                              style: TextStyle(fontSize: 11),
-                            )
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      // const Text(
-                      //   "Jumlah",
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.bold,
-                      //     fontSize: 12,
-                      //   ),
-                      // ),
-                      // Container(
-                      //   margin: const EdgeInsets.only(bottom: 10),
-                      //   padding: const EdgeInsets.only(left: 10),
-                      //   height: 30,
-                      //   decoration: BoxDecoration(
-                      //     borderRadius:
-                      //         const BorderRadius.all(Radius.circular(5.0)),
-                      //     border: Border.all(
-                      //       color: const Color.fromARGB(255, 0, 0, 0)
-                      //           .withOpacity(0.3),
-                      //       width: 2.0,
-                      //     ),
-                      //   ),
-                      //   child: const TextField(
-                      //     decoration: InputDecoration(
-                      //       border: InputBorder.none,
-                      //     ),
-                      //   ),
-                      // ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      const Text(
-                        "Harga",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 0, 0, 0)
-                                .withOpacity(0.3),
-                            width: 2.0,
-                          ),
-                        ),
-                        child: TextFormField(
-                          controller: priceController,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      const Text(
-                        "Deskripsi",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 100,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 0, 0, 0)
-                                .withOpacity(0.3),
-                            width: 2.0,
-                          ),
-                        ),
-                        child: TextFormField(
-                          controller: descriptionController,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      // const Text(
-                      //   "Info Tambahan",
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.bold,
-                      //     fontSize: 12,
-                      //   ),
-                      // ),
-                      // Container(
-                      //   margin: const EdgeInsets.only(bottom: 10),
-                      //   padding: const EdgeInsets.only(left: 10),
-                      //   height: 30,
-                      //   decoration: BoxDecoration(
-                      //     borderRadius:
-                      //         const BorderRadius.all(Radius.circular(5.0)),
-                      //     border: Border.all(
-                      //       color: const Color.fromARGB(255, 0, 0, 0)
-                      //           .withOpacity(0.3),
-                      //       width: 2.0,
-                      //     ),
-                      //   ),
-                      //   child: const TextField(
-                      //     decoration: InputDecoration(
-                      //       border: InputBorder.none,
-                      //     ),
-                      //   ),
-                      // ),
-                      Container(
-                        alignment: Alignment.center,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 1, 122, 5),
+                            child: const Column(
+                              children: [
+                                Text(
+                                  "choose file",
+                                  style: TextStyle(fontSize: 11),
+                                )
+                              ],
                             ),
-                            onPressed: () {
-                              _tambahProduct();
-                              Navigator.push(
-                                context,
-                                // DetailPage adalah halaman yang dituju
-                                MaterialPageRoute(
-                                    builder: (context) => const DaftarShop()),
-                              );
-                            },
+                          ),
+                          onTap: () async {
+                            await getImage();
+                          },
+                        ),
+                        //belum bisa masukin gambar
+                        Container(
+                            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                             child: const Text(
-                              'Tambah',
-                              selectionColor: Colors.white,
-                            )),
-                      )
-                    ],
-                  ),
+                              'no file chosen',
+                              style: TextStyle(fontSize: 11),
+                            ))
+                      ],
+                    ),
+                    const Column(
+                      children: [
+                        Text(
+                          'ukuran file foto max 5 mb ( jpg atau png)',
+                          style: TextStyle(fontSize: 11),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    // const Text(
+                    //   "Jumlah",
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //     fontSize: 12,
+                    //   ),
+                    // ),
+                    // Container(
+                    //   margin: const EdgeInsets.only(bottom: 10),
+                    //   padding: const EdgeInsets.only(left: 10),
+                    //   height: 30,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius:
+                    //         const BorderRadius.all(Radius.circular(5.0)),
+                    //     border: Border.all(
+                    //       color: const Color.fromARGB(255, 0, 0, 0)
+                    //           .withOpacity(0.3),
+                    //       width: 2.0,
+                    //     ),
+                    //   ),
+                    //   child: const TextField(
+                    //     decoration: InputDecoration(
+                    //       border: InputBorder.none,
+                    //     ),
+                    //   ),
+                    // ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Harga",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: TextFormField(
+                        controller: priceController,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Deskripsi",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 100,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: TextFormField(
+                        controller: descriptionController,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    // const Text(
+                    //   "Info Tambahan",
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //     fontSize: 12,
+                    //   ),
+                    // ),
+                    // Container(
+                    //   margin: const EdgeInsets.only(bottom: 10),
+                    //   padding: const EdgeInsets.only(left: 10),
+                    //   height: 30,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius:
+                    //         const BorderRadius.all(Radius.circular(5.0)),
+                    //     border: Border.all(
+                    //       color: const Color.fromARGB(255, 0, 0, 0)
+                    //           .withOpacity(0.3),
+                    //       width: 2.0,
+                    //     ),
+                    //   ),
+                    //   child: const TextField(
+                    //     decoration: InputDecoration(
+                    //       border: InputBorder.none,
+                    //     ),
+                    //   ),
+                    // ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 1, 122, 5),
+                          ),
+                          onPressed: () {
+                            _tambahProduct();
+                            Navigator.push(
+                              context,
+                              // DetailPage adalah halaman yang dituju
+                              MaterialPageRoute(
+                                  builder: (context) => const DaftarShop()),
+                            );
+                          },
+                          child: const Text(
+                            'Tambah',
+                            selectionColor: Colors.white,
+                          )),
+                    )
+                  ],
                 ),
               ],
             ),

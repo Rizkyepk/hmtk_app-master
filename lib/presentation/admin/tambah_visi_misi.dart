@@ -53,28 +53,26 @@ class TambahVisiMisi extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
-                    child: Text(
-                      'Tambah Vision & Mission',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    )),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
-                  child: const Text(
-                    'Form yang di unggah akan di tampilkan di halaman Vision & Mission',
-                    style: TextStyle(fontSize: 12),
-                  ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+                  child: Text(
+                    'Tambah Vision & Mission',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  )),
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                child: const Text(
+                  'Form yang di unggah akan di tampilkan di halaman Vision & Mission',
+                  style: TextStyle(fontSize: 12),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           Container(
             margin: const EdgeInsets.all(20),
@@ -106,87 +104,85 @@ class TambahVisiMisi extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Judul About Us",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Judul About Us",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color:
+                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          width: 2.0,
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                            width: 2.0,
+                      child: const TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Deskripsi",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 90,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color:
+                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: const TextField(
+                        maxLines: 2,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 1, 122, 5),
                           ),
-                        ),
-                        child: const TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      const Text(
-                        "Deskripsi",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 90,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                            width: 2.0,
-                          ),
-                        ),
-                        child: const TextField(
-                          maxLines: 2,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(255, 1, 122, 5),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                // DetailPage adalah halaman yang dituju
-                                MaterialPageRoute(
-                                    builder: (context) => const DaftarVisiMisi()),
-                              );
-                            },
-                            child: const Text('Tambah')),
-                      )
-                    ],
-                  ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              // DetailPage adalah halaman yang dituju
+                              MaterialPageRoute(
+                                  builder: (context) => const DaftarVisiMisi()),
+                            );
+                          },
+                          child: const Text('Tambah')),
+                    )
+                  ],
                 ),
               ],
             ),

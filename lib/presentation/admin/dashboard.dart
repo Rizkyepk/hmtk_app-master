@@ -62,154 +62,150 @@ class Dashboard extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Column(
-                children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(20, 5, 20, 2),
-                          decoration: const BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                            height: 100,
-                            width: 200,
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                      blurRadius: 1,
-                                      spreadRadius: 1,
-                                      color: Colors.black.withOpacity(0.1))
-                                ],
-                                color: Colors.white,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10))),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Jumlah file materi saat ini',
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.blue),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    '10 File',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                              ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(20, 5, 20, 2),
+                      decoration: const BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                        height: 100,
+                        width: 200,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10))),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Jumlah file materi saat ini',
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.blue),
+                              ),
                             ),
-                          ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                '10 File',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 5, 20, 2),
-                          decoration: const BoxDecoration(
-                              color: Colors.green,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                            height: 100,
-                            width: 200,
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                      blurRadius: 1,
-                                      spreadRadius: 1,
-                                      color: Colors.black.withOpacity(0.1))
-                                ],
-                                color: Colors.white,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10))),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Jumlah foto',
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.green),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    '15 Foto',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 5, 20, 2),
-                          decoration: const BoxDecoration(
-                              color: Colors.amber,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                            height: 100,
-                            width: 200,
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                      blurRadius: 1,
-                                      spreadRadius: 1,
-                                      color: Colors.black.withOpacity(0.1))
-                                ],
-                                color: Colors.white,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10))),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Data Pesanan',
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.green),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    '12 pesanan',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
+                      ),
                     ),
-                  )
-                ],
-              ),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(0, 5, 20, 2),
+                      decoration: const BoxDecoration(
+                          color: Colors.green,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                        height: 100,
+                        width: 200,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10))),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Jumlah foto',
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.green),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                '15 Foto',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(0, 5, 20, 2),
+                      decoration: const BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                        height: 100,
+                        width: 200,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10))),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Data Pesanan',
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.green),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                '12 pesanan',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
             ),
           ),
           Container(

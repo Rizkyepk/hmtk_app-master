@@ -67,28 +67,26 @@ class _TambahActivtyState extends State<TambahLab> {
       ),
       body: ListView(
         children: [
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
-                    child: Text(
-                      'Tambah Laboratory',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    )),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
-                  child: const Text(
-                    'Form yang di unggah akan di tampilkan di halaman Laboratory',
-                    style: TextStyle(fontSize: 12),
-                  ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+                  child: Text(
+                    'Tambah Laboratory',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  )),
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
+                child: const Text(
+                  'Form yang di unggah akan di tampilkan di halaman Laboratory',
+                  style: TextStyle(fontSize: 12),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           Container(
             margin: const EdgeInsets.all(20),
@@ -120,206 +118,200 @@ class _TambahActivtyState extends State<TambahLab> {
                     ),
                   ],
                 ),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Jenis Laboratory",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Jenis Laboratory",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
                       ),
-                      Container(
-                          margin: const EdgeInsets.only(bottom: 10),
-                          padding: const EdgeInsets.only(left: 10),
-                          height: 30,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5.0)),
-                            border: Border.all(
-                              color:
-                                  const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                              width: 2.0,
-                            ),
-                          ),
-                          child: DropdownButton(
-                              value: valLab,
-                              isExpanded: true,
-                              isDense: true,
-                              // style: TextStyle(fontSize: 16),
-                              items: const [
-                                DropdownMenuItem(
-                                  value: 'MAGICS Laboratory',
-                                  child: Text('MAGICS Laboratory'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'SEA Laboratory',
-                                  child: Text('SEA Laboratory'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'RnEST Laboratory',
-                                  child: Text('RnEST Laboratory'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'i-SMILE Laboratory',
-                                  child: Text('i-SMILE Laboratory'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'Security Laboratory',
-                                  child: Text('Security Laboratory'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'Evconn Laboratory',
-                                  child: Text('Evconn Laboratory'),
-                                ),
-                              ],
-                              onChanged: (val) {
-                                setState(() {
-                                  valLab = val.toString();
-                                });
-                              })),
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Judul Laboratory",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Container(
+                    ),
+                    Container(
                         margin: const EdgeInsets.only(bottom: 10),
                         padding: const EdgeInsets.only(left: 10),
                         height: 30,
                         decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                             color:
                                 const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
-                        child: const TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      const Text(
-                        "Uploud Foto",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          InkWell(
-                            child: Container(
-                              height: 20,
-                              width: 70,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2.0,
-                                ),
+                        child: DropdownButton(
+                            value: valLab,
+                            isExpanded: true,
+                            isDense: true,
+                            // style: TextStyle(fontSize: 16),
+                            items: const [
+                              DropdownMenuItem(
+                                value: 'MAGICS Laboratory',
+                                child: Text('MAGICS Laboratory'),
                               ),
-                              child: const Column(
-                                children: [
-                                  Text(
-                                    "choose file",
-                                    style: TextStyle(fontSize: 11),
-                                  )
-                                ],
+                              DropdownMenuItem(
+                                value: 'SEA Laboratory',
+                                child: Text('SEA Laboratory'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'RnEST Laboratory',
+                                child: Text('RnEST Laboratory'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'i-SMILE Laboratory',
+                                child: Text('i-SMILE Laboratory'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'Security Laboratory',
+                                child: Text('Security Laboratory'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'Evconn Laboratory',
+                                child: Text('Evconn Laboratory'),
+                              ),
+                            ],
+                            onChanged: (val) {
+                              setState(() {
+                                valLab = val.toString();
+                              });
+                            })),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Judul Laboratory",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color:
+                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: const TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Uploud Foto",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        InkWell(
+                          child: Container(
+                            height: 20,
+                            width: 70,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 2.0,
                               ),
                             ),
-                            onTap: () async {
-                              await getImage();
-                            },
+                            child: const Column(
+                              children: [
+                                Text(
+                                  "choose file",
+                                  style: TextStyle(fontSize: 11),
+                                )
+                              ],
+                            ),
                           ),
-                          Container(
-                              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                              child: const Text(
-                                'no file chosen',
-                                style: TextStyle(fontSize: 11),
-                              ))
-                        ],
-                      ),
-                      Container(
-                        child: const Column(
-                          children: [
-                            Text(
-                              'ukuran file foto max 5 mb ( jpg atau png)',
+                          onTap: () async {
+                            await getImage();
+                          },
+                        ),
+                        Container(
+                            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                            child: const Text(
+                              'no file chosen',
                               style: TextStyle(fontSize: 11),
-                            )
-                          ],
+                            ))
+                      ],
+                    ),
+                    const Column(
+                      children: [
+                        Text(
+                          'ukuran file foto max 5 mb ( jpg atau png)',
+                          style: TextStyle(fontSize: 11),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Deskripsi",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 90,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color:
+                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          width: 2.0,
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      const Text(
-                        "Deskripsi",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                      child: const TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 90,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                            width: 2.0,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 1, 122, 5),
                           ),
-                        ),
-                        child: const TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(255, 1, 122, 5),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                // DetailPage adalah halaman yang dituju
-                                MaterialPageRoute(
-                                    builder: (context) => const DaftarLaboratory()),
-                              );
-                            },
-                            child: const Text('Tambah')),
-                      )
-                    ],
-                  ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              // DetailPage adalah halaman yang dituju
+                              MaterialPageRoute(
+                                  builder: (context) => const DaftarLaboratory()),
+                            );
+                          },
+                          child: const Text('Tambah')),
+                    )
+                  ],
                 ),
               ],
             ),

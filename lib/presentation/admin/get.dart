@@ -10,14 +10,13 @@ class Get extends StatelessWidget {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          Positioned(
+          const Positioned(
             top: 100,
-            child: Container(
-                child: const Center(
-              child: Image(
-                image: AssetImage('assets/LogoTK3.png'),
-              ),
-            )),
+            child: Center(
+                          child: Image(
+            image: AssetImage('assets/LogoTK3.png'),
+                          ),
+                        ),
           ),
           const Positioned(
             bottom: 0.100,
@@ -33,52 +32,50 @@ class Get extends StatelessWidget {
           ),
           Positioned(
             bottom: 95,
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'My-HMTK',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'My-HMTK',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          // primary: Color.fromARGB(255, 248, 248, 248),
+                          backgroundColor: const Color.fromARGB(255, 255, 255, 255)
+                              .withOpacity(0.4),
+                          foregroundColor:
+                              const Color.fromARGB(255, 255, 255, 255),
+                          fixedSize: const Size(80, 50),
+                        ),
+                        onPressed: () {},
+                        child: const Text('Admin')),
+                    const SizedBox(
+                      width: 10,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            // primary: Color.fromARGB(255, 248, 248, 248),
-                            backgroundColor: const Color.fromARGB(255, 255, 255, 255)
-                                .withOpacity(0.4),
-                            foregroundColor:
-                                const Color.fromARGB(255, 255, 255, 255),
-                            fixedSize: const Size(80, 50),
-                          ),
-                          onPressed: () {},
-                          child: const Text('Admin')),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            // primary: Color.fromARGB(255, 248, 248, 248),
-                            backgroundColor: const Color.fromARGB(255, 255, 255, 255)
-                                .withOpacity(0.4),
-                            foregroundColor:
-                                const Color.fromARGB(255, 255, 255, 255),
-                            fixedSize: const Size(80, 50),
-                          ),
-                          onPressed: () {},
-                          child: const Text('User')),
-                    ],
-                  )
-                ],
-              ),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          // primary: Color.fromARGB(255, 248, 248, 248),
+                          backgroundColor: const Color.fromARGB(255, 255, 255, 255)
+                              .withOpacity(0.4),
+                          foregroundColor:
+                              const Color.fromARGB(255, 255, 255, 255),
+                          fixedSize: const Size(80, 50),
+                        ),
+                        onPressed: () {},
+                        child: const Text('User')),
+                  ],
+                )
+              ],
             ),
           ),
 
