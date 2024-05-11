@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:http/http.dart';
@@ -187,7 +188,7 @@ Future<Response> fetchFunTks() async {
           path: '/fun_tk',
         ),
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
         });
 
     return response;

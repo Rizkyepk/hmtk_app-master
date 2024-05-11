@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -173,7 +174,7 @@ Future<http.Response> postData(
           queryParameters: params,
         ),
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
         });
 
     return response;

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hmtk_app/presentation/user/home.dart';
 import 'package:hmtk_app/presentation/user/signin.dart';
 import 'package:hmtk_app/presentation/user/signup.dart';
-import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/button.dart';
 
 import '../../utils/color_pallete.dart';

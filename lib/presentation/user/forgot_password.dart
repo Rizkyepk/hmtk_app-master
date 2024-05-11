@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:hmtk_app/presentation/user/signin.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 
@@ -50,7 +51,7 @@ class _ForgotPasswordState extends State<ForgotPassword>
           queryParameters: params,
         ),
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
           // "Access-Control-Allow-Origin":"*",
           // "Access-Control-Allow-Credentials": "*",
           // "Access-Control-Allow-Headers": "*",

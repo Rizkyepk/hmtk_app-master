@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart';
 
 class MenuDetailActivity extends StatefulWidget {
@@ -17,7 +18,7 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
   bool tapFavorite = false;
   @override
   Widget build(BuildContext context) {
-    Future<Map<String, dynamic>> fun_tk(int funTkId) async {
+    Future<Map<String, dynamic>> _funTks(int funTkId) async {
       try {
         final response = await fetchFunTks(funTkId);
 
@@ -40,7 +41,7 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
     return Scaffold(
         appBar: AppBar(),
         body: FutureBuilder(
-            future: fun_tk(widget.funTkId),
+            future: _funTks(widget.funTkId),
             builder: (BuildContext context,
                 AsyncSnapshot<Map<String, dynamic>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -161,7 +162,7 @@ Future<Response> fetchFunTks(int funTkId) async {
           path: '/fun_tk/$funTkId',
         ),
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
         });
 
     return response;

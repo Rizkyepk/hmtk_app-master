@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -66,10 +65,10 @@ class Home extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
-                                FutureBuilder<Map<String, dynamic>?>(
+                                FutureBuilder<Map<String, dynamic>>(
                                     future: SaveData.getAuth(),
                                     builder: (BuildContext context,
-                                        AsyncSnapshot<Map<String, dynamic>?>
+                                        AsyncSnapshot<Map<String, dynamic>>
                                             snapshot) {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
@@ -328,7 +327,7 @@ Future<Response> fetchStudent(int nim) async {
         path: '/student/$nim',
       ),
       headers: {
-        HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+        HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
       },
     );
 

@@ -62,324 +62,322 @@ class DataPesanan extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 2),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10))),
-                          child: const Text(
-                            'Nama',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          height: 50,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                          child: const Text(
-                            'Nim',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                          child: const Text(
-                            'Jumlah',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                          child: const Text(
-                            'Ukuran',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                          child: const Text(
-                            'Harga',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(3),
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(10))),
-                          child: const Column(
-                            children: [
-                              Text(
-                                'Informasi',
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                'Tambahan',
-                                textAlign: TextAlign.center,
-                              ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.fromLTRB(10, 10, 10, 2),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
                             ],
-                          ),
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(10))),
+                        child: const Text(
+                          'Nama',
+                          textAlign: TextAlign.center,
                         ),
-                      ],
-                    ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        height: 50,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                        child: const Text(
+                          'Nim',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                        child: const Text(
+                          'Jumlah',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                        child: const Text(
+                          'Ukuran',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                        child: const Text(
+                          'Harga',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(3),
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(10))),
+                        child: const Column(
+                          children: [
+                            Text(
+                              'Informasi',
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              'Tambahan',
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(0))),
-                        ),
-                      ],
-                    ),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(0))),
+                      ),
+                    ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(10))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  bottomRight: Radius.circular(10))),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(10))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0))),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                bottomRight: Radius.circular(10))),
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
         ],

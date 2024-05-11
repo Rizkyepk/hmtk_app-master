@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -322,7 +323,7 @@ Future<http.Response> addData(String fullName, String nim, String noTelp,
         queryParameters: params,
       ),
       headers: {
-        HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+        HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
         HttpHeaders.contentTypeHeader: 'application/json',
       },
       body: jsonEncode(params),

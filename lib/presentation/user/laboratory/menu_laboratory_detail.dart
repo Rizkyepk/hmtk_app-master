@@ -482,7 +482,7 @@ Future<Response> fetchData(String lab) async {
           queryParameters: params
         ),
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
         });
 
     return response;

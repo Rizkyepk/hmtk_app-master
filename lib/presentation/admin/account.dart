@@ -50,8 +50,7 @@ class AccountEdit extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          Container(
-            child: const Column(
+          const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
@@ -65,7 +64,6 @@ class AccountEdit extends StatelessWidget {
                     )),
               ],
             ),
-          ),
           Container(
             margin: const EdgeInsets.all(20),
             padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
@@ -96,68 +94,66 @@ class AccountEdit extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Nama",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
                       ),
-                      const Text(
-                        "Nama",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.all(3),
+                      height: 30,
+                      width: 330,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color:
+                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          width: 2.0,
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.all(3),
-                        height: 30,
-                        width: 330,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                            width: 2.0,
-                          ),
+                      child: const Text('Ivan Daniar'),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Email",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.all(3),
+                      height: 30,
+                      width: 330,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color:
+                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          width: 2.0,
                         ),
-                        child: const Text('Ivan Daniar'),
                       ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      const Text(
-                        "Email",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.all(3),
-                        height: 30,
-                        width: 330,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                            width: 2.0,
-                          ),
-                        ),
-                        child: const Text('lulustepatwaktu@gmail.com '),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                    ],
-                  ),
+                      child: const Text('lulustepatwaktu@gmail.com '),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -195,137 +191,135 @@ class AccountEdit extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Nama",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
                       ),
-                      const Text(
-                        "Nama",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color:
+                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          width: 2.0,
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                            width: 2.0,
+                      child: const TextField(
+                        decoration: InputDecoration(
+                          enabledBorder: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Email",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color:
+                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: const TextField(
+                        decoration: InputDecoration(
+                          enabledBorder: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Password",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color:
+                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: const TextField(
+                        decoration: InputDecoration(
+                          enabledBorder: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Confitm Password",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color:
+                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: const TextField(
+                        decoration: InputDecoration(
+                          enabledBorder: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 1, 122, 5),
                           ),
-                        ),
-                        child: const TextField(
-                          decoration: InputDecoration(
-                            enabledBorder: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      const Text(
-                        "Email",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                            width: 2.0,
-                          ),
-                        ),
-                        child: const TextField(
-                          decoration: InputDecoration(
-                            enabledBorder: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      const Text(
-                        "Password",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                            width: 2.0,
-                          ),
-                        ),
-                        child: const TextField(
-                          decoration: InputDecoration(
-                            enabledBorder: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      const Text(
-                        "Confitm Password",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.only(left: 10),
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                            width: 2.0,
-                          ),
-                        ),
-                        child: const TextField(
-                          decoration: InputDecoration(
-                            enabledBorder: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(255, 1, 122, 5),
-                            ),
-                            onPressed: () {},
-                            child: const Text('Simpan')),
-                      )
-                    ],
-                  ),
+                          onPressed: () {},
+                          child: const Text('Simpan')),
+                    )
+                  ],
                 ),
               ],
             ),

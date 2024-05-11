@@ -14,7 +14,6 @@ import 'package:hmtk_app/presentation/user/start.dart';
 
 import 'package:hmtk_app/presentation/user/timeline.dart';
 import 'package:hmtk_app/utils/utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerUserScren extends StatefulWidget {
   const DrawerUserScren({super.key});

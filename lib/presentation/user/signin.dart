@@ -291,7 +291,7 @@ Future<http.Response> fetchData(String email, String password) async {
         queryParameters: params,
       ),
       headers: {
-        HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+        HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
         "Access-Control-Allow-Credentials": "*",
         "Access-Control-Allow-Headers": "*",
