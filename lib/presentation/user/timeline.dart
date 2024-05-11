@@ -572,7 +572,7 @@ Future<http.Response> fetchData() async {
           path: '/post',
         ),
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
         });
 
     return response;

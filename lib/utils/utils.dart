@@ -1,6 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+class Secrets {
+  static String apiKey = dotenv.env['MYHMTK_API_KEY']!;
+  static String cdnApiKey = dotenv.env['CDN_KEY']!;
+}
 
 String timeAgoFromIso(String isoString) {
   DateTime pastTime = DateTime.parse(isoString);

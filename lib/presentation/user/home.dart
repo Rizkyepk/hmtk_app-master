@@ -328,7 +328,7 @@ Future<Response> fetchStudent(int nim) async {
         path: '/student/$nim',
       ),
       headers: {
-        HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+        HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
       },
     );
 

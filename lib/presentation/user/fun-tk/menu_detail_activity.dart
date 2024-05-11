@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart';
 
 class MenuDetailActivity extends StatefulWidget {
@@ -161,7 +162,7 @@ Future<Response> fetchFunTks(int funTkId) async {
           path: '/fun_tk/$funTkId',
         ),
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
         });
 
     return response;

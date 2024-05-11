@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'presentation/user/splash.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: '.env');
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: ColorPallete.greenprim,
   ));

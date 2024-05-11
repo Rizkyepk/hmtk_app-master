@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/shop/menu_shop_mycart.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/button.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 import 'package:http/http.dart' as http;
@@ -190,7 +191,7 @@ Future<http.Response> fetchProducts() async {
           path: '/product',
         ),
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
         });
 
     return response;
