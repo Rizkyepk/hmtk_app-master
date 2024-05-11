@@ -13,9 +13,24 @@ import 'package:hmtk_app/presentation/user/shop/menu_shop.dart';
 import 'package:hmtk_app/presentation/user/start.dart';
 
 import 'package:hmtk_app/presentation/user/timeline.dart';
+import 'package:hmtk_app/utils/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class DrawerUserScren extends StatelessWidget {
+class DrawerUserScren extends StatefulWidget {
   const DrawerUserScren({super.key});
+
+  @override
+  State<DrawerUserScren> createState() => _DrawerUserScrenState();
+}
+
+class _DrawerUserScrenState extends State<DrawerUserScren> {
+  Future<void> logout() async {
+    await SaveData.clearAuth();
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const Start()),
+        (route) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,12 +174,7 @@ class DrawerUserScren extends StatelessWidget {
               Icons.logout,
               color: Colors.red,
             ),
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Start()),
-                  (route) => false);
-            },
+            onTap: logout,
           )
         ],
       ),

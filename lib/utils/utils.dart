@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 String timeAgoFromIso(String isoString) {
   DateTime pastTime = DateTime.parse(isoString);
 
@@ -22,5 +26,30 @@ String timeAgoFromIso(String isoString) {
     return '$months bulan yang lalu';
   } else {
     return '$years tahun yang lalu';
+  }
+}
+
+class SaveData {
+  static const _mapKey = 'user_data';
+
+  static Future<void> saveAuth(Map<String, dynamic> data) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = jsonEncode(data);
+    await prefs.setString(_mapKey, jsonData);
+  }
+
+  static Future<Map<String, dynamic>> getAuth() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(_mapKey);
+    if (jsonData != null) {
+      return jsonDecode(jsonData) as Map<String, dynamic>;
+    }
+
+    throw Exception("Error: No authentication found.");
+  }
+
+  static Future<void> clearAuth() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_mapKey);
   }
 }

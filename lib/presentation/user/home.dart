@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/account.dart';
 import 'package:hmtk_app/presentation/user/aspiration/menu_aspiration.dart';
@@ -5,7 +8,9 @@ import 'package:hmtk_app/presentation/user/detail_activity.dart';
 import 'package:hmtk_app/presentation/user/drawer/drawer_user.dart';
 import 'package:hmtk_app/presentation/user/fun-tk/menu_jadwal_funtk.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/item_activity.dart';
+import 'package:http/http.dart';
 
 import 'laboratory/menu_laboratory.dart';
 import 'shop/menu_shop.dart';
@@ -31,7 +36,8 @@ class Home extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.only(bottom: 25, left: 20, right: 20),
+                  padding:
+                      const EdgeInsets.only(bottom: 25, left: 20, right: 20),
                   height: 240,
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.vertical(
@@ -41,19 +47,6 @@ class Home extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // IconButton(
-                      //     onPressed: () {
-                      //       Navigator.push(
-                      //           context,
-                      //           MaterialPageRoute(
-                      //             builder: (context) => DrawerUser(),
-                      //           ));
-                      //     },
-                      //     icon: Icon(
-                      //       Icons.menu,
-                      //       color: Colors.white,
-                      //       size: 30,
-                      //     )),
                       const SizedBox(
                         height: 0,
                       ),
@@ -62,29 +55,43 @@ class Home extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   'Good Morning,',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
-                                Text(
-                                  'Ivan Daniar',
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                )
+                                FutureBuilder<Map<String, dynamic>?>(
+                                    future: SaveData.getAuth(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<Map<String, dynamic>?>
+                                            snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return const Text('');
+                                      } else if (snapshot.hasError) {
+                                        return Text('Error: ${snapshot.error}');
+                                      } else {
+                                        final student = snapshot.data!["user"];
+                                        return Text(
+                                          student["name"],
+                                          style: const TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        );
+                                      }
+                                    }),
                               ],
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.pushReplacement(
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => const Account()));
@@ -309,5 +316,24 @@ class Home extends StatelessWidget {
         )
       ]),
     );
+  }
+}
+
+Future<Response> fetchStudent(int nim) async {
+  try {
+    var response = await get(
+      Uri(
+        scheme: 'https',
+        host: 'myhmtk.jeyy.xyz',
+        path: '/student/$nim',
+      ),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+      },
+    );
+
+    return response;
+  } catch (e) {
+    throw Exception('Failed to load: $e');
   }
 }

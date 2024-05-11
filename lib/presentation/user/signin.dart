@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,7 +26,11 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
   var password = TextEditingController();
   bool isVisible = false;
   // String profileID = ''; // Variabel untuk menyimpan NIM
-  bool _rememberMe = true; // Tambahkan variabel rememberMe
+  bool _rememberMe = false; // Tambahkan variabel rememberMe
+
+  // login info
+  String? userType;
+  int? id;
 
   SharedPreferences? prefs; // Deklarasikan variabel prefs
 
@@ -47,6 +52,13 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
     prefs = await SharedPreferences.getInstance();
   }
 
+  Future<void> saveLoginInfo(String userType, int id, String name) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_type', userType);
+    await prefs.setInt('id', id);
+    await prefs.setString('name', name);
+  }
+
   //fungsi login
   Future<void> _login() async {
     final String inputEmail = email.text;
@@ -65,15 +77,18 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
           if (_rememberMe) {
             prefs?.setString('userData', response.body);
           }
+
           if (userType == 'mahasiswa') {
-            // profileID =
-            //     data['auth']['user']['nim'].toString(); // Simpan value NIM
+            // save login info
+            await SaveData.saveAuth(data["auth"]);
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const Home()),
               (route) => false,
             );
           } else if (userType == 'admin') {
+            // save login info
+            await SaveData.saveAuth(data["auth"]);
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const Dashboard()),

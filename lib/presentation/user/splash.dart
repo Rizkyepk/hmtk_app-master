@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hmtk_app/presentation/user/home.dart';
 import 'package:hmtk_app/presentation/user/start.dart';
+import 'package:hmtk_app/utils/utils.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,11 +13,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // Timer? _timer;
-
   int _start = 1;
 
-  void startTimer() {
+  startTimer() {
     const oneSec = Duration(seconds: 1);
     Timer.periodic(
       oneSec,
@@ -23,11 +23,18 @@ class _SplashScreenState extends State<SplashScreen> {
         if (_start == 0) {
           setState(() {
             timer.cancel();
-            Navigator.pushReplacement(
+            SaveData.getAuth().then((value) {
+              Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const Start(),
-                ));
+                MaterialPageRoute(builder: (context) => const Home()),
+              );
+            }).catchError((e) {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Start(),
+                  ));
+            });
           });
         } else {
           setState(() {
