@@ -163,7 +163,9 @@ class _TimelineState extends State<Timeline> {
       body: MyPage(
           widget: SafeArea(
               child: FutureBuilder(
-                  future: Future.wait([_posts(), SaveData.getAuth()]),
+                  future: data == null
+                      ? Future.wait([_posts(), SaveData.getAuth()])
+                      : Future.value(data!),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<dynamic>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting &&
@@ -172,7 +174,7 @@ class _TimelineState extends State<Timeline> {
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      data = snapshot.data!;
+                      data = snapshot.data;
                       final allPosts =
                           List<Map<String, dynamic>>.from(data![0]);
                       final auth = Map<String, dynamic>.from(data![1]);

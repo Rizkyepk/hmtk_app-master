@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Secrets {
@@ -35,6 +36,11 @@ String timeAgoFromIso(String isoString) {
   } else {
     return '$years tahun yang lalu';
   }
+}
+
+String formatNumber(int number) {
+  NumberFormat formatter = NumberFormat('#,##0', 'id_ID');
+  return formatter.format(number);
 }
 
 class SaveData {

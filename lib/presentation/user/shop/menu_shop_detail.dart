@@ -71,10 +71,12 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
             ],
           ),
           FutureBuilder(
-            future: _product(widget.productId),
+            future:
+                data == null ? _product(widget.productId) : Future.value(data!),
             builder: (BuildContext context,
                 AsyncSnapshot<Map<String, dynamic>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting && data == null) {
+              if (snapshot.connectionState == ConnectionState.waiting &&
+                  data == null) {
                 return const Text('Loading data...');
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
@@ -108,9 +110,20 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.green),
                               ),
-                              const SizedBox(
-                                height: 20,
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              const Text(
+                                'Deskripsi',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
                               ),
+                              Text(
+                                product["description"],
+                                style: const TextStyle(
+                                    fontSize: 14, color: Colors.green),
+                              ),
+                              const SizedBox(height: 20),
                               Row(
                                 children: [
                                   Expanded(
@@ -150,9 +163,11 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                               CircleAvatar(
                                                 child: IconButton(
                                                     onPressed: () {
-                                                      setState(() {
-                                                        jumlah++;
-                                                      });
+                                                      if (jumlah < 30) {
+                                                        setState(() {
+                                                          jumlah++;
+                                                        });
+                                                      }
                                                     },
                                                     icon:
                                                         const Icon(Icons.add)),
@@ -209,7 +224,7 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                                 color: Colors.green),
                                           ),
                                           Text(
-                                            'Rp. ${product["price"]}',
+                                            'Rp${formatNumber(product["price"] * jumlah)}',
                                             style: const TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold),
@@ -235,20 +250,11 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                     const EdgeInsets.only(left: 10, right: 10),
                                 color: Colors.grey.shade300,
                                 child: TextFormField(
+                                  maxLength: 300,
+                                  maxLines: 5,
                                   decoration: const InputDecoration(
                                       border: InputBorder.none),
                                 ),
-                              ),
-                              const SizedBox(height: 20),
-                              const Text(
-                                'Deskripsi',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                product["description"],
-                                style: const TextStyle(
-                                    fontSize: 14, color: Colors.green),
                               ),
                               const SizedBox(
                                 height: 20,
