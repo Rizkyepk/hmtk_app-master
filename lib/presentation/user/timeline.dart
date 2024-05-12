@@ -504,7 +504,7 @@ class _TimelineState extends State<Timeline> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Share.share('${posts[index]["poster"]["name"]} memposting pada aplikasi MyHMTK ${timeAgoFromIso(posts[index]["post_date"])}:\n\n${posts[index]["content"]}', subject: 'Postingan ${posts[index]["poster"]["name"]} di MyHMTK');
+                                      Share.share('${posts[index]["poster"]["name"]} memposting pada aplikasi MyHMTK ${timeAgoFromIso(posts[index]["post_date"])}:\n\n${posts[index]["content"]}\n[${posts[index]["img_url"]}]', subject: 'Postingan ${posts[index]["poster"]["name"]} di MyHMTK');
                                     },
                                     child: const Row(
                                       mainAxisAlignment: MainAxisAlignment.end,

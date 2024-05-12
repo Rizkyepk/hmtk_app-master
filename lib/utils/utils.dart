@@ -68,6 +68,7 @@ Future<String> uploadFileToCDN(File file,
     scheme: 'https',
     host: 'cdn.jeyy.xyz',
     path: '/upload_file_myhmtk',
+    queryParameters: {'content_type': contentType, 'name': name},
   );
 
   var request = MultipartRequest('POST', uri);
