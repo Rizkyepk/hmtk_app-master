@@ -388,7 +388,7 @@ class _TambahShopState extends State<TambahShop> {
                           },
                           child: const Text(
                             'Tambah',
-                            selectionColor: Colors.white,
+                            style: TextStyle(color: Colors.white),
                           )),
                     )
                   ],
