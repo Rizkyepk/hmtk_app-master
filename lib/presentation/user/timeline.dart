@@ -49,10 +49,11 @@ class _TimelineState extends State<Timeline> {
 
   var hapusKomentar = '';
   bool isLike = false;
+  List? data;
+  bool myPostsOnly = false;
 
   @override
   Widget build(BuildContext context) {
-    // int itemCount = 1;
     return Scaffold(
       drawer: const Drawer(
         width: 200,
@@ -69,11 +70,11 @@ class _TimelineState extends State<Timeline> {
             onSelected: (value) {
               if (value == 0) {
                 setState(() {
-                  // itemCount = 4;
+                  myPostsOnly = false;
                 });
               } else {
                 setState(() {
-                  // itemCount = 1;
+                  myPostsOnly = true;
                 });
               }
             },
@@ -119,17 +120,31 @@ class _TimelineState extends State<Timeline> {
       ),
       body: MyPage(
           widget: SafeArea(
-              child: FutureBuilder<List<Map<String, dynamic>>>(
-                  future: _posts(),
+              child: FutureBuilder(
+                  future: Future.wait([_posts(), SaveData.getAuth()]),
                   builder: (BuildContext context,
-                      AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      AsyncSnapshot<List<dynamic>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting &&
+                        data == null) {
                       return const Text('Loading data...');
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      final posts = snapshot.data!;
-                      int itemCount = posts.length;
+                      data = snapshot.data!;
+                      final allPosts =
+                          List<Map<String, dynamic>>.from(data![0]);
+                      final auth = Map<String, dynamic>.from(data![1]);
+
+                      List<Map<String, dynamic>> posts;
+                      if (myPostsOnly) {
+                        posts = allPosts
+                            .where((post) =>
+                                post["poster"]["nim"] == auth["user"]["nim"])
+                            .toList();
+                      } else {
+                        posts = allPosts;
+                      }
+                      var itemCount = posts.length;
 
                       return ListView.builder(
                         padding: const EdgeInsets.all(20),
@@ -168,7 +183,8 @@ class _TimelineState extends State<Timeline> {
                                           ),
                                           Text(
                                             // '8 jam yang lalu',
-                                            timeAgoFromIso(posts[index]["post_date"]),
+                                            timeAgoFromIso(
+                                                posts[index]["post_date"]),
                                             style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 12),
@@ -504,7 +520,10 @@ class _TimelineState extends State<Timeline> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Share.share('${posts[index]["poster"]["name"]} memposting pada aplikasi MyHMTK ${timeAgoFromIso(posts[index]["post_date"])}:\n\n${posts[index]["content"]}\n[${posts[index]["img_url"]}]', subject: 'Postingan ${posts[index]["poster"]["name"]} di MyHMTK');
+                                      Share.share(
+                                          '${posts![index]["poster"]["name"]} memposting pada aplikasi MyHMTK ${timeAgoFromIso(posts[index]["post_date"])}:\n\n${posts[index]["content"]}\n[${posts[index]["img_url"]}]',
+                                          subject:
+                                              'Postingan ${posts[index]["poster"]["name"]} di MyHMTK');
                                     },
                                     child: const Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -580,4 +599,3 @@ Future<http.Response> fetchData() async {
     throw Exception('Failed to load: $e');
   }
 }
-
