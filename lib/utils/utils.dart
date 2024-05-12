@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Secrets {
@@ -57,5 +59,37 @@ class SaveData {
   static Future<void> clearAuth() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_mapKey);
+  }
+}
+
+Future<String> uploadFileToCDN(File file,
+    {String contentType = "image/png", String? name}) async {
+  var uri = Uri(
+    scheme: 'https',
+    host: 'cdn.jeyy.xyz',
+    path: '/upload_file_myhmtk',
+  );
+
+  var request = MultipartRequest('POST', uri);
+  request.headers['auth'] = Secrets.cdnApiKey;
+
+  // Add the file
+  var fileStream = ByteStream(file.openRead());
+  var length = await file.length();
+  var multipartFile = MultipartFile('file', fileStream, length,
+      filename: file.path.split('/').last);
+  request.files.add(multipartFile);
+
+  // Send the request
+  var response = await request.send();
+
+  // Check the response
+  if (response.statusCode == 200) {
+    var responseBody = await response.stream.bytesToString();
+    var parsedResponse = Map<String, dynamic>.from(jsonDecode(responseBody));
+    var url = parsedResponse['url'];
+    return url;
+  } else {
+    throw Exception('Failed to upload file: ${response.reasonPhrase}');
   }
 }

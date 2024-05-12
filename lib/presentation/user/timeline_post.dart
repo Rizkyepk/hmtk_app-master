@@ -1,9 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:hmtk_app/presentation/user/timeline.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../utils/color_pallete.dart';
@@ -16,17 +20,97 @@ class TimelinePost extends StatefulWidget {
 }
 
 class _TimelinePostState extends State<TimelinePost> {
-  bool nonActiveComentar = true;
+  TextEditingController contentController = TextEditingController();
+  bool canComment = true;
 
   File? image;
-  Future getImage() async {
+  Future<void> getImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? imagePicked =
         await picker.pickImage(source: ImageSource.gallery);
-    // image = File(imagePicked!.path);
+
+    if (imagePicked == null) {
+      return;
+    }
+
+    final File imageFile = File(imagePicked.path);
+    double fileSizeMb = await imageFile.length() / (1024 * 1024);
+
+    if (fileSizeMb > 10) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: Batas ukuran file 10MB',
+        btnOkOnPress: () {},
+      ).show();
+    }
+
     setState(() {
-      image = File(imagePicked!.path);
+      image = File(imagePicked.path);
     });
+  }
+
+  Future<void> addPost() async {
+    try {
+      var auth = await SaveData.getAuth();
+
+      if (contentController.text == '') {
+        throw "Teks tidak boleh kosong";
+      }
+
+      String? imgUrl;
+      if (image != null) {
+        imgUrl = await uploadFileToCDN(image!);
+      }
+
+      Map<String, dynamic> params = {
+        'poster_id': auth['user']['nim'].toString(),
+        'post_date': DateTime.now().toIso8601String(),
+        'content': contentController.text,
+        'can_comment': canComment.toString(),
+        if (imgUrl != null) 'img_url': imgUrl
+      };
+
+      var response = await post(
+          Uri(
+            scheme: 'https',
+            host: 'myhmtk.jeyy.xyz',
+            path: '/post',
+            queryParameters: params,
+          ),
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+          });
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        if (data["success"]) {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.rightSlide,
+            title: 'Berhasil menambahkan post baru!',
+            btnOkOnPress: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const Timeline()));
+            },
+          ).show();
+        } else {
+          throw data["message"];
+        }
+      } else {
+        throw "Status code: ${response.statusCode}";
+      }
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: $e',
+        btnOkOnPress: () {},
+      ).show();
+    }
   }
 
   @override
@@ -54,7 +138,7 @@ class _TimelinePostState extends State<TimelinePost> {
                           color: Colors.white,
                         )),
                     InkWell(
-                      onTap: () {},
+                      onTap: addPost,
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         height: 50,
@@ -93,19 +177,18 @@ class _TimelinePostState extends State<TimelinePost> {
               margin: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20), color: Colors.white),
-              child: const TextField(
+              child: TextField(
+                controller: contentController,
                 maxLength: 300,
                 maxLines: 30,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'posting hal yang bermanfaat dan positif...'),
               ),
             ),
           ),
           // Expanded(
-          Container(
-              // flex: 1,
-              child: Padding(
+          Padding(
             padding:
                 const EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
             child: Column(
@@ -117,8 +200,8 @@ class _TimelinePostState extends State<TimelinePost> {
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: SizedBox(
-                                height: 200,
-                                width: double.infinity,
+                                height: 99,
+                                width: 176,
                                 child: Image.file(image!, fit: BoxFit.cover)))),
                     Positioned(
                       top: 10, // Adjust top position as needed
@@ -137,16 +220,16 @@ class _TimelinePostState extends State<TimelinePost> {
                                         .withOpacity(0.2), // Shadow color
                                     spreadRadius: 2, // Spread radius
                                     blurRadius: 5, // Blur radius
-                                    offset: Offset(0, 2), // Offset
+                                    offset: const Offset(0, 2), // Offset
                                   ),
                                 ],
                                 shape: BoxShape
                                     .circle, // Optional: You can change the shape as needed
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.close,
                                 color: Colors.white,
-                                size: 40,
+                                size: 25,
                               ))),
                     ),
                   ]),
@@ -185,31 +268,31 @@ class _TimelinePostState extends State<TimelinePost> {
                           color: Colors.white),
                     ),
                     Switch(
-                        value: nonActiveComentar,
+                        value: canComment,
                         onChanged: (value) {
                           setState(() {
-                            nonActiveComentar = value;
+                            canComment = value;
                           });
                         })
                   ],
                 )
               ],
             ),
-          ))
+          )
         ],
       )),
     );
   }
 }
 
-Future<http.Response> postData(
+Future<Response> postData(
     int posterId, String content, bool canComment, String? imgUrl) async {
   try {
     Map<String, String> params = {
       'poster_id': posterId.toString(),
       'content': content,
       'post_date': DateTime.now().toIso8601String(),
-      // 'can_comment': canComment.toString(),
+      'can_comment': canComment.toString(),
       if (imgUrl != null) 'img_url': imgUrl,
     };
 
