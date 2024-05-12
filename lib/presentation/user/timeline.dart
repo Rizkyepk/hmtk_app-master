@@ -216,8 +216,8 @@ class _TimelineState extends State<Timeline> {
                               ),
                               if (posts[index]["img_url"] != null)
                                 SizedBox(
-                                    height: 200,
-                                    width: double.infinity,
+                                    height: 198,
+                                    width: 352,
                                     child: Image.network(
                                         posts[index]["img_url"],
                                         fit: BoxFit.cover)),
