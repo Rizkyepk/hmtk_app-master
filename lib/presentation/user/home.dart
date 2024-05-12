@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/account.dart';
-import 'package:hmtk_app/presentation/user/aspiration/menu_aspiration.dart';
 import 'package:hmtk_app/presentation/user/detail_activity.dart';
 import 'package:hmtk_app/presentation/user/drawer/drawer_user.dart';
 import 'package:hmtk_app/presentation/user/fun-tk/menu_jadwal_funtk.dart';
+import 'package:hmtk_app/presentation/user/timeline.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/item_activity.dart';
@@ -247,7 +247,7 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const MenuAspiration(),
+                              builder: (context) => const Timeline(),
                             ));
                       },
                       child: Column(
@@ -265,10 +265,10 @@ class Home extends StatelessWidget {
                                   ]),
                               shape: BoxShape.circle,
                             ),
-                            child: Image.asset('assets/aspiration.png'),
+                            child: Image.asset('assets/icon-timeline.png'),
                           ),
                           const Text(
-                            'Aspiration',
+                            'Timeline',
                             style: TextStyle(color: Colors.green),
                           )
                         ],
