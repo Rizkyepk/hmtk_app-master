@@ -7,7 +7,7 @@ import 'package:hmtk_app/presentation/user/timeline_post.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/template_page.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'drawer/drawer_user.dart';
@@ -40,19 +40,62 @@ class _TimelineState extends State<Timeline> {
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
-        title: 'Terjadi kesalahan: $e',
+        title: 'Failed: $e',
         btnOkOnPress: () {},
       ).show();
       return [];
     }
   }
 
-  var hapusKomentar = '';
+  Future<void> deletePost(int postId) async {
+    try {
+      var response = await delete(
+          Uri(
+            scheme: 'https',
+            host: 'myhmtk.jeyy.xyz',
+            path: '/post/$postId',
+          ),
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+          });
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        if (data["success"]) {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.rightSlide,
+            title: 'Berhasil menghapus post!',
+            btnOkOnPress: () {
+              // Navigator.pushReplacement(context,
+              //     MaterialPageRoute(builder: (context) => const Timeline()));
+            },
+          ).show();
+        } else {
+          throw data["message"];
+        }
+      } else {
+        throw "Status code: ${response.statusCode}";
+      }
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: $e',
+        btnOkOnPress: () {},
+      ).show();
+    }
+  }
+
+  // var hapusKomentar = '';
   bool isLike = false;
+  List? data;
+  bool myPostsOnly = false;
 
   @override
   Widget build(BuildContext context) {
-    // int itemCount = 1;
     return Scaffold(
       drawer: const Drawer(
         width: 200,
@@ -69,11 +112,11 @@ class _TimelineState extends State<Timeline> {
             onSelected: (value) {
               if (value == 0) {
                 setState(() {
-                  // itemCount = 4;
+                  myPostsOnly = false;
                 });
               } else {
                 setState(() {
-                  // itemCount = 1;
+                  myPostsOnly = true;
                 });
               }
             },
@@ -119,17 +162,33 @@ class _TimelineState extends State<Timeline> {
       ),
       body: MyPage(
           widget: SafeArea(
-              child: FutureBuilder<List<Map<String, dynamic>>>(
-                  future: _posts(),
+              child: FutureBuilder(
+                  future: data == null
+                      ? Future.wait([_posts(), SaveData.getAuth()])
+                      : Future.value(data!),
                   builder: (BuildContext context,
-                      AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      AsyncSnapshot<List<dynamic>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting &&
+                        data == null) {
                       return const Text('Loading data...');
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      final posts = snapshot.data!;
-                      int itemCount = posts.length;
+                      data = snapshot.data;
+                      final allPosts =
+                          List<Map<String, dynamic>>.from(data![0]);
+                      final auth = Map<String, dynamic>.from(data![1]);
+
+                      List<Map<String, dynamic>> posts;
+                      if (myPostsOnly) {
+                        posts = allPosts
+                            .where((post) =>
+                                post["poster"]["nim"] == auth["user"]["nim"])
+                            .toList();
+                      } else {
+                        posts = allPosts;
+                      }
+                      var itemCount = posts.length;
 
                       return ListView.builder(
                         padding: const EdgeInsets.all(20),
@@ -168,7 +227,8 @@ class _TimelineState extends State<Timeline> {
                                           ),
                                           Text(
                                             // '8 jam yang lalu',
-                                            timeAgoFromIso(posts[index]["post_date"]),
+                                            timeAgoFromIso(
+                                                posts[index]["post_date"]),
                                             style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 12),
@@ -177,32 +237,36 @@ class _TimelineState extends State<Timeline> {
                                       ),
                                     ],
                                   ),
-                                  PopupMenuButton(
-                                    iconSize: 33,
-                                    onSelected: (value) {
-                                      setState(() {
-                                        hapusKomentar = value.toString();
-                                      });
-                                    },
-                                    itemBuilder: (BuildContext context) {
-                                      return const [
-                                        PopupMenuItem(
-                                          value: '1',
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                "Hapus",
-                                                style: TextStyle(
-                                                    color: Colors.red),
-                                              ),
-                                              Icon(Icons.delete,
-                                                  color: Colors.red)
-                                            ],
+                                  if (posts[index]["poster"]["nim"] ==
+                                      auth["user"]["nim"])
+                                    PopupMenuButton(
+                                      iconSize: 33,
+                                      onSelected: (value) {
+                                        setState(() {
+                                          if (value == 1) {
+                                            deletePost(posts[index]["id"]);
+                                          }
+                                        });
+                                      },
+                                      itemBuilder: (BuildContext context) {
+                                        return [
+                                          const PopupMenuItem(
+                                            value: 1,
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "Hapus",
+                                                  style: TextStyle(
+                                                      color: Colors.red),
+                                                ),
+                                                Icon(Icons.delete,
+                                                    color: Colors.red)
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ];
-                                    },
-                                  )
+                                        ];
+                                      },
+                                    )
                                 ],
                               ),
                               const SizedBox(
@@ -381,9 +445,9 @@ class _TimelineState extends State<Timeline> {
                                                             onSelected:
                                                                 (value) {
                                                               setState(() {
-                                                                hapusKomentar =
-                                                                    value
-                                                                        .toString();
+                                                                // hapusKomentar =
+                                                                //     value
+                                                                //         .toString();
                                                               });
                                                             },
                                                             itemBuilder:
@@ -504,7 +568,10 @@ class _TimelineState extends State<Timeline> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Share.share('${posts[index]["poster"]["name"]} memposting pada aplikasi MyHMTK ${timeAgoFromIso(posts[index]["post_date"])}:\n\n${posts[index]["content"]}\n[${posts[index]["img_url"]}]', subject: 'Postingan ${posts[index]["poster"]["name"]} di MyHMTK');
+                                      Share.share(
+                                          '${posts[index]["poster"]["name"]} memposting pada aplikasi MyHMTK ${timeAgoFromIso(posts[index]["post_date"])}:\n\n${posts[index]["content"]}\n[${posts[index]["img_url"]}]',
+                                          subject:
+                                              'Postingan ${posts[index]["poster"]["name"]} di MyHMTK');
                                     },
                                     child: const Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -563,9 +630,9 @@ class _TimelineState extends State<Timeline> {
   }
 }
 
-Future<http.Response> fetchData() async {
+Future<Response> fetchData() async {
   try {
-    var response = await http.get(
+    var response = await get(
         Uri(
           scheme: 'https',
           host: 'myhmtk.jeyy.xyz',
@@ -580,4 +647,3 @@ Future<http.Response> fetchData() async {
     throw Exception('Failed to load: $e');
   }
 }
-

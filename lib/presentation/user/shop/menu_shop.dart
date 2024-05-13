@@ -128,7 +128,7 @@ class MenuShop extends StatelessWidget {
                                                 padding:
                                                     const EdgeInsets.all(20.0),
                                                 child: Text(
-                                                  '${products[index]["name"]}\nRp. ${products[index]["price"]}',
+                                                  '${products[index]["name"]}\nRp${formatNumber(products[index]["price"])}',
                                                   style: const TextStyle(
                                                       fontSize: 18,
                                                       color: Colors.green,
