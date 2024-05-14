@@ -59,8 +59,16 @@ class _TambahShopState extends State<TambahShop> {
 
     try {
       String? imgUrl;
-      if (image != null) {
+      if (image != null || imgUrl == null) {
         imgUrl = await uploadFileToCDN(image!);
+      } else {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.success,
+          animType: AnimType.rightSlide,
+          title: 'Berhasil menambahkan product baru!',
+          btnOkOnPress: () {},
+        ).show();
       }
 
       // var auth = await SaveData.getAuth();
@@ -69,17 +77,14 @@ class _TambahShopState extends State<TambahShop> {
         'name': inputName,
         'price': inputPrice,
         'description': inputDescription,
-        if (imgUrl != null) 'img_url': imgUrl
+        'img_url': imgUrl
       };
-      if (imgUrl != null) {
-        params['img_url'] = imgUrl;
-      }
 
       var response = await post(
           Uri(
             scheme: 'https',
             host: 'myhmtk.jeyy.xyz',
-            path: '/post',
+            path: '/product',
             queryParameters: params,
           ),
           headers: {
@@ -123,8 +128,6 @@ class _TambahShopState extends State<TambahShop> {
         child: DrawerScren(),
       ),
       appBar: AppBar(
-        // title: const Text("GeeksforGeeks"),
-        // titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 200,
         // toolbarOpacity: 0.8,
@@ -413,37 +416,36 @@ class _TambahShopState extends State<TambahShop> {
     );
   }
 
-  Future<http.Response> postDataproduct(String inputName, String inputPrice,
-      String inputDescription, String? imgUrl) async {
-    try {
-      Map<String, String> params = {
-        'name': inputName,
-        'price': inputPrice,
-        'description': inputDescription,
-        if (imgUrl != null) 'img_url': imgUrl
-      };
-      if (imgUrl != null) {
-        // Jika imgUrl tidak null, tambahkan ke params
-        params['img_url'] = imgUrl;
-      }
+  // Future<http.Response> postDataproduct(String inputName, String inputPrice,
+  //     String inputDescription, String? imgUrl) async {
+  //   try {
+  //     Map<String, String> params = {
+  //       'name': inputName,
+  //       'price': inputPrice,
+  //       'description': inputDescription,
+  //       if (imgUrl != null) 'img_url': imgUrl
+  //     };
+  //     if (imgUrl != null) {
+  //       // Jika imgUrl tidak null, tambahkan ke params
+  //       params['img_url'] = imgUrl;
+  //     }
 
-      var response = await http.post(
-        Uri(
-          scheme: 'https',
-          host: 'myhmtk.jeyy.xyz',
-          path: '/auth/login',
-          // queryParameters: params,
-        ),
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
-        },
-        // body: params,
-      );
+  //     var response = await http.post(
+  //       Uri(
+  //         scheme: 'https',
+  //         host: 'myhmtk.jeyy.xyz',
+  //         path: '/product',
+  //         // queryParameters: params,
+  //       ),
+  //       headers: {
+  //         HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+  //       },
+  //       // body: params,
+  //     );
 
-      return response;
-    } catch (e) {
-      throw Exception('Failed to load: $e');
-    }
-  }
+  //     return response;
+  //   } catch (e) {
+  //     throw Exception('Failed to load: $e');
+  //   }
+  // }
 }
-// }
