@@ -1,8 +1,11 @@
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
+import 'package:http/http.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
@@ -16,8 +19,6 @@ class Dashboard extends StatelessWidget {
         child: DrawerScren(),
       ),
       appBar: AppBar(
-        // title: const Text("GeeksforGeeks"),
-        // titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 200,
         // toolbarOpacity: 0.8,
@@ -28,7 +29,8 @@ class Dashboard extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
+                  MaterialPageRoute(
+                      builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
@@ -38,8 +40,35 @@ class Dashboard extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Hello,',
+              ),
+            ),
+            FutureBuilder<Map<String, dynamic>>(
+              future: SaveData.getAuth(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<Map<String, dynamic>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Text('Loading...');
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.connectionState == ConnectionState.done) {
+                  final admin = snapshot.data!['user'];
+                  return Text(
+                    admin['name'],
+                    // style: const TextStyle(
+                    //   fontSize: 30,
+                    //   fontWeight: FontWeight.bold,
+                    //   color: Colors.white,
+                    // ),
+                  );
+                } else {
+                  return const Text('No data available');
+                }
+              },
+            ),
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -72,8 +101,7 @@ class Dashboard extends StatelessWidget {
                       margin: const EdgeInsets.fromLTRB(20, 5, 20, 2),
                       decoration: const BoxDecoration(
                           color: Colors.blue,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
@@ -96,8 +124,8 @@ class Dashboard extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 'Jumlah file materi saat ini',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.blue),
+                                style:
+                                    TextStyle(fontSize: 12, color: Colors.blue),
                               ),
                             ),
                             Align(
@@ -117,8 +145,7 @@ class Dashboard extends StatelessWidget {
                       margin: const EdgeInsets.fromLTRB(0, 5, 20, 2),
                       decoration: const BoxDecoration(
                           color: Colors.green,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
@@ -162,8 +189,7 @@ class Dashboard extends StatelessWidget {
                       margin: const EdgeInsets.fromLTRB(0, 5, 20, 2),
                       decoration: const BoxDecoration(
                           color: Colors.amber,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
@@ -290,5 +316,24 @@ class Dashboard extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+Future<Response> fetchStudent(int id) async {
+  try {
+    var response = await get(
+      Uri(
+        scheme: 'https',
+        host: 'myhmtk.jeyy.xyz',
+        path: '/admin/$id',
+      ),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+      },
+    );
+
+    return response;
+  } catch (e) {
+    throw Exception('Failed to load: $e');
   }
 }
