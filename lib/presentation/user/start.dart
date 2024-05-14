@@ -1,7 +1,9 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/signin.dart';
 import 'package:hmtk_app/presentation/user/signup.dart';
 import 'package:hmtk_app/widget/button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/color_pallete.dart';
 
@@ -77,6 +79,31 @@ class Start extends StatelessWidget {
               ),
             ),
           ),
+          Positioned(
+            top: 30,
+            right: 15,
+            child: IconButton(
+                onPressed: () {
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.question,
+                    animType: AnimType.rightSlide,
+                    title: 'Butuh bantuan?',
+                    btnOkText: 'Hubungi',
+                    btnOkOnPress: () async {
+                      if (!await launchUrl(
+                          Uri.parse('https://linktr.ee/HMTK_TELU'))) {
+                        throw Exception('Ada masalah');
+                      }
+                    },
+                  ).show();
+                },
+                icon: Icon(
+                  Icons.help_outline_rounded,
+                  color: Colors.white,
+                  size: 40,
+                )),
+          )
         ],
       ),
     );
