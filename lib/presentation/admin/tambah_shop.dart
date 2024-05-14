@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:hmtk_app/presentation/admin/daftar_shop.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 class TambahShop extends StatefulWidget {
@@ -23,46 +26,91 @@ class _TambahShopState extends State<TambahShop> {
   final descriptionController = TextEditingController();
 
   Future<void> getImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (imagePicked == null) {
+      return;
+    }
+
+    final File imageFile = File(imagePicked.path);
+    double fileSizeMb = await imageFile.length() / (1024 * 1024);
+
+    if (fileSizeMb > 10) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: Batas ukuran file 10MB',
+        btnOkOnPress: () {},
+      ).show();
+    }
+
     setState(() {
-      if (pickedFile != null) {
-        image = File(pickedFile.path);
-      }
+      image = File(imagePicked.path);
     });
   }
 
-  Future<void> _tambahProduct() async {
+  Future<void> _addProduct() async {
     final String inputName = nameController.text;
     final String inputPrice = priceController.text;
     final String inputDescription = descriptionController.text;
 
-    final response = await fetchData(
-      inputName,
-      inputPrice,
-      inputDescription,
-    );
     try {
+      String? imgUrl;
+      if (image != null) {
+        imgUrl = await uploadFileToCDN(image!);
+      }
+
+      // var auth = await SaveData.getAuth();
+
+      Map<String, String> params = {
+        'name': inputName,
+        'price': inputPrice,
+        'description': inputDescription,
+        if (imgUrl != null) 'img_url': imgUrl
+      };
+      if (imgUrl != null) {
+        params['img_url'] = imgUrl;
+      }
+
+      var response = await post(
+          Uri(
+            scheme: 'https',
+            host: 'myhmtk.jeyy.xyz',
+            path: '/post',
+            queryParameters: params,
+          ),
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+          });
+
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
         final bool success = data['success'];
         if (success) {
-          // Berhasil menambahkan produk, tambahkan logika lain di sini jika diperlukan
-          final String message = data['message'];
-          throw message;
-          // print('Produk berhasil ditambahkan');
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.rightSlide,
+            title: 'Berhasil menambahkan product baru!',
+            btnOkOnPress: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const DaftarShop()),
+              );
+            },
+          ).show();
         } else {
-          // Gagal menambahkan produk, mungkin ada pesan kesalahan dari server
           final String errorMessage = data['message'];
           throw errorMessage;
         }
       } else {
-        // Response tidak berhasil (kode status bukan 200)
         throw 'Gagal menambahkan produk: ${response.statusCode}';
       }
     } catch (e) {
-      // Terjadi kesalahan selama proses
-      throw Exception("Error: $e");
+      throw Exception("Errors: $e");
     }
   }
 
@@ -113,25 +161,25 @@ class _TambahShopState extends State<TambahShop> {
       ),
       body: ListView(
         children: [
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+              Padding(
                   padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
                   child: Text(
-                    'Tambah Produk',
+                    'Tambah Produk !',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
                   )),
-              Container(
-                padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
-                child: const Text(
-                  'Form yang di unggah akan ditampilkan di halaman Shop',
-                  style: TextStyle(fontSize: 12),
-                ),
-              ),
+              // Container(
+              //   padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
+              //   child: const Text(
+              //     'Form yang di unggah akan ditampilkan di halaman Shop',
+              //     style: TextStyle(fontSize: 12),
+              //   ),
+              // ),
             ],
           ),
           Container(
@@ -206,82 +254,87 @@ class _TambahShopState extends State<TambahShop> {
                         fontSize: 12,
                       ),
                     ),
-                    Row(
+                    Stack(
                       children: [
-                        InkWell(
-                          child: Container(
-                            height: 25,
-                            width: 70,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.black,
-                                width: 2.0,
-                              ),
-                            ),
-                            child: const Column(
-                              children: [
-                                Text(
-                                  "choose file",
-                                  style: TextStyle(fontSize: 11),
-                                )
-                              ],
+                        Container(
+                          height: 250,
+                          width: 400,
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 2.0,
                             ),
                           ),
-                          onTap: () async {
-                            await getImage();
-                          },
+                          child: image != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.file(
+                                    image!,
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                              : const Icon(
+                                  Icons.image,
+                                  size: 50,
+                                  color: Colors.black,
+                                ),
                         ),
-                        //belum bisa masukin gambar
-                        Container(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                            child: const Text(
-                              'no file chosen',
-                              style: TextStyle(fontSize: 11),
-                            ))
+                        if (image != null)
+                          Positioned(
+                            top: 5,
+                            right: 5,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  image = null;
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.7),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Icon(
+                                  Icons.close,
+                                  color: Colors.black,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
-                    const Column(
-                      children: [
-                        Text(
-                          'ukuran file foto max 5 mb ( jpg atau png)',
-                          style: TextStyle(fontSize: 11),
-                        )
-                      ],
+                    InkWell(
+                      onTap: () async {
+                        await getImage();
+                      },
+                      child: Container(
+                        height: 25,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "Choose File",
+                            style: TextStyle(fontSize: 11),
+                          ),
+                        ),
+                      ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                      width: 10,
+                    const Text(
+                      'Ukuran file foto maksimum 10 MB (jpg atau png)',
+                      style: TextStyle(fontSize: 11),
                     ),
-                    // const Text(
-                    //   "Jumlah",
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //     fontSize: 12,
-                    //   ),
-                    // ),
-                    // Container(
-                    //   margin: const EdgeInsets.only(bottom: 10),
-                    //   padding: const EdgeInsets.only(left: 10),
-                    //   height: 30,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius:
-                    //         const BorderRadius.all(Radius.circular(5.0)),
-                    //     border: Border.all(
-                    //       color: const Color.fromARGB(255, 0, 0, 0)
-                    //           .withOpacity(0.3),
-                    //       width: 2.0,
-                    //     ),
-                    //   ),
-                    //   child: const TextField(
-                    //     decoration: InputDecoration(
-                    //       border: InputBorder.none,
-                    //     ),
-                    //   ),
-                    // ),
-                    const SizedBox(
-                      height: 10,
-                      width: 10,
-                    ),
+                    const SizedBox(height: 10),
                     const Text(
                       "Harga",
                       style: TextStyle(
@@ -309,10 +362,7 @@ class _TambahShopState extends State<TambahShop> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                      width: 10,
-                    ),
+                    const SizedBox(height: 10),
                     const Text(
                       "Deskripsi",
                       style: TextStyle(
@@ -340,86 +390,54 @@ class _TambahShopState extends State<TambahShop> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                      width: 10,
-                    ),
-                    // const Text(
-                    //   "Info Tambahan",
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //     fontSize: 12,
-                    //   ),
-                    // ),
-                    // Container(
-                    //   margin: const EdgeInsets.only(bottom: 10),
-                    //   padding: const EdgeInsets.only(left: 10),
-                    //   height: 30,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius:
-                    //         const BorderRadius.all(Radius.circular(5.0)),
-                    //     border: Border.all(
-                    //       color: const Color.fromARGB(255, 0, 0, 0)
-                    //           .withOpacity(0.3),
-                    //       width: 2.0,
-                    //     ),
-                    //   ),
-                    //   child: const TextField(
-                    //     decoration: InputDecoration(
-                    //       border: InputBorder.none,
-                    //     ),
-                    //   ),
-                    // ),
                     Container(
                       alignment: Alignment.center,
                       child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 1, 122, 5),
-                          ),
-                          onPressed: () {
-                            _tambahProduct();
-                            Navigator.push(
-                              context,
-                              // DetailPage adalah halaman yang dituju
-                              MaterialPageRoute(
-                                  builder: (context) => const DaftarShop()),
-                            );
-                          },
-                          child: const Text(
-                            'Tambah',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    )
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 1, 122, 5),
+                        ),
+                        onPressed: _addProduct,
+                        child: const Text(
+                          'Tambah',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-  Future<http.Response> fetchData(
-      String inputName, String inputPrice, String inputDescription) async {
+  Future<http.Response> postDataproduct(String inputName, String inputPrice,
+      String inputDescription, String? imgUrl) async {
     try {
       Map<String, String> params = {
         'name': inputName,
         'price': inputPrice,
         'description': inputDescription,
+        if (imgUrl != null) 'img_url': imgUrl
       };
+      if (imgUrl != null) {
+        // Jika imgUrl tidak null, tambahkan ke params
+        params['img_url'] = imgUrl;
+      }
 
       var response = await http.post(
         Uri(
           scheme: 'https',
           host: 'myhmtk.jeyy.xyz',
           path: '/auth/login',
-          queryParameters: params,
+          // queryParameters: params,
         ),
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer myhmtk-app-key',
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
         },
+        // body: params,
       );
 
       return response;
@@ -428,3 +446,4 @@ class _TambahShopState extends State<TambahShop> {
     }
   }
 }
+// }
