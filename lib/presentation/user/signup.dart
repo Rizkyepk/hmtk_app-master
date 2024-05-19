@@ -150,7 +150,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                     child: TextFormField(
                       controller: fullname,
                       decoration: InputDecoration(
-                        hintText: 'Ivan Daniar',
+                        hintText: '',
                         border: InputBorder.none,
                         prefixIcon: Container(
                           width: 100,
@@ -173,7 +173,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                     child: TextFormField(
                       controller: nim,
                       decoration: InputDecoration(
-                        hintText: '110320....',
+                        hintText: '',
                         border: InputBorder.none,
                         prefixIcon: Container(
                           width: 100,

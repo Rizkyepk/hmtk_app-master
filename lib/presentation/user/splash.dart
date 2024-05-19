@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hmtk_app/presentation/admin/dashboard.dart';
 import 'package:hmtk_app/presentation/user/home.dart';
 import 'package:hmtk_app/presentation/user/start.dart';
 import 'package:hmtk_app/utils/utils.dart';
@@ -24,10 +25,17 @@ class _SplashScreenState extends State<SplashScreen> {
           setState(() {
             timer.cancel();
             SaveData.getAuth().then((value) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const Home()),
-              );
+              if (value['user_type'] == 'mahasiswa') {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Home()),
+                );
+              } else if (value['user_type'] == 'admin') {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Dashboard()),
+                );
+              }
             }).catchError((e) {
               Navigator.pushReplacement(
                   context,
