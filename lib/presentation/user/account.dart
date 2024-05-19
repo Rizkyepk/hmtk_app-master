@@ -76,7 +76,7 @@ class _AccountState extends State<Account> {
                           ),
                           Text(
                             user['name'],
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),

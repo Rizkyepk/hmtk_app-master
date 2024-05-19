@@ -18,7 +18,7 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
   bool tapFavorite = false;
   @override
   Widget build(BuildContext context) {
-    Future<Map<String, dynamic>> _funTks(int funTkId) async {
+    Future<Map<String, dynamic>> funTks(int funTkId) async {
       try {
         final response = await fetchFunTks(funTkId);
 
@@ -41,7 +41,7 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
     return Scaffold(
         appBar: AppBar(),
         body: FutureBuilder(
-            future: _funTks(widget.funTkId),
+            future: funTks(widget.funTkId),
             builder: (BuildContext context,
                 AsyncSnapshot<Map<String, dynamic>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {

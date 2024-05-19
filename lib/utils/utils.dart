@@ -100,3 +100,20 @@ Future<String> uploadFileToCDN(File file,
     throw Exception('Failed to upload file: ${response.reasonPhrase}');
   }
 }
+
+
+enum FutureStatus {
+  loading,
+  success,
+  error,
+}
+
+class FutureResult<T> {
+  FutureStatus? status;
+  T? data;
+  String? errorMessage;
+
+  FutureResult.loading() : status = FutureStatus.loading, data = null, errorMessage = null;
+  FutureResult.success(this.data) : status = FutureStatus.success, errorMessage = null;
+  FutureResult.error(this.errorMessage) : status = FutureStatus.error, data = null;
+}
