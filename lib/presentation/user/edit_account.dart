@@ -48,7 +48,13 @@ class _EditAccountState extends State<EditAccount> {
 
       await SaveData.saveAuth({
         'user_type': 'mahasiswa',
-        'user': {'nim': nim, 'name': fullName, 'email': email, 'tel': noTelp, 'pass_hash': null}
+        'user': {
+          'nim': nim,
+          'name': fullName,
+          'email': email,
+          'tel': noTelp,
+          'pass_hash': null
+        }
       });
 
 // Encode body request sebagai JSON
@@ -98,17 +104,17 @@ class _EditAccountState extends State<EditAccount> {
 
     String email = emailController.text;
     String? pass = passController.text.isEmpty ? null : passController.text;
-    print("PASS: $pass");
+    // print("PASS: $pass");
 
     // Cetak data yang akan diinputkan berserta tipe datanya
-    print('Name: $name (${name.runtimeType})');
-    print('Tel: $tel (${tel.runtimeType})');
-    print('Email: $email (${email.runtimeType})');
-    print('Password: $pass (${pass.runtimeType})');
+    // print('Name: $name (${name.runtimeType})');
+    // print('Tel: $tel (${tel.runtimeType})');
+    // print('Email: $email (${email.runtimeType})');
+    // print('Password: $pass (${pass.runtimeType})');
 
     try {
       // Panggil metode updateData untuk melakukan pembaruan ke server
-      final response = await updateData(name, nim, tel!, email, pass);
+      final response = await updateData(name, nim, tel, email, pass);
 
       if (response.statusCode == 200) {
         AwesomeDialog(

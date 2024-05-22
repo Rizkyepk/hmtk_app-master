@@ -1,10 +1,14 @@
 import 'dart:io';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:hmtk_app/utils/utils.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/daftar_laboratory.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 class TambahLab extends StatefulWidget {
@@ -14,16 +18,83 @@ class TambahLab extends StatefulWidget {
   State<TambahLab> createState() => _TambahActivtyState();
 }
 
-File? image;
-Future getImage() async {
-  final ImagePicker picker = ImagePicker();
-  final XFile? imagePicked =
-      await picker.pickImage(source: ImageSource.gallery);
-  image = File(imagePicked!.path);
-}
-
 class _TambahActivtyState extends State<TambahLab> {
-  var valLab = 'MAGICS Laboratory';
+  File? image;
+  var valLab = 'magics'; // Initialize with a default value
+  // var judulController = TextEditingController();
+  var contentController = TextEditingController();
+
+  Future<void> getImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (imagePicked == null) {
+      return;
+    }
+
+    final File imageFile = File(imagePicked.path);
+    double fileSizeMb = await imageFile.length() / (1024 * 1024);
+
+    if (fileSizeMb > 10) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: Batas ukuran file 10MB',
+        btnOkOnPress: () {},
+      ).show();
+    }
+
+    setState(() {
+      image = File(imagePicked.path);
+    });
+  }
+
+  Future<void> tambahLabPost() async {
+    String? imgUrl;
+    if (image != null) {
+      imgUrl = await uploadFileToCDN(image!);
+    }
+
+    try {
+      var response = await postData(DateTime.now().toIso8601String(), valLab,
+          contentController.text, imgUrl);
+      if (response.statusCode == 200) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.success,
+          animType: AnimType.bottomSlide,
+          title: 'Success',
+          desc: 'Laboratory added successfully!',
+          btnOkOnPress: () {},
+        ).show();
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const DaftarLaboratory()),
+        );
+      } else {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.bottomSlide,
+          title: 'Error',
+          desc: 'Failed to add laboratory: ${response.body}',
+          btnOkOnPress: () {},
+        ).show();
+      }
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.bottomSlide,
+        title: 'Exception',
+        desc: 'An error occurred: $e',
+        btnOkOnPress: () {},
+      ).show();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,33 +222,34 @@ class _TambahActivtyState extends State<TambahLab> {
                             // style: TextStyle(fontSize: 16),
                             items: const [
                               DropdownMenuItem(
-                                value: 'MAGICS Laboratory',
+                                value: 'magics',
                                 child: Text('MAGICS Laboratory'),
                               ),
                               DropdownMenuItem(
-                                value: 'SEA Laboratory',
+                                value: 'sea',
                                 child: Text('SEA Laboratory'),
                               ),
                               DropdownMenuItem(
-                                value: 'RnEST Laboratory',
-                                child: Text('RnEST Laboratory'),
+                                value: 'rnest',
+                                child: Text('RnEST'),
                               ),
                               DropdownMenuItem(
-                                value: 'i-SMILE Laboratory',
-                                child: Text('i-SMILE Laboratory'),
+                                value: 'ismile',
+                                child: Text('i-SMILE'),
                               ),
                               DropdownMenuItem(
-                                value: 'Security Laboratory',
-                                child: Text('Security Laboratory'),
+                                value: 'security',
+                                child: Text('Security'),
                               ),
                               DropdownMenuItem(
-                                value: 'Evconn Laboratory',
-                                child: Text('Evconn Laboratory'),
+                                value: 'evconn',
+                                child: Text('Evconn'),
                               ),
                             ],
                             onChanged: (val) {
                               setState(() {
-                                valLab = val.toString();
+                                // valLab = val.toString();
+                                valLab = val!;
                               });
                             })),
                     Container(
@@ -188,35 +260,43 @@ class _TambahActivtyState extends State<TambahLab> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Judul Laboratory",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.only(left: 10),
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 0, 0, 0)
-                              .withOpacity(0.3),
-                          width: 2.0,
-                        ),
-                      ),
-                      child: const TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
+                    // const Text(
+                    //   "Judul Laboratory",
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //     fontSize: 12,
+                    //   ),
+                    // ),
+                    // Container(
+                    //   margin: const EdgeInsets.only(bottom: 10),
+                    //   padding: const EdgeInsets.only(left: 10),
+                    //   height: 30,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius:
+                    //         const BorderRadius.all(Radius.circular(5.0)),
+                    //     border: Border.all(
+                    //       color: const Color.fromARGB(255, 0, 0, 0)
+                    //           .withOpacity(0.3),
+                    //       width: 2.0,
+                    //     ),
+                    //   ),
+                    //   child: const TextField(
+                    //     controller: judulController,
+                    //     decoration: InputDecoration(
+                    //       border: InputBorder.none,
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(
                       height: 10,
                       width: 10,
+                    ),
+                    if (image != null)
+                    Image.file(
+                      image!,
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
                     ),
                     const Text(
                       "Uploud Foto",
@@ -290,7 +370,8 @@ class _TambahActivtyState extends State<TambahLab> {
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
+                      child: TextField(
+                        controller: contentController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                         ),
@@ -307,15 +388,7 @@ class _TambahActivtyState extends State<TambahLab> {
                             backgroundColor:
                                 const Color.fromARGB(255, 1, 122, 5),
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              // DetailPage adalah halaman yang dituju
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const DaftarLaboratory()),
-                            );
-                          },
+                          onPressed: tambahLabPost,
                           child: const Text('Tambah')),
                     )
                   ],
@@ -326,5 +399,32 @@ class _TambahActivtyState extends State<TambahLab> {
         ],
       ),
     );
+  }
+}
+
+Future<Response> postData(
+    String postDate, String lab, String content, String? imgUrl) async {
+  try {
+    Map<String, String> params = {
+      'post_date': DateTime.now().toIso8601String(),
+      'lab': lab,
+      'content': content,
+      if (imgUrl != null) 'img_url': imgUrl,
+    };
+
+    var response = await http.post(
+        Uri(
+          scheme: 'https',
+          host: 'myhmtk.jeyy.xyz',
+          path: '/lab_post',
+          queryParameters: params,
+        ),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+        });
+
+    return response;
+  } catch (e) {
+    throw Exception('Failed to load: $e');
   }
 }
