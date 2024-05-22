@@ -43,7 +43,8 @@ class _TambahActivtyState extends State<TambahLab> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
+                  MaterialPageRoute(
+                      builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
@@ -54,7 +55,8 @@ class _TambahActivtyState extends State<TambahLab> {
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0),
+                child: const Text('Hello, Ivan'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -90,7 +92,8 @@ class _TambahActivtyState extends State<TambahLab> {
           ),
           Container(
             margin: const EdgeInsets.all(20),
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   blurRadius: 1,
@@ -136,8 +139,8 @@ class _TambahActivtyState extends State<TambahLab> {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
-                            color:
-                                const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                            color: const Color.fromARGB(255, 0, 0, 0)
+                                .withOpacity(0.3),
                             width: 2.0,
                           ),
                         ),
@@ -197,10 +200,11 @@ class _TambahActivtyState extends State<TambahLab> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 30,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
@@ -278,10 +282,11 @@ class _TambahActivtyState extends State<TambahLab> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 90,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
@@ -299,14 +304,16 @@ class _TambahActivtyState extends State<TambahLab> {
                       alignment: Alignment.center,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 1, 122, 5),
+                            backgroundColor:
+                                const Color.fromARGB(255, 1, 122, 5),
                           ),
                           onPressed: () {
                             Navigator.push(
                               context,
                               // DetailPage adalah halaman yang dituju
                               MaterialPageRoute(
-                                  builder: (context) => const DaftarLaboratory()),
+                                  builder: (context) =>
+                                      const DaftarLaboratory()),
                             );
                           },
                           child: const Text('Tambah')),
