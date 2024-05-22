@@ -10,9 +10,11 @@ Widget snap(Function(Map<String, dynamic> user) buildAccountWidget) {
         return const CircularProgressIndicator();
       } else if (snapshot.hasError) {
         return Text('Error: ${snapshot.error}');
-      } else {
-        final user = snapshot.data!["user"];
+      } else if (snapshot.hasData && snapshot.data != null) {
+        final user = snapshot.data!["user"] ?? {};
         return buildAccountWidget(user);
+      } else {
+        return const Text('No user data found');
       }
     },
   );
