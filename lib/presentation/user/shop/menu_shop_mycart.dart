@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/shop/menu_shop_metode_pembayaran.dart';
-import 'package:hmtk_app/presentation/user/shop/menu_shop_pesanan_berhasil.dart';
+import 'package:hmtk_app/presentation/user/shop/menu_shop_paymeny.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/button.dart';
 import 'package:hmtk_app/widget/template_page.dart';
@@ -119,6 +119,67 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
     }
   }
 
+  Future<void> checkoutCart(List<int> cartIds) async {
+    try {
+      print(cartIds);
+      var auth = await SaveData.getAuth();
+
+      var response = await post(
+          Uri(
+            scheme: 'https',
+            host: 'myhmtk.jeyy.xyz',
+            path: '/student/${auth["user"]["nim"]}/transactions',
+          ),
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+            HttpHeaders.contentTypeHeader: 'application/json',
+          },
+          body: jsonEncode(cartIds));
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        if (data["success"]) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      PaymentPage(paymentUrl: data["payment_url"])));
+
+          // if (await canLaunchUrl(Uri.parse(data["payment_url"]))) {
+          //   await launchUrl(Uri.parse(data["payment_url"]));
+          // } else {
+          //   throw "Could not launch Midtrans URL";
+          // }
+
+          // AwesomeDialog(
+          //   context: context,
+          //   dialogType: DialogType.success,
+          //   animType: AnimType.rightSlide,
+          //   title: 'Berhasil menghapus barang di cart!',
+          //   btnOkOnPress: () {
+          //     Navigator.pushReplacement(
+          //         context,
+          //         MaterialPageRoute(
+          //             builder: (context) => const MenuShopMycart()));
+          //   },
+          // ).show();
+        } else {
+          throw data["message"];
+        }
+      } else {
+        throw "Status code: ${response.statusCode}, ${response.body}";
+      }
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: $e',
+        btnOkOnPress: () {},
+      ).show();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -130,173 +191,208 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
     return Scaffold(
       appBar: AppBar(title: const Text('My Cart')),
       body: MyPage(
-          widget: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (futureResult == null ||
-              futureResult!.status == FutureStatus.loading)
-            const Text("Loading..."),
-          if (futureResult?.status == FutureStatus.error)
-            Text('Error: ${futureResult?.errorMessage}'),
-          if (futureResult?.status == FutureStatus.success &&
-              futureResult?.data != null)
-            ListView.builder(
-                itemCount: futureResult!.data!.length,
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(20),
-                itemBuilder: (context, index) {
-                  final carts = futureResult!.data!;
-
-                  return Container(
-                    padding: const EdgeInsets.all(15),
-                    margin: const EdgeInsets.only(bottom: 25),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white),
-                    child: Stack(
-                      children: [
-                        Row(
-                          children: [
-                            Image.network(
-                                // 'assets/jersey pemain detail.png',
-                                carts[index]["product"]["img_url"],
-                                width: 70,
-                                height: 70,
-                                fit: BoxFit.contain),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  // 'Jersey Pemain',
-                                  carts[index]["product"]["name"],
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Harga: Rp${formatNumber(carts[index]["product"]["price"])}',
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Jumlah: ${carts[index]["quantity"]}   Size: ${carts[index]["size"].toUpperCase()}',
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 4, bottom: 2, right: 4, top: 2),
-                                  decoration: BoxDecoration(
-                                      color: ColorPallete.blue,
-                                      shape: BoxShape.rectangle,
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Text(
-                                    'Total: Rp${formatNumber(carts[index]["product"]["price"] * carts[index]["quantity"])}',
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     Row(
-                                //       mainAxisAlignment:
-                                //           MainAxisAlignment.spaceBetween,
-                                //       children: [
-                                //         CircleAvatar(
-                                //           child: IconButton(
-                                //               onPressed: () {
-                                //                 if (jumlah > 1) {
-                                //                   setState(() {
-                                //                     jumlah--;
-                                //                   });
-                                //                 }
-                                //               },
-                                //               icon: const Icon(
-                                //                 Icons.remove,
-                                //                 size: 20,
-                                //               )),
-                                //         ),
-                                //         Padding(
-                                //           padding: const EdgeInsets.only(
-                                //               left: 10, right: 10),
-                                //           child: Text(
-                                //             '$jumlah',
-                                //             style: const TextStyle(
-                                //                 fontSize: 20,
-                                //                 color: Colors.blue),
-                                //           ),
-                                //         ),
-                                //         CircleAvatar(
-                                //           child: IconButton(
-                                //               onPressed: () {
-                                //                 if (jumlah < 30) {
-                                //                   setState(() {
-                                //                     jumlah++;
-                                //                   });
-                                //                 }
-                                //               },
-                                //               icon: const Icon(
-                                //                 Icons.add,
-                                //                 size: 20,
-                                //               )),
-                                //         ),
-                                //       ],
-                                //     ),
-                                //     const SizedBox(
-                                //       width: 10,
-                                //     ),
-                                //     DropdownButton(
-                                //       value: valueUkuran,
-                                //       focusColor: Colors.blue,
-                                //       style: const TextStyle(
-                                //           color: Colors.blue, fontSize: 18),
-                                //       iconEnabledColor: Colors.blue,
-                                //       onChanged: (value) {
-                                //         setState(() {
-                                //           valueUkuran = value!;
-                                //         });
-                                //       },
-                                //       items: ukurans
-                                //           .map((e) => DropdownMenuItem(
-                                //                 value: e,
-                                //                 child: Text(
-                                //                   e,
-                                //                 ),
-                                //               ))
-                                //           .toList(),
-                                //     ),
-                                //   ],
-                                // ),
-                              ],
-                            )
-                          ],
-                        ),
-                        Positioned(
-                          right: 0,
-                          top: 22,
-                          child: IconButton(
-                              onPressed: () {
-                                deleteCart(carts[index]["id"]).then((_) {
-                                  setState(() {});
-                                });
-                              },
-                              icon:
-                                  const Icon(Icons.delete, color: Colors.red)),
-                        )
-                      ],
+        widget: ListView.builder(
+          padding: const EdgeInsets.all(20),
+          itemCount: futureResult == null
+              ? 1
+              : futureResult!.status == FutureStatus.success &&
+                      futureResult!.data != null
+                  ? futureResult!.data!.length
+                  : 1,
+          itemBuilder: (context, index) {
+            if (futureResult == null ||
+                futureResult!.status == FutureStatus.loading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (futureResult!.status == FutureStatus.error) {
+              return Center(
+                  child: Text('Error: ${futureResult?.errorMessage}'));
+            } else if (futureResult!.status == FutureStatus.success &&
+                futureResult!.data != null) {
+              final carts = futureResult!.data!;
+              return Container(
+                padding: const EdgeInsets.all(5),
+                margin: const EdgeInsets.only(bottom: 15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                ),
+                child: ExpansionTile(
+                  shape: const Border(),
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                  leading: Image.network(
+                    carts[index]["product"]["img_url"],
+                    width: 70,
+                    height: 70,
+                    fit: BoxFit.contain,
+                  ),
+                  title: Text(
+                    carts[index]["product"]["name"],
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                  );
-                }),
-        ],
-      )),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Harga: Rp${formatNumber(carts[index]["product"]["price"])}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Jumlah: ${carts[index]["quantity"]}   Size: ${carts[index]["size"].toUpperCase()}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                          left: 4,
+                          bottom: 2,
+                          right: 4,
+                          top: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: ColorPallete.blue,
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          'Total: Rp${formatNumber(carts[index]["product"]["price"] * carts[index]["quantity"])}',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Text(
+                        'Info tambahan: ${carts[index]["information"] ?? "-"}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        deleteCart(carts[index]["id"]);
+                      },
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return const SizedBox.shrink();
+          },
+        ),
+      ),
+      // MyPage(
+      //     widget: ListView(
+      //   scrollDirection: Axis.vertical,
+      //   children: [
+      //     if (futureResult == null ||
+      //         futureResult!.status == FutureStatus.loading)
+      //       const Text("Loading..."),
+      //     if (futureResult?.status == FutureStatus.error)
+      //       Text('Error: ${futureResult?.errorMessage}'),
+      //     if (futureResult?.status == FutureStatus.success &&
+      //         futureResult?.data != null)
+      //       Expanded(
+      //         child:
+      //           ListView.builder(
+      //               itemCount: futureResult?.data?.length ?? 0,
+      //               shrinkWrap: true,
+      //               padding: const EdgeInsets.all(20),
+      //               itemBuilder: (context, index) {
+      //                 final carts = futureResult?.data ?? [];
+
+      //                 return Container(
+      //                   padding: const EdgeInsets.all(5),
+      //                   margin: const EdgeInsets.only(bottom: 15),
+      //                   decoration: BoxDecoration(
+      //                     borderRadius: BorderRadius.circular(20),
+      //                     color: Colors.white,
+      //                   ),
+      //                   child: ExpansionTile(
+      //                     shape: const Border(),
+      //                     expandedCrossAxisAlignment: CrossAxisAlignment.start,
+      //                     leading: Image.network(
+      //                       carts[index]["product"]["img_url"],
+      //                       width: 70,
+      //                       height: 70,
+      //                       fit: BoxFit.contain,
+      //                     ),
+      //                     title: Text(
+      //                       carts[index]["product"]["name"],
+      //                       style: const TextStyle(
+      //                           fontSize: 16, fontWeight: FontWeight.bold),
+      //                     ),
+      //                     subtitle: Column(
+      //                       crossAxisAlignment: CrossAxisAlignment.start,
+      //                       children: [
+      //                         Text(
+      //                           'Harga: Rp${formatNumber(carts[index]["product"]["price"])}',
+      //                           style: const TextStyle(
+      //                               fontSize: 14, fontWeight: FontWeight.bold),
+      //                         ),
+      //                         Text(
+      //                           'Jumlah: ${carts[index]["quantity"]}   Size: ${carts[index]["size"].toUpperCase()}',
+      //                           style: const TextStyle(
+      //                               fontSize: 14, fontWeight: FontWeight.bold),
+      //                         ),
+      //                         Container(
+      //                           padding: const EdgeInsets.only(
+      //                             left: 4,
+      //                             bottom: 2,
+      //                             right: 4,
+      //                             top: 2,
+      //                           ),
+      //                           decoration: BoxDecoration(
+      //                             color: ColorPallete.blue,
+      //                             shape: BoxShape.rectangle,
+      //                             borderRadius: BorderRadius.circular(5),
+      //                           ),
+      //                           child: Text(
+      //                             'Total: Rp${formatNumber(carts[index]["product"]["price"] * carts[index]["quantity"])}',
+      //                             style: const TextStyle(
+      //                                 fontSize: 14,
+      //                                 fontWeight: FontWeight.bold),
+      //                           ),
+      //                         ),
+      //                       ],
+      //                     ),
+      //                     children: [
+      //                       Padding(
+      //                         padding: const EdgeInsets.all(4),
+      //                         child: Text(
+      //                           'Info tambahan: ${carts[index]["information"] ?? "-"}',
+      //                           style: const TextStyle(
+      //                               fontSize: 14, fontWeight: FontWeight.bold),
+      //                         ),
+      //                       ),
+      //                       IconButton(
+      //                         onPressed: () {
+      //                           deleteCart(carts[index]["id"]);
+      //                         },
+      //                         icon: const Icon(Icons.delete, color: Colors.red),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 );
+      //               }),
+      //     )],
+      //       ),
+      // ),
       bottomNavigationBar: InkWell(
         onTap: () {
           showModalBottomSheet<dynamic>(
@@ -508,7 +604,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          'Rp. 5.000',
+                          'Rp. 0',
                           style: TextStyle(
                             fontSize: 16,
                           ),
@@ -545,7 +641,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                                     FutureStatus.success &&
                                 futureResult?.data != null)
                               Text(
-                                'Rp${formatNumber(futureResult!.data!.map<int>((cart) => cart['quantity'] * cart['product']['price']).reduce((a, b) => a + b) + 5000)}',
+                                'Rp${formatNumber(futureResult?.data?.isNotEmpty == true ? futureResult!.data!.map<int>((cart) => cart['quantity'] * cart['product']['price']).reduce((a, b) => a + b) : 0)}',
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -567,12 +663,26 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                     alignment: Alignment.center,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const MenuShopPesananBerhasil(),
-                            ));
+                        if (futureResult?.data?.isNotEmpty == true) {
+                          print('--- not empty');
+                          checkoutCart(futureResult!.data!
+                              .map<int>((item) => item["id"])
+                              .toList());
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           const MenuShopPesananBerhasil(),
+                          //     ));
+                        } else {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            title: 'Cart Kosong!',
+                            btnOkOnPress: () {},
+                          ).show();
+                        }
                       },
                       child: const MyButton(
                         txt: 'BAYAR SEKARANG',
@@ -609,7 +719,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                         : futureResult?.status == FutureStatus.success &&
                                 futureResult?.data != null
                             ? Text(
-                                'Rp${formatNumber(futureResult!.data!.map<int>((cart) => cart['quantity'] * cart['product']['price']).reduce((a, b) => a + b))}',
+                                'Rp${formatNumber(futureResult?.data?.isNotEmpty == true ? futureResult!.data!.map<int>((cart) => cart['quantity'] * cart['product']['price']).reduce((a, b) => a + b) : 0)}',
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
