@@ -7,6 +7,7 @@ import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/button.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class MenuShopDetail extends StatefulWidget {
   // final String title, harga, gambar;
@@ -19,11 +20,12 @@ class MenuShopDetail extends StatefulWidget {
 }
 
 class _MenuShopDetailState extends State<MenuShopDetail> {
+  TextEditingController infoController = TextEditingController();
   int jumlah = 1;
   Map<String, dynamic>? data;
 
-  List<String> ukurans = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-  String valueUkuran = 'S';
+  List<String> ukurans = ['S', 'M', 'L', 'XL', 'XXL'];
+  String valueUkuran = 'M';
 
   Future<Map<String, dynamic>> _product(int productId) async {
     try {
@@ -42,6 +44,58 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
       }
     } catch (e) {
       throw Exception("error: $e");
+    }
+  }
+
+  Future<void> addToCart() async {
+    try {
+      var auth = await SaveData.getAuth();
+
+      Map<String, dynamic> params = {
+        'product_id': widget.productId.toString(),
+        'quantity': jumlah.toString(),
+        'size': valueUkuran.toLowerCase(),
+        if (infoController.text != '') 'information': infoController.text,
+      };
+
+      var response = await post(
+          Uri(
+            scheme: 'https',
+            host: 'myhmtk.jeyy.xyz',
+            path: '/student/${auth["user"]["nim"]}/cart',
+            queryParameters: params,
+          ),
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+          });
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        if (data["success"]) {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.rightSlide,
+            title: 'Berhasil menambahkan produk ke cart!',
+            btnOkOnPress: () {
+              // Navigator.pushReplacement(context,
+              //     MaterialPageRoute(builder: (context) => const Timeline()));
+            },
+          ).show();
+        } else {
+          throw data["message"];
+        }
+      } else {
+        throw "Status code: ${response.statusCode}";
+      }
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: $e',
+        btnOkOnPress: () {},
+      ).show();
     }
   }
 
@@ -250,6 +304,7 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                     const EdgeInsets.only(left: 10, right: 10),
                                 color: Colors.grey.shade300,
                                 child: TextFormField(
+                                  controller: infoController,
                                   maxLength: 300,
                                   maxLines: 5,
                                   decoration: const InputDecoration(
@@ -260,15 +315,7 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
                                 height: 20,
                               ),
                               InkWell(
-                                onTap: () {
-                                  AwesomeDialog(
-                                    context: context,
-                                    dialogType: DialogType.success,
-                                    animType: AnimType.rightSlide,
-                                    title: 'Berhasil menambahkan data',
-                                    btnOkOnPress: () {},
-                                  ).show();
-                                },
+                                onTap: addToCart,
                                 child: const MyButton(
                                   txt: 'Add to Cart',
                                   width: double.maxFinite,
