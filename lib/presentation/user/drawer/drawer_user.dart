@@ -67,7 +67,7 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('Account'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const Account(),
@@ -77,7 +77,7 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('Sejarah TK'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const AboutUs(),
@@ -87,7 +87,7 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('Visi Misi TK'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const VisiMisi(),
@@ -97,7 +97,7 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('BPH HMTK'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const BphHmtk(),
@@ -107,7 +107,7 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('Timeline'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const Timeline(),
@@ -117,7 +117,7 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('Shop'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const MenuShop(),
@@ -127,7 +127,7 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('Fun TK'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const MenuJadwalFunTK(),
@@ -137,7 +137,7 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('Laboratory'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const MenuLaboratory(),
@@ -147,7 +147,7 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('Aspirasi'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const MenuAspiration(),
@@ -157,7 +157,7 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('Material Bank'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const BankMateri(),
