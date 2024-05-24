@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/timeline_post.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/utils/utils.dart';
+import 'package:hmtk_app/widget/post_button.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 import 'package:http/http.dart';
 import 'package:share_plus/share_plus.dart';
@@ -95,7 +96,20 @@ class _TimelineState extends State<Timeline> {
   bool myPostsOnly = false;
 
   Future<void> _refresh() async {
-    await Future.wait([_posts(), SaveData.getAuth()]);
+    try {
+      final List<dynamic> newData = await Future.wait([_posts(), SaveData.getAuth()]);
+      setState(() {
+        data = newData;
+      });
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed to refresh data: $e',
+        btnOkOnPress: () {},
+      ).show();
+    }
   }
 
   @override
@@ -308,6 +322,7 @@ class _TimelineState extends State<Timeline> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            // like
                             InkWell(
                               onTap: () {
                                 setState(() {
@@ -332,6 +347,7 @@ class _TimelineState extends State<Timeline> {
                                 ],
                               ),
                             ),
+                            // komentar
                             InkWell(
                               onTap: () {
                                 showModalBottomSheet(
@@ -382,6 +398,7 @@ class _TimelineState extends State<Timeline> {
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     bottom: 25),
+                                                // dummy comment
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -470,6 +487,7 @@ class _TimelineState extends State<Timeline> {
                                             ),
                                           ),
                                         ),
+                                        // input comment
                                         Expanded(
                                           flex: 1,
                                           child: Container(
@@ -547,6 +565,7 @@ class _TimelineState extends State<Timeline> {
                                 ],
                               ),
                             ),
+                            // share
                             InkWell(
                               onTap: () {
                                 Share.share(
@@ -573,41 +592,7 @@ class _TimelineState extends State<Timeline> {
               }
             }),
       ))),
-      floatingActionButton: InkWell(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const TimelinePost(),
-              ));
-        },
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          height: 50,
-          width: 110,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: ColorPallete.blue),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.add, color: Colors.blue)),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                'Post',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16),
-              )
-            ],
-          ),
-        ),
-      ),
+      floatingActionButton: postButton(context),
     );
   }
 }
