@@ -94,15 +94,16 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
               MaterialPageRoute(builder: (context) => const Dashboard()),
               (route) => false,
             );
-          } else {
-            AwesomeDialog(
-              context: context,
-              dialogType: DialogType.error,
-              animType: AnimType.rightSlide,
-              title: 'Email dan password yang anda masukkan salah!',
-              btnOkOnPress: () {},
-            ).show();
           }
+          // else {
+          //   AwesomeDialog(
+          //     context: context,
+          //     dialogType: DialogType.error,
+          //     animType: AnimType.rightSlide,
+          //     title: 'Email dan password yang anda masukkan salah!',
+          //     btnOkOnPress: () {},
+          //   ).show();
+          // }
         } else {
           AwesomeDialog(
             context: context,
@@ -118,7 +119,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
-        title: 'Terjadi kesalahan: $e',
+        // title: 'Terjadi kesalahan: $e',
+        title: 'Email dan password yang anda masukkan salah!',
         btnOkOnPress: () {},
       ).show();
     }

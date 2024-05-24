@@ -19,6 +19,7 @@ class TambahLab extends StatefulWidget {
 }
 
 class _TambahActivtyState extends State<TambahLab> {
+  String? imagePath;
   File? image;
   var valLab = 'magics'; // Initialize with a default value
   // var judulController = TextEditingController();
@@ -260,43 +261,49 @@ class _TambahActivtyState extends State<TambahLab> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // const Text(
-                    //   "Judul Laboratory",
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //     fontSize: 12,
-                    //   ),
+                    // const SizedBox(
+                    //   height: 5,
+                    //   width: 5,
                     // ),
-                    // Container(
-                    //   margin: const EdgeInsets.only(bottom: 10),
-                    //   padding: const EdgeInsets.only(left: 10),
-                    //   height: 30,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius:
-                    //         const BorderRadius.all(Radius.circular(5.0)),
-                    //     border: Border.all(
-                    //       color: const Color.fromARGB(255, 0, 0, 0)
-                    //           .withOpacity(0.3),
-                    //       width: 2.0,
+                    // Tambahkan widget Image.file untuk menampilkan gambar yang dipilih
+                    // if (imagePath != null)
+                    //   Padding(
+                    //     padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    //     child: Image.file(
+                    //       File(imagePath!),
+                    //       width: 250,
+                    //       height: 400,
+                    //       fit: BoxFit.cover,
                     //     ),
                     //   ),
-                    //   child: const TextField(
-                    //     controller: judulController,
-                    //     decoration: InputDecoration(
-                    //       border: InputBorder.none,
-                    //     ),
-                    //   ),
-                    // ),
-                    const SizedBox(
-                      height: 10,
-                      width: 10,
-                    ),
-                    if (image != null)
-                    Image.file(
-                      image!,
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
+                    Container(
+                      height: 250,
+                      width: 400,
+                      margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2.0,
+                        ),
+                      ),
+                      child: image != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.file(
+                                image!,
+                                width:
+                                    400, // Lebar gambar diatur agar mengisi keseluruhan kontainer
+                                height:
+                                    250, // Tinggi gambar diatur agar mengisi keseluruhan kontainer
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : const Icon(
+                              Icons.image,
+                              size: 50,
+                              color: Colors.black,
+                            ),
                     ),
                     const Text(
                       "Uploud Foto",
@@ -328,6 +335,9 @@ class _TambahActivtyState extends State<TambahLab> {
                           ),
                           onTap: () async {
                             await getImage();
+                            setState(() {
+                              imagePath = image?.path;
+                            });
                           },
                         ),
                         Container(
