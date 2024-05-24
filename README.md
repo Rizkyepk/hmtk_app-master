@@ -1,6 +1,6 @@
 # hmtk_app
 
-A new Flutter project.
+Flutter project for Capstone Project.
 
 ## Getting Started
 
