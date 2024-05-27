@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:hmtk_app/presentation/user/timeline_post.dart';
-import 'package:hmtk_app/utils/color_pallete.dart';
+// import 'package:hmtk_app/presentation/user/timeline_post.dart';
+// import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/post_button.dart';
 import 'package:hmtk_app/widget/template_page.dart';
