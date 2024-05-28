@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hmtk_app/presentation/user/account.dart';
 import 'package:hmtk_app/presentation/user/drawer/drawer_user.dart';
 import 'package:hmtk_app/utils/snapping_data.dart';
@@ -242,6 +243,7 @@ class _EditAccountState extends State<EditAccount> {
                   height: 10,
                 ),
                 TextFormField(
+                  inputFormatters: [LengthLimitingTextInputFormatter(15)],
                   controller: nameController,
                   decoration: InputDecoration(
                       filled: true,

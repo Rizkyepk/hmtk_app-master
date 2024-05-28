@@ -31,6 +31,25 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
         (route) => false);
   }
 
+  void navigateTo(BuildContext context, Widget screen) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WillPopScope(
+          onWillPop: () async {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Home()),
+              (route) => false,
+            );
+            return false;
+          },
+          child: screen,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,101 +86,69 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('Account'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Account(),
-                  ));
+              navigateTo(context, const Account());
             },
           ),
           ListTile(
             title: const Text('Sejarah TK'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AboutUs(),
-                  ));
+              navigateTo(context, const AboutUs());
             },
           ),
           ListTile(
             title: const Text('Visi Misi TK'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const VisiMisi(),
-                  ));
+              navigateTo(context, const VisiMisi());
             },
           ),
           ListTile(
             title: const Text('BPH HMTK'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const BphHmtk(),
-                  ));
+              navigateTo(context, const BphHmtk());
             },
           ),
           ListTile(
             title: const Text('Timeline'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Timeline(),
-                  ));
+              navigateTo(context, const Timeline());
             },
+            // title: const Text('Timeline'),
+            // onTap: () {
+            //   Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => const Timeline(),
+            //       ));
+            // },
           ),
           ListTile(
             title: const Text('Shop'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MenuShop(),
-                  ));
+              navigateTo(context, const MenuShop());
             },
           ),
           ListTile(
             title: const Text('Fun TK'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MenuJadwalFunTK(),
-                  ));
+              navigateTo(context, const MenuJadwalFunTK());
             },
           ),
           ListTile(
             title: const Text('Laboratory'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MenuLaboratory(),
-                  ));
+              navigateTo(context, const MenuLaboratory());
             },
           ),
           ListTile(
             title: const Text('Aspirasi'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MenuAspiration(),
-                  ));
+              navigateTo(context, const MenuAspiration());
             },
           ),
           ListTile(
             title: const Text('Material Bank'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const BankMateri(),
-                  ));
+              navigateTo(context, const BankMateri());
             },
           ),
           ListTile(

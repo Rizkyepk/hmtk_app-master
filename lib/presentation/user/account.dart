@@ -69,7 +69,7 @@ class _AccountState extends State<Account> {
                     ),
                     Text(
                       user['name'],
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
@@ -186,23 +186,23 @@ class _AccountState extends State<Account> {
                         //     minimumSize: Size(100, 40)),
                       ),
                     ),
-                    SizedBox(
-                      width: 150,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ResetPassword(),
-                            ),
-                          );
-                        },
-                        child: const Text('Reset password'),
-                        // style: ElevatedButton.styleFrom(
-                        //     backgroundColor: Colors.red,
-                        //     minimumSize: Size(100, 40)),
-                      ),
-                    ),
+                    // SizedBox(
+                    //   width: 150,
+                    //   child: ElevatedButton(
+                    //     onPressed: () {
+                    //       Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //           builder: (context) => const ResetPassword(),
+                    //         ),
+                    //       );
+                    //     },
+                    //     child: const Text('Reset password'),
+                    //     // style: ElevatedButton.styleFrom(
+                    //     //     backgroundColor: Colors.red,
+                    //     //     minimumSize: Size(100, 40)),
+                    //   ),
+                    // ),
                   ],
                 )
               ],
@@ -213,22 +213,3 @@ class _AccountState extends State<Account> {
     });
   }
 }
-        
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return FutureBuilder<Map<String, dynamic>>(
-  //       future: SaveData.getAuth(),
-  //       builder: (BuildContext context,
-  //           AsyncSnapshot<Map<String, dynamic>> snapshot) {
-  //         if (snapshot.connectionState == ConnectionState.waiting) {
-  //           return const CircularProgressIndicator();
-  //         } else if (snapshot.hasError) {
-  //           return Text('Error: ${snapshot.error}');
-  //         } else {
-  //           final user = snapshot.data!["user"];
-  //           return buildAccountWidget(user);
-  //         }
-  //       });
-  // }
-// }

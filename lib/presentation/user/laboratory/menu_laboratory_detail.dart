@@ -97,7 +97,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                   builder: (BuildContext context,
                       AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Text('Loading data...');
+                      return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
@@ -198,8 +198,7 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                 thickness: 0.8,
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   // Row(
                                   //   mainAxisAlignment: MainAxisAlignment.start,

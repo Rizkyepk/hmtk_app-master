@@ -59,7 +59,8 @@ class MenuShop extends StatelessWidget {
                           AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const Text('Loading data...');
+                          return const Center(
+                              child: CircularProgressIndicator());
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else {
