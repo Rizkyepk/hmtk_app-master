@@ -3,16 +3,14 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hmtk_app/presentation/user/shop/menu_shop_payment.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/utils/utils.dart';
-import 'package:hmtk_app/widget/button.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 import 'package:http/http.dart';
 
 class MenuShopHistory extends StatefulWidget {
-  MenuShopHistory({super.key});
+  const MenuShopHistory({super.key});
 
   @override
   State<MenuShopHistory> createState() => _MenuShopHistoryState();
@@ -95,8 +93,10 @@ class _MenuShopHistoryState extends State<MenuShopHistory> {
             btnOkText: 'Sudah',
             btnCancelOnPress: () {},
             btnOkOnPress: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => MenuShopHistory()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MenuShopHistory()));
             },
           ).show();
         } else {
@@ -110,7 +110,7 @@ class _MenuShopHistoryState extends State<MenuShopHistory> {
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
-        title: 'Failed: ${e}',
+        title: 'Failed: $e',
         btnOkOnPress: () {},
       ).show();
     }
@@ -176,7 +176,7 @@ class _MenuShopHistoryState extends State<MenuShopHistory> {
                         ),
                       ),
                       Text(
-                        'Total: Rp${formatNumber(transaction['orders'].fold(0, (sum, order) => sum + order['quantity'] * order['product']['price']))}',
+                        'Total: Rp${formatNumber(transaction['orders'].fold(0, (sum, order) => sum + order['quantity'] * order['product']['price']) + 5000)}',
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -188,7 +188,7 @@ class _MenuShopHistoryState extends State<MenuShopHistory> {
                             padding: const EdgeInsets.all(2.0),
                             child: InkWell(
                               onTap: () {
-                                if (transaction["paid"] == false) {
+                                if (transaction["status"] == "pending") {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
@@ -208,49 +208,83 @@ class _MenuShopHistoryState extends State<MenuShopHistory> {
                                 padding: const EdgeInsets.all(5),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: transaction["paid"] == false
-                                        ? ColorPallete.greenprim
-                                        : Colors.grey),
-                                child: Text(
-                                  transaction["paid"] == false
-                                      ? "Bayar"
-                                      : "Sudah dibayar",
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: () {
+                                    switch (transaction["status"]) {
+                                      case "settlement":
+                                      case "capture":
+                                        return Colors.grey;
+                                      case "expire":
+                                      case "deny":
+                                      case "cancel":
+                                      case "failure":
+                                        return Colors.red;
+                                      default:
+                                        return ColorPallete.greenprim;
+                                    }
+                                  }(),
                                 ),
+                                child: Text(
+                                  () {
+                                    switch (transaction["status"]) {
+                                      case "settlement":
+                                      case "capture":
+                                        return "Sudah dibayar";
+                                      case "expire":
+                                        return "Waktu bayar habis";
+                                      case "deny":
+                                      case "cancel":
+                                      case "failure":
+                                        return "Pembayaran gagal";
+                                      default:
+                                        return "Bayar";
+                                    }
+                                  }(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
+                                // Text(
+                                //   transaction["paid"] == false
+                                //       ? "Bayar"
+                                //       : "Sudah dibayar",
+                                //   style: const TextStyle(
+                                //       color: Colors.white,
+                                //       fontWeight: FontWeight.bold),
+                                // ),
                               ),
                             ),
                           ),
                           if (transaction["paid"])
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: InkWell(
-                              onTap: () {
-                                if (transaction["completed"] == false) {
-                                  completeTransaction(transaction["id"]);
-                                }
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(5),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: transaction["completed"]
-                                        ? Colors.grey
-                                        : ColorPallete.greenprim),
-                                child: Text(
-                                  transaction["completed"]
-                                      ? "Pesanan Selesai"
-                                      : "Selesaikan Pesanan",
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: InkWell(
+                                onTap: () {
+                                  if (transaction["completed"] == false) {
+                                    completeTransaction(transaction["id"]);
+                                  }
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: transaction["completed"]
+                                          ? Colors.grey
+                                          : ColorPallete.greenprim),
+                                  child: Text(
+                                    transaction["completed"]
+                                        ? "Pesanan Selesai"
+                                        : "Selesaikan Pesanan",
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
                         ],
                       )
                     ],

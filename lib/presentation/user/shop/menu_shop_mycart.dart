@@ -590,12 +590,17 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                         ),
                       ),
                       Expanded(
-                        flex: 1,
-                        child: Text(
-                          'Rp5.000',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
+                        flex: 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Rp5.000',
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
