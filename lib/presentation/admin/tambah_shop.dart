@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:hmtk_app/utils/utils.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/daftar_shop.dart';
