@@ -43,6 +43,12 @@ String formatNumber(int number) {
   return formatter.format(number);
 }
 
+String formatDateTime(String isoDateTime) {
+  DateTime dateTime = DateTime.parse(isoDateTime);
+  DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm');
+  return formatter.format(dateTime);
+}
+
 class SaveData {
   static const _mapKey = 'user_data';
 

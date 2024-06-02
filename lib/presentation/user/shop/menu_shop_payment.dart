@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hmtk_app/presentation/user/shop/menu_shop_history.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -12,6 +13,7 @@ class PaymentPage extends StatefulWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   late final WebViewController _webViewController;
+  var loadingPercentage = 0;
 
   @override
   void initState() {
@@ -23,16 +25,28 @@ class _PaymentPageState extends State<PaymentPage> {
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
         NavigationDelegate(
-          onPageStarted: (String url) {
-            // Detect when the payment is completed or failed
-            if (url.contains('https://yourdomain.com/payment-success')) {
-              Navigator.of(context).pop(true);
-            } else if (url.contains('https://yourdomain.com/payment-failed')) {
-              Navigator.of(context).pop(false);
-            }
+          onPageStarted: (url) {
+            setState(() {
+              loadingPercentage = 0;
+            });
+          },
+          onProgress: (progress) {
+            setState(() {
+              loadingPercentage = progress;
+            });
+          },
+          onPageFinished: (url) {
+            loadingPercentage = 100;
           },
           onUrlChange: (change) {
-            print("URL TO: ${change.url}");
+            print(change.url);
+            if (change.url != null &&
+                (change.url == "https://myhmtk.jeyy.xyz/transaction/success" ||
+                    change.url ==
+                        "https://myhmtk.jeyy.xyz/transaction/pending")) {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => MenuShopHistory()));
+            }
           },
         ),
       )
@@ -45,9 +59,16 @@ class _PaymentPageState extends State<PaymentPage> {
       appBar: AppBar(
         title: const Text('Complete Payment'),
       ),
-      body: 
-      WebViewWidget(
-        controller: _webViewController,
+      body: Column(
+        children: [
+          if (loadingPercentage < 100)
+            LinearProgressIndicator(value: loadingPercentage / 100),
+          Expanded(
+            child: WebViewWidget(
+              controller: _webViewController,
+            ),
+          ),
+        ],
       ),
     );
   }

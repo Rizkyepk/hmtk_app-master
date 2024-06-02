@@ -121,9 +121,8 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
 
   Future<void> checkoutCart(List<int> cartIds) async {
     try {
-      print(cartIds);
       var auth = await SaveData.getAuth();
-      print(auth);
+
       var response = await post(
           Uri(
             scheme: 'https',
@@ -136,17 +135,22 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
           },
           body: jsonEncode(cartIds));
 
-      print(response.statusCode);
       if (response.statusCode == 200) {
         Map<String, dynamic> data = jsonDecode(response.body);
-        print(data);
+
         if (data["success"]) {
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      PaymentPage(paymentUrl: data["payment_url"])));
-
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  PaymentPage(paymentUrl: data["payment_url"]),
+            ),
+          ).then((_) {
+            setState(() {
+              futureResult = null;
+              fetchStudentCarts();
+            });
+          });
         } else {
           throw data["message"];
         }
