@@ -77,13 +77,23 @@ class Home extends StatelessWidget {
                                         return Text('Error: ${snapshot.error}');
                                       } else {
                                         final student = snapshot.data!["user"];
-                                        return Text(
-                                          student["name"],
-                                          style: const TextStyle(
-                                              fontSize: 30,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        );
+                                        return SizedBox(
+                                            width: 190,
+                                            child: SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Text(
+                                                  getFirstString(
+                                                      student["name"]),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: const TextStyle(
+                                                      fontSize: 30,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                                )));
                                       }
                                     }),
                               ],
@@ -96,10 +106,40 @@ class Home extends StatelessWidget {
                                         builder: (context) => const Account()));
                               },
                               child: CircleAvatar(
-                                radius: 28,
-                                child: Image.asset(
-                                  'assets/profile.png',
-                                  fit: BoxFit.cover,
+                                radius: 38,
+                                backgroundColor: Colors.transparent,
+                                child: ClipOval(
+                                  child: FutureBuilder<Map<String, dynamic>>(
+                                      future: SaveData.getAuth(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<Map<String, dynamic>>
+                                              snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Image.network(
+                                            "https://cdn.jeyy.xyz/image/default_avatar_b0e451.png",
+                                            fit: BoxFit.cover,
+                                            width: 66,
+                                            height: 66,
+                                          );
+                                        } else if (snapshot.hasError) {
+                                          return Image.network(
+                                            "https://cdn.jeyy.xyz/image/default_avatar_b0e451.png",
+                                            fit: BoxFit.cover,
+                                            width: 66,
+                                            height: 66,
+                                          );
+                                        } else {
+                                          final student =
+                                              snapshot.data!["user"];
+                                          return Image.network(
+                                            student["avatar_url"],
+                                            fit: BoxFit.cover,
+                                            width: 66,
+                                            height: 66,
+                                          );
+                                        }
+                                      }),
                                 ),
                               ),
                             )

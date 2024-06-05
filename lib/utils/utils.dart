@@ -49,6 +49,25 @@ String formatDateTime(String isoDateTime) {
   return formatter.format(dateTime);
 }
 
+String getFirstString(String string) {
+  return string.split(" ")[0];
+}
+
+String limitString(String string, int limit, {String? trail = '...'}) {
+  if (string.length > limit) {
+    String sub = string.substring(0, limit);
+    if (trail != null) {
+      return sub + trail;
+    }
+    return sub;
+  } 
+  return string;
+}
+
+String getFirstLimit(String name, {int limit = 7}) {
+  return getFirstString(limitString(name, limit));
+}
+
 class SaveData {
   static const _mapKey = 'user_data';
 
@@ -107,7 +126,6 @@ Future<String> uploadFileToCDN(File file,
   }
 }
 
-
 enum FutureStatus {
   loading,
   success,
@@ -119,7 +137,14 @@ class FutureResult<T> {
   T? data;
   String? errorMessage;
 
-  FutureResult.loading() : status = FutureStatus.loading, data = null, errorMessage = null;
-  FutureResult.success(this.data) : status = FutureStatus.success, errorMessage = null;
-  FutureResult.error(this.errorMessage) : status = FutureStatus.error, data = null;
+  FutureResult.loading()
+      : status = FutureStatus.loading,
+        data = null,
+        errorMessage = null;
+  FutureResult.success(this.data)
+      : status = FutureStatus.success,
+        errorMessage = null;
+  FutureResult.error(this.errorMessage)
+      : status = FutureStatus.error,
+        data = null;
 }

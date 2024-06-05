@@ -658,9 +658,26 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                       onTap: () {
                         if (futureResult?.data?.isNotEmpty == true) {
                           print('--- not empty');
-                          checkoutCart(futureResult!.data!
+
+                          SaveData.getAuth().then((auth) {
+                            var user = auth["user"];
+
+                            AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.question,
+                            animType: AnimType.rightSlide,
+                            title: 'Apakah data berikut sudah benar?\nNo. Telp: ${user["tel"]}\nAlamat: ${user["address"]}\nGanti di edit akun jika belum.',
+                            btnCancelText: "Belum",
+                            btnCancelOnPress: () {},
+                            btnOkText: "Sudah",
+                            btnOkOnPress: () {
+                              checkoutCart(futureResult!.data!
                               .map<int>((item) => item["id"])
                               .toList());
+                            },
+                          ).show();
+                          });
+                          
                           // Navigator.push(
                           //     context,
                           //     MaterialPageRoute(

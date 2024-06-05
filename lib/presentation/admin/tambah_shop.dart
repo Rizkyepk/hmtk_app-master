@@ -58,7 +58,7 @@ class _TambahShopState extends State<TambahShop> {
 
     try {
       String? imgUrl;
-      if (image != null || imgUrl == null) {
+      if (image != null) {
         imgUrl = await uploadFileToCDN(image!);
       } else {
         AwesomeDialog(
@@ -76,7 +76,7 @@ class _TambahShopState extends State<TambahShop> {
         'name': inputName,
         'price': inputPrice,
         'description': inputDescription,
-        'img_url': imgUrl
+        if (imgUrl != null) 'img_url': imgUrl
       };
 
       var response = await post(

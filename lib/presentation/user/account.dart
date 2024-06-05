@@ -1,6 +1,7 @@
 // import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/utils/snapping_data.dart';
+import 'package:hmtk_app/utils/utils.dart';
 // import 'package:hmtk_app/utils/utils.dart';
 // import 'package:http/http.dart';
 // import 'package:image_picker/image_picker.dart';
@@ -58,19 +59,40 @@ class _AccountState extends State<Account> {
                     ),
                     Stack(
                       children: [
-                        Image.asset(
-                          'assets/profile.png',
-                          height: 100,
-                        ),
+                        CircleAvatar(
+                            radius: 38,
+                            backgroundColor: Colors.transparent,
+                            child: ClipOval(
+                                child: Image.network(
+                              user["avatar_url"],
+                              fit: BoxFit.cover,
+                              width: 76,
+                              height: 76,
+                            ))),
+                        // Image.asset(
+                        //   'assets/profile.png',
+                        //   height: 100,
+                        // ),
                       ],
                     ),
-                    Text(
-                      user['name'],
-                      style: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
+                    // Text(
+                    //   getFirstLimit(user["name"]),
+                    //   style: const TextStyle(
+                    //       fontSize: 30,
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.white),
+                    // ),
+                    SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          getFirstString(user["name"]),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: const TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        )),
                   ],
                 ),
                 const SizedBox(
@@ -154,6 +176,27 @@ class _AccountState extends State<Account> {
                   decoration: InputDecoration(
                       filled: true,
                       hintText: user['email'],
+                      fillColor: Colors.white,
+                      border: InputBorder.none),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  'Address',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  readOnly: true,
+                  decoration: InputDecoration(
+                      filled: true,
+                      hintText: user['address'],
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),

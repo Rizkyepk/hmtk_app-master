@@ -97,7 +97,8 @@ class _TimelineState extends State<Timeline> {
 
   Future<void> _refresh() async {
     try {
-      final List<dynamic> newData = await Future.wait([_posts(), SaveData.getAuth()]);
+      final List<dynamic> newData =
+          await Future.wait([_posts(), SaveData.getAuth()]);
       setState(() {
         data = newData;
       });
@@ -227,21 +228,40 @@ class _TimelineState extends State<Timeline> {
                           children: [
                             Row(
                               children: [
-                                Image.asset(
-                                  'assets/profile.png',
-                                  height: 50,
+                                CircleAvatar(
+                                  radius: 28,
+                                  child: ClipOval(
+                                      child: Image.network(posts[index]
+                                          ["poster"]["avatar_url"])),
                                 ),
+                                // Image.asset(
+                                //   'assets/profile.png',
+                                //   height: 50,
+                                // ),
                                 const SizedBox(
                                   width: 10,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      posts[index]["poster"]["name"],
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16),
+                                    // Text(
+                                    //   LimitString(posts[index]["poster"]["name"], 13),
+                                    //   style: const TextStyle(
+                                    //       fontWeight: FontWeight.bold,
+                                    //       fontSize: 16),
+                                    // ),
+                                    SizedBox(
+                                      width: 170,
+                                      child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Text(
+                                            posts[index]["poster"]["name"],
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          )),
                                     ),
                                     Text(
                                       // '8 jam yang lalu',
@@ -292,11 +312,14 @@ class _TimelineState extends State<Timeline> {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         if (posts[index]["img_url"] != null)
-                          SizedBox(
-                              height: 198,
-                              width: 352,
-                              child: Image.network(posts[index]["img_url"],
-                                  fit: BoxFit.cover)),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        SizedBox(
+                            height: 198,
+                            width: 352,
+                            child: Image.network(posts[index]["img_url"],
+                                fit: BoxFit.cover)),
                         const SizedBox(
                           height: 10,
                         ),

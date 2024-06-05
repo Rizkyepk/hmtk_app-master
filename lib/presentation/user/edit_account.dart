@@ -19,31 +19,48 @@ class EditAccount extends StatefulWidget {
 class _EditAccountState extends State<EditAccount> {
   File? image;
   var nameController = TextEditingController();
-  // final TextEditingController _nimController = TextEditingController();
   var telController = TextEditingController();
-  var emailController = TextEditingController();
-  var passController = TextEditingController();
+  var addressController = TextEditingController();
 
   Future getImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? imagePicked =
         await picker.pickImage(source: ImageSource.gallery);
-    image = File(imagePicked!.path);
-    // setState(() {});
+
+    if (imagePicked == null) {
+      return;
+    }
+
+    final File imageFile = File(imagePicked.path);
+    double fileSizeMb = await imageFile.length() / (1024 * 1024);
+
+    if (fileSizeMb > 10) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: Batas ukuran file 10MB',
+        btnOkOnPress: () {},
+      ).show();
+    }
+
+    setState(() {
+      image = File(imagePicked.path);
+    });
   }
 
-  Future<http.Response> updateData(
-      String fullName, int nim, int noTelp, String email, String? pass) async {
+  Future<http.Response> updateData(int nim, String fullName, String email,
+      int noTelp, String address, String avatarUrl) async {
     try {
-      // Konversi nilai noTelp menjadi integer
-      // int? tel = int.tryParse(noTelp);
+      String? imgUrl;
+      if (image != null) {
+        imgUrl = await uploadFileToCDN(image!);
+      }
 
       Map<String, String> params = {
-        // 'nim': nim,
-        'name': fullName,
         'tel': noTelp.toString(),
-        'email': email,
-        if (pass != null) 'password': pass,
+        'address': address,
+        if (image != null && imgUrl != null) 'avatar_url': imgUrl
       };
 
       await SaveData.saveAuth({
@@ -53,12 +70,11 @@ class _EditAccountState extends State<EditAccount> {
           'name': fullName,
           'email': email,
           'tel': noTelp,
+          'avatar_url': imgUrl ?? avatarUrl,
+          'address': address,
           'pass_hash': null
         }
       });
-
-// Encode body request sebagai JSON
-      // String jsonBody = jsonEncode(params);
 
       var response = await http.put(
         Uri(
@@ -80,17 +96,26 @@ class _EditAccountState extends State<EditAccount> {
     }
   }
 
-  void updateStudent(nim) async {
-    // Ambil nilai dari text controllers
-    String name = nameController.text;
+  void updateStudent(
+      int nim, String name, String email, String avatarUrl) async {
+    String address = addressController.text;
     int? tel;
 
-    // Periksa apakah nilai yang dimasukkan ke telController adalah angka yang valid
+    if (address.isEmpty) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Error',
+        desc: 'Address tidak valid.',
+        btnOkOnPress: () {},
+      ).show();
+    }
+
     if (telController.text.isNotEmpty &&
         int.tryParse(telController.text) != null) {
       tel = int.parse(telController.text);
     } else {
-      // Tangani jika nilai yang dimasukkan bukan angka yang valid
       AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
@@ -99,22 +124,12 @@ class _EditAccountState extends State<EditAccount> {
         desc: 'Nomor Telepon tidak valid.',
         btnOkOnPress: () {},
       ).show();
-      return; // Keluar dari metode jika nilai tidak valid
+      return;
     }
 
-    String email = emailController.text;
-    String? pass = passController.text.isEmpty ? null : passController.text;
-    // print("PASS: $pass");
-
-    // Cetak data yang akan diinputkan berserta tipe datanya
-    // print('Name: $name (${name.runtimeType})');
-    // print('Tel: $tel (${tel.runtimeType})');
-    // print('Email: $email (${email.runtimeType})');
-    // print('Password: $pass (${pass.runtimeType})');
-
     try {
-      // Panggil metode updateData untuk melakukan pembaruan ke server
-      final response = await updateData(name, nim, tel, email, pass);
+      final response =
+          await updateData(nim, name, email, tel, address, avatarUrl);
 
       if (response.statusCode == 200) {
         AwesomeDialog(
@@ -123,7 +138,6 @@ class _EditAccountState extends State<EditAccount> {
           animType: AnimType.rightSlide,
           title: 'Data disimpan!',
           btnOkOnPress: () {
-            // Navigator.pop(context);
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => const Account()));
           },
@@ -153,14 +167,15 @@ class _EditAccountState extends State<EditAccount> {
   @override
   Widget build(BuildContext context) {
     return snap((user) {
-      final name = user['name'] ?? 'N/A';
-      int nim = user['nim'];
-      final telp = user['tel'].toString();
-      final email = user['email'] ?? 'N/A';
+      final String name = user['name'];
+      final int nim = user['nim'];
+      final int telp = user['tel'];
+      final String address = user["address"];
+      final String email = user["email"];
+      final String avatarUrl = user["avatar_url"];
 
-      nameController.value = TextEditingValue(text: name);
-      telController.value = TextEditingValue(text: telp);
-      emailController.value = TextEditingValue(text: email);
+      telController.value = TextEditingValue(text: telp.toString());
+      addressController.value = TextEditingValue(text: address);
 
       return Scaffold(
         drawer: const Drawer(
@@ -197,10 +212,29 @@ class _EditAccountState extends State<EditAccount> {
                     ),
                     Stack(
                       children: [
-                        Image.asset(
-                          'assets/profile.png',
-                          height: 100,
+                        CircleAvatar(
+                          radius: 38,
+                          backgroundColor: Colors.transparent,
+                          child: ClipOval(
+                            child: image != null
+                                ? Image(
+                                    image: FileImage(image!),
+                                    fit: BoxFit.cover,
+                                    width: 76,
+                                    height: 76,
+                                  )
+                                : Image.network(
+                                    user["avatar_url"],
+                                    fit: BoxFit.cover,
+                                    width: 76,
+                                    height: 76,
+                                  ),
+                          ),
                         ),
+                        // Image.asset(
+                        //   'assets/profile.png',
+                        //   height: 100,
+                        // ),
                         Positioned(
                           bottom: 0,
                           right: 0,
@@ -208,8 +242,8 @@ class _EditAccountState extends State<EditAccount> {
                             backgroundColor: Colors.grey[200],
                             radius: 20,
                             child: IconButton(
-                                onPressed: () async {
-                                  await getImage();
+                                onPressed: () {
+                                  getImage();
                                 },
                                 icon: const Icon(
                                   Icons.edit,
@@ -219,40 +253,51 @@ class _EditAccountState extends State<EditAccount> {
                         )
                       ],
                     ),
-                    Text(
-                      name,
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
+                    // Text(
+                    //   name,
+                    //   style: const TextStyle(
+                    //       fontSize: 30,
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.white),
+                    // ),
+                    SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          getFirstString(user["name"]),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: const TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        )),
                   ],
                 ),
                 const SizedBox(
                   height: 30,
                 ),
-                const Text(
-                  'Full Name',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  inputFormatters: [LengthLimitingTextInputFormatter(15)],
-                  controller: nameController,
-                  decoration: InputDecoration(
-                      filled: true,
-                      hintText: name,
-                      fillColor: Colors.white,
-                      border: InputBorder.none),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                // const Text(
+                //   'Full Name',
+                //   style: TextStyle(
+                //       fontSize: 18,
+                //       fontWeight: FontWeight.bold,
+                //       color: Colors.white),
+                // ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // TextFormField(
+                //   inputFormatters: [LengthLimitingTextInputFormatter(15)],
+                //   controller: nameController,
+                //   decoration: InputDecoration(
+                //       filled: true,
+                //       hintText: name,
+                //       fillColor: Colors.white,
+                //       border: InputBorder.none),
+                // ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
                 // const Text(
                 //   'NIM',
                 //   style: TextStyle(
@@ -288,7 +333,7 @@ class _EditAccountState extends State<EditAccount> {
                   controller: telController,
                   decoration: InputDecoration(
                       filled: true,
-                      hintText: telp,
+                      hintText: telp.toString(),
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
@@ -296,7 +341,7 @@ class _EditAccountState extends State<EditAccount> {
                   height: 10,
                 ),
                 const Text(
-                  'Email',
+                  'Address',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -306,33 +351,15 @@ class _EditAccountState extends State<EditAccount> {
                   height: 10,
                 ),
                 TextFormField(
-                  controller: emailController,
+                  controller: addressController,
                   decoration: InputDecoration(
                       filled: true,
-                      hintText: email,
+                      hintText: address,
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
                 const SizedBox(
                   height: 10,
-                ),
-                const Text(
-                  'Password',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: passController,
-                  decoration: InputDecoration(
-                      filled: true,
-                      hintText: '******',
-                      fillColor: Colors.white,
-                      border: InputBorder.none),
                 ),
                 const SizedBox(
                   height: 20,
@@ -344,7 +371,7 @@ class _EditAccountState extends State<EditAccount> {
                       width: 150,
                       child: ElevatedButton(
                         onPressed: () {
-                          updateStudent(nim);
+                          updateStudent(nim, name, email, avatarUrl);
                         },
                         child: const Text('Simpan'),
                       ),
