@@ -229,17 +229,21 @@ class _TimelineState extends State<Timeline> {
                             Row(
                               children: [
                                 CircleAvatar(
-                                  radius: 28,
-                                  child: ClipOval(
-                                      child: Image.network(posts[index]
-                                          ["poster"]["avatar_url"])),
-                                ),
+                                    radius: 38,
+                                    backgroundColor: Colors.transparent,
+                                    child: ClipOval(
+                                        child: Image.network(
+                                      posts[index]["poster"]["avatar_url"],
+                                      fit: BoxFit.cover,
+                                      width: 60,
+                                      height: 60,
+                                    ))),
                                 // Image.asset(
                                 //   'assets/profile.png',
                                 //   height: 50,
                                 // ),
                                 const SizedBox(
-                                  width: 10,
+                                  width: 2,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,7 +280,7 @@ class _TimelineState extends State<Timeline> {
                             if (posts[index]["poster"]["nim"] ==
                                 auth["user"]["nim"])
                               PopupMenuButton(
-                                iconSize: 33,
+                                iconSize: 15,
                                 onSelected: (value) {
                                   setState(() {
                                     if (value == 1) {
@@ -312,14 +316,40 @@ class _TimelineState extends State<Timeline> {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         if (posts[index]["img_url"] != null)
-                          const SizedBox(
-                            height: 10,
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                  height: 198,
+                                  width: 352,
+                                  child: Image.network(
+                                    posts[index]["img_url"],
+                                    fit: BoxFit.cover,
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      } else {
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  )),
+                            ],
                           ),
-                        SizedBox(
-                            height: 198,
-                            width: 352,
-                            child: Image.network(posts[index]["img_url"],
-                                fit: BoxFit.cover)),
                         const SizedBox(
                           height: 10,
                         ),
