@@ -90,6 +90,53 @@ class _TimelineState extends State<Timeline> {
     }
   }
 
+  Future<void> toggleLike(List<Map<String, dynamic>> posts, int index) async {
+    try {
+      setState(() {
+        if (posts[index]["is_liked"]) { 
+          posts[index]["is_liked"] = false;
+          posts[index]["current_like_count"] -= 1;
+        } else {
+          posts[index]["is_liked"] = true;
+          posts[index]["current_like_count"] += 1;
+        }
+      });
+
+      var postObj = posts[index];
+      var auth = await SaveData.getAuth();
+      Map<String, String> params = {'user_id': auth["user"]["nim"].toString()};
+
+      var response = await post(
+          Uri(
+              scheme: 'https',
+              host: 'myhmtk.jeyy.xyz',
+              path: '/post/${postObj["id"]}/like',
+              queryParameters: params),
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+          });
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        if (data["success"]) {
+          print("berhasil like/unlike");
+        } else {
+          throw data["message"];
+        }
+      } else {
+        throw "Status code: ${response.statusCode}";
+      }
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: $e',
+        btnOkOnPress: () {},
+      ).show();
+    }
+  }
+
   // var hapusKomentar = '';
   bool isLike = false;
   List? data;
@@ -353,15 +400,15 @@ class _TimelineState extends State<Timeline> {
                         const SizedBox(
                           height: 10,
                         ),
+                        // if (posts[index]["current_like_count"] != 0)
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.favorite_border,
-                                    color: Colors.blue)),
-                            const Text(
-                              '12.036 suka',
-                              style: TextStyle(color: Colors.blue),
+                            const Icon(Icons.favorite, color: Colors.red),
+                            const SizedBox(width: 5),
+                            Text(
+                              '${posts[index]["current_like_count"]} suka',
+                              style: const TextStyle(color: Colors.blue),
                             )
                           ],
                         ),
@@ -378,14 +425,13 @@ class _TimelineState extends State<Timeline> {
                             // like
                             InkWell(
                               onTap: () {
-                                setState(() {
-                                  isLike = !isLike;
-                                });
+                                toggleLike(posts, index);
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  isLike
+                                  (posts[index]["is_liked"] != null &&
+                                          posts[index]["is_liked"] == true)
                                       ? const Icon(
                                           Icons.favorite,
                                           color: Colors.red,
@@ -652,11 +698,15 @@ class _TimelineState extends State<Timeline> {
 
 Future<Response> fetchData() async {
   try {
+    var auth = await SaveData.getAuth();
+    Map<String, String> params = {'user_id': auth["user"]["nim"].toString()};
+
     var response = await get(
         Uri(
           scheme: 'https',
           host: 'myhmtk.jeyy.xyz',
           path: '/post',
+          queryParameters: params,
         ),
         headers: {
           HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
