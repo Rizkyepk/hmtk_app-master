@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ItemActivity extends StatefulWidget {
-  const ItemActivity({super.key});
+  final String title;
+  final String imgUrl;
+  const ItemActivity({super.key, required this.title, required this.imgUrl});
 
   @override
   State<ItemActivity> createState() => _ItemActivityState();
@@ -22,8 +24,8 @@ class _ItemActivityState extends State<ItemActivity> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    'assets/img-futsal.png',
+                  child: Image.network(
+                    widget.imgUrl,
                     height: 200,
                     width: double.maxFinite,
                     fit: BoxFit.cover,
@@ -31,9 +33,9 @@ class _ItemActivityState extends State<ItemActivity> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(15),
-                  child: const Text(
-                    'Glotroopers menang dramatis lewat adu penalti!',
-                    style: TextStyle(color: Colors.green),
+                  child: Text(
+                    widget.title,
+                    style: const TextStyle(color: Colors.green),
                   ),
                 )
               ],

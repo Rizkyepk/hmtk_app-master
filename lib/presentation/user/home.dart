@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -16,6 +17,32 @@ import 'shop/menu_shop.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
+
+  Future<List<Map<String, dynamic>>> fetchActivities() async {
+    try {
+      var response = await get(
+        Uri(
+          scheme: 'https',
+          host: 'myhmtk.jeyy.xyz',
+          path: '/activity',
+        ),
+        headers: {HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}'},
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        if (data["success"]) {
+          return List<Map<String, dynamic>>.from(data["activities"]);
+        } else {
+          throw data["message"];
+        }
+      } else {
+        throw "Status code: ${response.statusCode}";
+      }
+    } catch (e) {
+      throw "Failed: $e";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -292,47 +319,71 @@ class Home extends StatelessWidget {
                 'Activity',
                 style: TextStyle(color: Colors.green),
               ),
-              const SizedBox(
-                height: 20,
+              FutureBuilder(
+                  future: fetchActivities(),
+                  builder: (BuildContext build, AsyncSnapshot snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Text('');
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      List<Map<String, dynamic>> activities = snapshot.data;
+
+                      return Container(
+  child: SingleChildScrollView(
+    child: Column(
+      children: activities.map((activity) {
+        return Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailActivity(activity: activity),
+                  ),
+                );
+              },
+              child: ItemActivity(
+                title: activity["title"],
+                imgUrl: activity["img_url"],
               ),
-              InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const DetailActivity()));
-                  },
-                  child: const ItemActivity()),
-              const SizedBox(
-                height: 30,
-              ),
-              const ItemActivity(),
-              const SizedBox(
-                height: 30,
-              ),
+            ),
+          ],
+        );
+      }).toList(),
+    ),
+  ),
+);
+                    }
+                  }),
+
+              // const SizedBox(
+              //   height: 30,
+              // ),
+              // InkWell(
+              //     onTap: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => const DetailActivity()));
+              //     },
+              //     child: const ItemActivity()),
+              // const SizedBox(
+              //   height: 30,
+              // ),
+
+              // const ItemActivity(),
+              // const SizedBox(
+              //   height: 30,
+              // ),
             ],
           ),
         )
       ]),
     );
-  }
-}
-
-Future<Response> fetchStudent(int nim) async {
-  try {
-    var response = await get(
-      Uri(
-        scheme: 'https',
-        host: 'myhmtk.jeyy.xyz',
-        path: '/student/$nim',
-      ),
-      headers: {
-        HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
-      },
-    );
-
-    return response;
-  } catch (e) {
-    throw Exception('Failed to load: $e');
   }
 }
