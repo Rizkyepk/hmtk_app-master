@@ -167,7 +167,7 @@ class MenuShop extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const MenuShopHistory(),
+                                              MenuShopHistory(),
                                         ));
                                   },
                                   child: const Align(

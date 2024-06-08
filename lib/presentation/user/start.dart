@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/signin.dart';
 import 'package:hmtk_app/presentation/user/signup.dart';
+import 'package:hmtk_app/presentation/user/sso_login.dart';
 import 'package:hmtk_app/widget/button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,6 +42,28 @@ class Start extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SsoLogin(),
+                          ));
+                    },
+                    child: const MyButton(
+                      txt: 'SSO Login',
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Text(
+                      'or',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -98,7 +121,7 @@ class Start extends StatelessWidget {
                     },
                   ).show();
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.help_outline_rounded,
                   color: Colors.white,
                   size: 40,

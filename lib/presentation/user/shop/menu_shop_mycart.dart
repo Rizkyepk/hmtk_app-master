@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/shop/menu_shop_metode_pembayaran.dart';
-import 'package:hmtk_app/presentation/user/shop/menu_shop_paymeny.dart';
+import 'package:hmtk_app/presentation/user/shop/menu_shop_payment.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/button.dart';
 import 'package:hmtk_app/widget/template_page.dart';
@@ -121,7 +121,6 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
 
   Future<void> checkoutCart(List<int> cartIds) async {
     try {
-      print(cartIds);
       var auth = await SaveData.getAuth();
 
       var response = await post(
@@ -138,31 +137,20 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
 
       if (response.statusCode == 200) {
         Map<String, dynamic> data = jsonDecode(response.body);
+
         if (data["success"]) {
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      PaymentPage(paymentUrl: data["payment_url"])));
-
-          // if (await canLaunchUrl(Uri.parse(data["payment_url"]))) {
-          //   await launchUrl(Uri.parse(data["payment_url"]));
-          // } else {
-          //   throw "Could not launch Midtrans URL";
-          // }
-
-          // AwesomeDialog(
-          //   context: context,
-          //   dialogType: DialogType.success,
-          //   animType: AnimType.rightSlide,
-          //   title: 'Berhasil menghapus barang di cart!',
-          //   btnOkOnPress: () {
-          //     Navigator.pushReplacement(
-          //         context,
-          //         MaterialPageRoute(
-          //             builder: (context) => const MenuShopMycart()));
-          //   },
-          // ).show();
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  PaymentPage(paymentUrl: data["payment_url"]),
+            ),
+          ).then((_) {
+            setState(() {
+              futureResult = null;
+              fetchStudentCarts();
+            });
+          });
         } else {
           throw data["message"];
         }
@@ -602,12 +590,17 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                         ),
                       ),
                       Expanded(
-                        flex: 1,
-                        child: Text(
-                          'Rp. 0',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
+                        flex: 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Rp5.000',
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -641,7 +634,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                                     FutureStatus.success &&
                                 futureResult?.data != null)
                               Text(
-                                'Rp${formatNumber(futureResult?.data?.isNotEmpty == true ? futureResult!.data!.map<int>((cart) => cart['quantity'] * cart['product']['price']).reduce((a, b) => a + b) : 0)}',
+                                'Rp${formatNumber(futureResult?.data?.isNotEmpty == true ? futureResult!.data!.map<int>((cart) => cart['quantity'] * cart['product']['price']).reduce((a, b) => a + b) + 5000 : 0)}',
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -665,9 +658,26 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                       onTap: () {
                         if (futureResult?.data?.isNotEmpty == true) {
                           print('--- not empty');
-                          checkoutCart(futureResult!.data!
+
+                          SaveData.getAuth().then((auth) {
+                            var user = auth["user"];
+
+                            AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.question,
+                            animType: AnimType.rightSlide,
+                            title: 'Apakah data berikut sudah benar?\nNo. Telp: ${user["tel"]}\nAlamat: ${user["address"]}\nGanti di edit akun jika belum.',
+                            btnCancelText: "Belum",
+                            btnCancelOnPress: () {},
+                            btnOkText: "Sudah",
+                            btnOkOnPress: () {
+                              checkoutCart(futureResult!.data!
                               .map<int>((item) => item["id"])
                               .toList());
+                            },
+                          ).show();
+                          });
+                          
                           // Navigator.push(
                           //     context,
                           //     MaterialPageRoute(
@@ -719,7 +729,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
                         : futureResult?.status == FutureStatus.success &&
                                 futureResult?.data != null
                             ? Text(
-                                'Rp${formatNumber(futureResult?.data?.isNotEmpty == true ? futureResult!.data!.map<int>((cart) => cart['quantity'] * cart['product']['price']).reduce((a, b) => a + b) : 0)}',
+                                'Rp${formatNumber(futureResult?.data?.isNotEmpty == true ? futureResult!.data!.map<int>((cart) => cart['quantity'] * cart['product']['price']).reduce((a, b) => a + b) + 5000 : 0)}',
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
