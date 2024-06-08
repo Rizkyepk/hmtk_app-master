@@ -1,10 +1,14 @@
 import 'dart:io';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:hmtk_app/utils/utils.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/daftar_funtk.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 class TambahFunTk extends StatefulWidget {
@@ -14,16 +18,94 @@ class TambahFunTk extends StatefulWidget {
   State<TambahFunTk> createState() => _TambahActivtyState();
 }
 
-File? image;
-Future getImage() async {
-  final ImagePicker picker = ImagePicker();
-  final XFile? imagePicked =
-      await picker.pickImage(source: ImageSource.gallery);
-  image = File(imagePicked!.path);
-  // setState(() {});
-}
-
 class _TambahActivtyState extends State<TambahFunTk> {
+  String? imagePath;
+  File? image;
+
+  var contentController = TextEditingController();
+  var timeController = TextEditingController();
+  var dateController = TextEditingController();
+  var locationController = TextEditingController();
+  var mapController = TextEditingController();
+  var titleController = TextEditingController();
+
+  Future<void> getImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (imagePicked == null) {
+      return;
+    }
+
+    final File imageFile = File(imagePicked.path);
+    double fileSizeMb = await imageFile.length() / (1024 * 1024);
+
+    if (fileSizeMb > 10) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: Batas ukuran file 10MB',
+        btnOkOnPress: () {},
+      ).show();
+    }
+
+    setState(() {
+      image = File(imagePicked.path);
+    });
+  }
+
+  Future<void> uploadData() async {
+    String title = titleController.text;
+    String content = contentController.text;
+    String date = dateController.text;
+    String time = timeController.text;
+    String location = locationController.text;
+    String map = mapController.text;
+
+    String imgUrl = await uploadFileToCDN(image!);
+
+    try {
+      var response = await postData(DateTime.now().toIso8601String(), title,
+          content, date, location, time, map, imgUrl);
+
+      if (response.statusCode == 200) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.success,
+          animType: AnimType.rightSlide,
+          title: 'Success',
+          desc: 'Fun TK berhasil ditambahkan!',
+          btnOkOnPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const DaftarFuntk()),
+            );
+          },
+        ).show();
+      } else {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.rightSlide,
+          title: 'Failed',
+          desc: 'Gagal menambahkan Fun TK',
+          btnOkOnPress: () {},
+        ).show();
+      }
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed',
+        desc: 'Gagal menambahkan Fun TK: $e',
+        btnOkOnPress: () {},
+      ).show();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +115,8 @@ class _TambahActivtyState extends State<TambahFunTk> {
         child: DrawerScren(),
       ),
       appBar: AppBar(
-        // title: const Text("GeeksforGeeks"),
-        // titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 200,
-        // toolbarOpacity: 0.8,
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -45,7 +124,8 @@ class _TambahActivtyState extends State<TambahFunTk> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
+                  MaterialPageRoute(
+                      builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
@@ -56,7 +136,8 @@ class _TambahActivtyState extends State<TambahFunTk> {
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0),
+                child: const Text('Hello, Ivan'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -92,7 +173,8 @@ class _TambahActivtyState extends State<TambahFunTk> {
           ),
           Container(
             margin: const EdgeInsets.all(20),
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   blurRadius: 1,
@@ -124,7 +206,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Tanggal Pelaksanaan",
+                      "Judul",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
@@ -135,14 +217,16 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 30,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
+                      child: TextField(
+                        controller: titleController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                         ),
@@ -151,6 +235,36 @@ class _TambahActivtyState extends State<TambahFunTk> {
                     const SizedBox(
                       height: 10,
                       width: 10,
+                    ),
+                    //tampil
+                    Container(
+                      height: 250,
+                      width: 400,
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2.0,
+                        ),
+                      ),
+                      child: image != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.file(
+                                image!,
+                                width:
+                                    400, // Lebar gambar diatur agar mengisi keseluruhan kontainer
+                                height:
+                                    250, // Tinggi gambar diatur agar mengisi keseluruhan kontainer
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : const Icon(
+                              Icons.image,
+                              size: 50,
+                              color: Colors.black,
+                            ),
                     ),
                     const Text(
                       "Uploud Foto",
@@ -205,6 +319,37 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       width: 10,
                     ),
                     const Text(
+                      "Tanggal Pelaksanaan",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: TextField(
+                        controller: dateController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
                       "Waktu Pelaksanaan",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -216,43 +361,16 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 30,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                      width: 10,
-                    ),
-                    const Text(
-                      "Lokasi",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.only(left: 10),
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                        border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                          width: 2.0,
-                        ),
-                      ),
-                      child: const TextField(
+                      child: TextField(
+                        controller: timeController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                         ),
@@ -274,14 +392,47 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 30,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
+                      child: TextField(
+                        controller: contentController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Lokasi",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: TextField(
+                        controller: mapController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                         ),
@@ -291,15 +442,17 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       alignment: Alignment.center,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 1, 122, 5),
+                            backgroundColor:
+                                const Color.fromARGB(255, 1, 122, 5),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              // DetailPage adalah halaman yang dituju
-                              MaterialPageRoute(
-                                  builder: (context) => const DaftarFuntk()),
-                            );
+                            uploadData();
+                            // Navigator.push(
+                            //   context,
+                            //   // DetailPage adalah halaman yang dituju
+                            //   MaterialPageRoute(
+                            //       builder: (context) => const DaftarFuntk()),
+                            // );
                           },
                           child: const Text('Tambah')),
                     )
@@ -311,5 +464,43 @@ class _TambahActivtyState extends State<TambahFunTk> {
         ],
       ),
     );
+  }
+}
+
+Future<Response> postData(
+    String postDate,
+    String title,
+    String content,
+    String date,
+    String location,
+    String time,
+    String map,
+    String imgUrl) async {
+  try {
+    Map<String, String> params = {
+      'post_date': DateTime.now().toIso8601String(),
+      'title': title,
+      'description': content,
+      'date': date,
+      'time': time,
+      'location': map,
+      'map_url': map,
+      'img_url': imgUrl,
+    };
+
+    var response = await http.post(
+        Uri(
+          scheme: 'https',
+          host: 'myhmtk.jeyy.xyz',
+          path: '/fun_tk',
+          queryParameters: params,
+        ),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+        });
+
+    return response;
+  } catch (e) {
+    throw Exception('Failed to load: $e');
   }
 }

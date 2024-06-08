@@ -7,7 +7,6 @@ import 'activity.dart';
 
 class DrawerScren extends StatelessWidget {
   const DrawerScren({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
@@ -120,39 +119,39 @@ class DrawerScren extends StatelessWidget {
               );
             },
           ),
-          ListTile(
-            title: const Text('About Us'),
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const AboutUsDialog(); //
-                },
-              );
-            },
-          ),
-          ListTile(
-            title: const Text('Vision & Mision'),
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const VisiMisiDialog(); //
-                },
-              );
-            },
-          ),
-          ListTile(
-            title: const Text('BPH HMTK'),
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const BphDialog(); //
-                },
-              );
-            },
-          ),
+          // ListTile(
+          //   title: const Text('About Us'),
+          //   onTap: () {
+          //     showDialog(
+          //       context: context,
+          //       builder: (BuildContext context) {
+          //         return const AboutUsDialog(); //
+          //       },
+          //     );
+          //   },
+          // ),
+          // ListTile(
+          //   title: const Text('Vision & Mision'),
+          //   onTap: () {
+          //     showDialog(
+          //       context: context,
+          //       builder: (BuildContext context) {
+          //         return const VisiMisiDialog(); //
+          //       },
+          //     );
+          //   },
+          // ),
+          // ListTile(
+          //   title: const Text('BPH HMTK'),
+          //   onTap: () {
+          //     showDialog(
+          //       context: context,
+          //       builder: (BuildContext context) {
+          //         return const BphDialog(); //
+          //       },
+          //     );
+          //   },
+          // ),
           ListTile(
             title: const Text(
               'Logout',

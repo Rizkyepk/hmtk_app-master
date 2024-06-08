@@ -181,28 +181,8 @@ class _AccountState extends State<Account> {
                           );
                         },
                         child: const Text('Edit account'),
-                        // style: ElevatedButton.styleFrom(
-                        //     backgroundColor: Colors.red,
-                        //     minimumSize: Size(100, 40)),
                       ),
                     ),
-                    // SizedBox(
-                    //   width: 150,
-                    //   child: ElevatedButton(
-                    //     onPressed: () {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //           builder: (context) => const ResetPassword(),
-                    //         ),
-                    //       );
-                    //     },
-                    //     child: const Text('Reset password'),
-                    //     // style: ElevatedButton.styleFrom(
-                    //     //     backgroundColor: Colors.red,
-                    //     //     minimumSize: Size(100, 40)),
-                    //   ),
-                    // ),
                   ],
                 )
               ],

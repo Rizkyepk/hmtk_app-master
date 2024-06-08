@@ -1,10 +1,14 @@
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/daftar_aktivity.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 class TambahActivty extends StatefulWidget {
@@ -14,16 +18,86 @@ class TambahActivty extends StatefulWidget {
   State<TambahActivty> createState() => _TambahActivtyState();
 }
 
-File? image;
-Future getImage() async {
-  final ImagePicker picker = ImagePicker();
-  final XFile? imagePicked =
-      await picker.pickImage(source: ImageSource.gallery);
-  image = File(imagePicked!.path);
-  // setState(() {});
-}
-
 class _TambahActivtyState extends State<TambahActivty> {
+  String? imagePath;
+  File? image;
+
+  var judulController = TextEditingController();
+  var contentController = TextEditingController();
+
+  Future<void> getImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (imagePicked == null) {
+      return;
+    }
+
+    final File imageFile = File(imagePicked.path);
+    double fileSizeMb = await imageFile.length() / (1024 * 1024);
+
+    if (fileSizeMb > 10) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: Batas ukuran file 10MB',
+        btnOkOnPress: () {},
+      ).show();
+    }
+
+    setState(() {
+      image = File(imagePicked.path);
+    });
+  }
+
+  Future<void> uploadData() async {
+    String title = judulController.text;
+    String content = contentController.text;
+
+    String imgUrl = await uploadFileToCDN(image!);
+
+    try {
+      var response = await postData(
+          DateTime.now().toIso8601String(), title, content, imgUrl);
+
+      if (response.statusCode == 200) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.success,
+          animType: AnimType.rightSlide,
+          title: 'Success',
+          desc: 'Fun TK berhasil ditambahkan!',
+          btnOkOnPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const DaftarAktivity()),
+            );
+          },
+        ).show();
+      } else {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.rightSlide,
+          title: 'Failed',
+          desc: 'Gagal menambahkan Fun TK',
+          btnOkOnPress: () {},
+        ).show();
+      }
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed',
+        desc: 'Gagal menambahkan Fun TK: $e',
+        btnOkOnPress: () {},
+      ).show();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +107,8 @@ class _TambahActivtyState extends State<TambahActivty> {
         child: DrawerScren(),
       ),
       appBar: AppBar(
-        // title: const Text("GeeksforGeeks"),
-        // titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 200,
-        // toolbarOpacity: 0.8,
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -45,7 +116,8 @@ class _TambahActivtyState extends State<TambahActivty> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
+                  MaterialPageRoute(
+                      builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
@@ -56,7 +128,8 @@ class _TambahActivtyState extends State<TambahActivty> {
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0),
+                child: const Text('Hello, Ivan'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -92,7 +165,8 @@ class _TambahActivtyState extends State<TambahActivty> {
           ),
           Container(
             margin: const EdgeInsets.all(20),
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   blurRadius: 1,
@@ -135,14 +209,16 @@ class _TambahActivtyState extends State<TambahActivty> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 30,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
+                      child: TextField(
+                        controller: judulController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                         ),
@@ -151,6 +227,35 @@ class _TambahActivtyState extends State<TambahActivty> {
                     const SizedBox(
                       height: 10,
                       width: 10,
+                    ),
+                    Container(
+                      height: 250,
+                      width: 400,
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2.0,
+                        ),
+                      ),
+                      child: image != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.file(
+                                image!,
+                                width:
+                                    400, // Lebar gambar diatur agar mengisi keseluruhan kontainer
+                                height:
+                                    250, // Tinggi gambar diatur agar mengisi keseluruhan kontainer
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : const Icon(
+                              Icons.image,
+                              size: 50,
+                              color: Colors.black,
+                            ),
                     ),
                     const Text(
                       "Uploud Foto",
@@ -216,14 +321,16 @@ class _TambahActivtyState extends State<TambahActivty> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 90,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
+                      child: TextField(
+                        controller: contentController,
                         maxLines: 4,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -234,44 +341,47 @@ class _TambahActivtyState extends State<TambahActivty> {
                       height: 10,
                       width: 10,
                     ),
-                    const Text(
-                      "Link Lokasi",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.only(left: 10),
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                        border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                          width: 2.0,
-                        ),
-                      ),
-                      child: const TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
+                    // const Text(
+                    //   "Link Lokasi",
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //     fontSize: 12,
+                    //   ),
+                    // ),
+                    // Container(
+                    //   margin: const EdgeInsets.only(bottom: 10),
+                    //   padding: const EdgeInsets.only(left: 10),
+                    //   height: 30,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius:
+                    //         const BorderRadius.all(Radius.circular(5.0)),
+                    //     border: Border.all(
+                    //       color: const Color.fromARGB(255, 0, 0, 0)
+                    //           .withOpacity(0.3),
+                    //       width: 2.0,
+                    //     ),
+                    //   ),
+                    //   child: const TextField(
+                    //     decoration: InputDecoration(
+                    //       border: InputBorder.none,
+                    //     ),
+                    //   ),
+                    // ),
                     Container(
                       alignment: Alignment.center,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 1, 122, 5),
+                            backgroundColor:
+                                const Color.fromARGB(255, 1, 122, 5),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              // DetailPage adalah halaman yang dituju
-                              MaterialPageRoute(
-                                  builder: (context) => const DaftarAktivity()),
-                            );
+                            uploadData();
+                            // Navigator.push(
+                            //   context,
+                            //   // DetailPage adalah halaman yang dituju
+                            //   MaterialPageRoute(
+                            //       builder: (context) => const DaftarAktivity()),
+                            // );
                           },
                           child: const Text('Tambah')),
                     )
@@ -283,5 +393,32 @@ class _TambahActivtyState extends State<TambahActivty> {
         ],
       ),
     );
+  }
+
+  Future<Response> postData(
+      String postDate, String title, String content, String imgUrl) async {
+    try {
+      Map<String, String> params = {
+        'post_date': DateTime.now().toIso8601String(),
+        'title': title,
+        'content': content,
+        'img_url': imgUrl,
+      };
+
+      var response = await http.post(
+          Uri(
+            scheme: 'https',
+            host: 'myhmtk.jeyy.xyz',
+            path: '/activity',
+            queryParameters: params,
+          ),
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+          });
+
+      return response;
+    } catch (e) {
+      throw Exception('Failed to load: $e');
+    }
   }
 }
