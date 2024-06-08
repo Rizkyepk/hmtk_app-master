@@ -42,28 +42,28 @@ class Start extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SsoLogin(),
-                          ));
-                    },
-                    child: const MyButton(
-                      txt: 'SSO Login',
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      'or',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => const SsoLogin(),
+                  //         ));
+                  //   },
+                  //   child: const MyButton(
+                  //     txt: 'SSO Login',
+                  //   ),
+                  // ),
+                  // const Padding(
+                  //   padding: EdgeInsets.all(15.0),
+                  //   child: Text(
+                  //     'or',
+                  //     style: TextStyle(
+                  //         fontSize: 16,
+                  //         fontWeight: FontWeight.bold,
+                  //         color: Colors.white),
+                  //   ),
+                  // ),
                   InkWell(
                     onTap: () {
                       Navigator.push(
