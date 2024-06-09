@@ -171,6 +171,7 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
                   DataColumn(label: Text('Aksi')),
                 ],
                 rows: _activityData.map((activities) {
+                  print(activities.toString());
                   return DataRow(
                     cells: [
                       DataCell(Text(activities["title"] ?? '')),
@@ -221,8 +222,9 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          const EditAktivity(),
+                                      builder: (context) => EditAktivity(
+                                        activity: activities,
+                                      ),
                                     ));
                               },
                               child: Icon(Icons.edit),

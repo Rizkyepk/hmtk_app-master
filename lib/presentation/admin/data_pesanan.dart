@@ -1,22 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
+import 'package:hmtk_app/utils/color_pallete.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
-import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
-import 'package:http/http.dart';
 
 class DataPesanan extends StatefulWidget {
-  const DataPesanan({super.key});
+  const DataPesanan({Key? key}) : super(key: key);
 
   @override
   State<DataPesanan> createState() => _DataPesananState();
 }
 
 class _DataPesananState extends State<DataPesanan> {
-  late List<Map<String, dynamic>> _transactionData = [];
+  List<Map<String, dynamic>> _transactionData = [];
 
   @override
   void initState() {
@@ -31,21 +30,53 @@ class _DataPesananState extends State<DataPesanan> {
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
         final bool success = data["success"];
-        if (!success) {
-          throw Exception("Not success");
+        if (success) {
+          final List<Map<String, dynamic>> datapesanan =
+              List<Map<String, dynamic>>.from(data["transactions"]);
+
+          setState(() {
+            _transactionData = datapesanan;
+          });
+        } else {
+          print('Request not successful: ${data["message"]}');
+          throw Exception("Request not successful");
         }
-
-        final List<Map<String, dynamic>> datalab =
-            List<Map<String, dynamic>>.from(data["lab_posts"]);
-
-        setState(() {
-          _transactionData = datalab;
-        });
       } else {
-        throw Exception("error");
+        print('Error: ${response.statusCode} - ${response.body}');
+        throw Exception("Error: ${response.statusCode}");
       }
     } catch (e) {
-      print('Error fetching products: $e');
+      print('Error fetching data: $e');
+    }
+  }
+
+  Future<http.Response> fetchData() async {
+    try {
+      final response = await http.get(
+        Uri(
+          scheme: 'https',
+          host: 'myhmtk.jeyy.xyz',
+          path: 'student/0/transactions_all',
+        ),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+        },
+      );
+      return response;
+    } catch (e) {
+      throw Exception('Failed to load: $e');
+    }
+  }
+
+  String _getStatusText(String status) {
+    switch (status) {
+      case 'pending':
+        return 'Pending';
+      case 'capture':
+      case 'settlement':
+        return 'Selesai';
+      default:
+        return 'Pesanan Gagal';
     }
   }
 
@@ -79,16 +110,18 @@ class _DataPesananState extends State<DataPesanan> {
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0),
-                child: const Text('Hello, Ivan'))
+              padding: const EdgeInsets.all(8.0),
+              child: const Text('Hello, Ivan'),
+            ),
           ],
         ),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(25),
-              bottomLeft: Radius.circular(25)),
+            bottomRight: Radius.circular(25),
+            bottomLeft: Radius.circular(25),
+          ),
         ),
-        elevation: 0.00,
+        elevation: 0.0,
         backgroundColor: ColorPallete.greenprim,
       ),
       body: ListView(
@@ -105,53 +138,106 @@ class _DataPesananState extends State<DataPesanan> {
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columns: const [
-                DataColumn(label: Text('Nama')),
-                DataColumn(label: Text('Aksi')),
-                DataColumn(label: Text('Jumlah')),
-                DataColumn(label: Text('Ukuran')),
-                DataColumn(label: Text('Informasi')),
-              ],
-              rows: _transactionData.map((transaction) {
-                return DataRow(
-                  cells: [
-                    DataCell(Text(transaction["name"] ?? '')),
-                    DataCell(Text(transaction["quantity"] ?? '')),
-                    DataCell(Text(transaction["size"] ?? '')),
-                    DataCell(Text(transaction['orders']["description"] ?? '')),
-                  ],
-                );
-              }).toList(),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey.shade200,
+              ),
+              child: DataTable(
+                columns: const [
+                  DataColumn(label: Text('ID Transaksi')),
+                  DataColumn(label: Text('Nama')),
+                  DataColumn(label: Text('Produk')),
+                  DataColumn(label: Text('Jumlah')),
+                  DataColumn(label: Text('Ukuran')),
+                  DataColumn(label: Text('Informasi')),
+                ],
+                rows: _transactionData.map((transaction) {
+                  final transactionId = transaction['id']?.toString() ?? '';
+                  final studentName = transaction['student']['name'] ?? '';
+                  final status = transaction['status'] ?? '';
+                  final statusText = _getStatusText(status);
+
+                  return DataRow(cells: [
+                    DataCell(Text(transactionId)),
+                    DataCell(Text(studentName)),
+                    DataCell(Container(
+                      width: 250,
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: transaction['orders'].length,
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(height: 5),
+                        itemBuilder: (BuildContext context, int index) {
+                          final order = transaction['orders'][index];
+                          final productName = order['product']['name'] ?? '';
+                          final quantity = order['quantity']?.toString() ?? '';
+                          final size = order['size'] ?? '';
+
+                          return Text(
+                            '$productName',
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                          );
+                        },
+                      ),
+                    )),
+                    DataCell(Container(
+                      width: 250,
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: transaction['orders'].length,
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(height: 5),
+                        itemBuilder: (BuildContext context, int index) {
+                          final order = transaction['orders'][index];
+                          final quantity = order['quantity']?.toString() ?? '';
+                          return Text(quantity);
+                        },
+                      ),
+                    )),
+                    DataCell(Container(
+                      width: 250,
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: transaction['orders'].length,
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(height: 5),
+                        itemBuilder: (BuildContext context, int index) {
+                          final order = transaction['orders'][index];
+                          final size = order['size'] ?? '';
+                          return Text(size);
+                        },
+                      ),
+                    )),
+                    DataCell(Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 8.0),
+                      decoration: BoxDecoration(
+                        color: statusText == 'Pending'
+                            ? Colors.orange
+                            : statusText == 'Selesai'
+                                ? Colors.green
+                                : Colors.red,
+                        borderRadius: BorderRadius.circular(4.0),
+                      ),
+                      child: Text(
+                        statusText,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    )),
+                  ]);
+                }).toList(),
+              ),
             ),
           ),
         ],
       ),
     );
   }
-
-  Future<http.Response> fetchData() async {
-    try {
-      // Map<String, dynamic> params = {'nim': nim};
-
-      var response = await http.get(
-        Uri(
-          scheme: 'https',
-          host: 'myhmtk.jeyy.xyz',
-          // path: '/student/$nim/transactions',
-          // queryParameters: params,
-        ),
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
-        },
-      );
-
-      return response;
-    } catch (e) {
-      throw Exception('Failed to load: $e');
-    }
-  }
 }
+
+
           //   child: Column(
           //     children: [
           //       Container(
