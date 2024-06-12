@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Secrets {
   static String apiKey = dotenv.env['MYHMTK_API_KEY']!;
@@ -60,7 +61,7 @@ String limitString(String string, int limit, {String? trail = '...'}) {
       return sub + trail;
     }
     return sub;
-  } 
+  }
   return string;
 }
 

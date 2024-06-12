@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart';
@@ -137,11 +136,13 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Image.asset(
-                                  'assets/maps.png',
-                                  height: 180,
-                                  fit: BoxFit.cover,
-                                )
+                                //menampilkan maps
+                                // Image.asset(
+                                //   'assets/maps.png',
+                                //   height: 180,
+                                //   fit: BoxFit.cover,
+                                // )
+                                
                               ],
                             ),
                           ),
