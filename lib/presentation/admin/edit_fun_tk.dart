@@ -1,31 +1,130 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:hmtk_app/presentation/admin/daftar_funtk.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:hmtk_app/presentation/admin/daftar_funtk.dart';
+// import 'package:hmtk_app/presentation/admin/daftar_funtk.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditFunTk extends StatefulWidget {
-  const EditFunTk({super.key});
+  final Map<String, dynamic> fun_tk;
+  const EditFunTk({super.key, required this.fun_tk});
 
   @override
-  State<EditFunTk> createState() => _TambahActivtyState();
+  State<EditFunTk> createState() => _EditFunTkState();
 }
 
-File? image;
-Future getImage() async {
-  final ImagePicker picker = ImagePicker();
-  final XFile? imagePicked =
-      await picker.pickImage(source: ImageSource.gallery);
-  image = File(imagePicked!.path);
-  // setState(() {});
-}
+class _EditFunTkState extends State<EditFunTk> {
+  String? imagePath;
+  File? image;
 
-class _TambahActivtyState extends State<EditFunTk> {
+  var contentController = TextEditingController();
+  var timeController = TextEditingController();
+  var dateController = TextEditingController();
+  var locationController = TextEditingController();
+  var mapController = TextEditingController();
+  var titleController = TextEditingController();
+
+  Future<void> getImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (imagePicked == null) {
+      return;
+    }
+
+    final File imageFile = File(imagePicked.path);
+    double fileSizeMb = await imageFile.length() / (1024 * 1024);
+
+    if (fileSizeMb > 10) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: Batas ukuran file 10MB',
+        btnOkOnPress: () {},
+      ).show();
+    }
+
+    setState(() {
+      image = File(imagePicked.path);
+    });
+  }
+
+  Future<void> _uploadDataFun(int id) async {
+    String title = titleController.text;
+    String content = contentController.text;
+    String date = dateController.text;
+    String time = timeController.text;
+    String location = locationController.text;
+    String map = mapController.text;
+    String? imgUrl;
+    if (image != null) {
+      imgUrl = await uploadFileToCDN(image!);
+    }
+
+    try {
+      var response = await postEditDataFunTK(
+          id, title, content, date, time, location, map, imgUrl);
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data["success"]) {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.rightSlide,
+            title: 'Success',
+            desc: 'Activity successfully edited!',
+            btnOkOnPress: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const DaftarFuntk()),
+              );
+            },
+          ).show();
+        } else {
+          throw data["message"];
+        }
+      } else {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.rightSlide,
+          title: 'Failed',
+          desc: 'Failed to edit activity. Please try again later.',
+          btnOkOnPress: () {},
+        ).show();
+      }
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed',
+        desc: 'Failed to edit activity: $e',
+        btnOkOnPress: () {},
+      ).show();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    contentController.text = widget.fun_tk["description"] ?? "";
+    titleController.text = widget.fun_tk["title"] ?? "";
+    timeController.text = widget.fun_tk["time"] ?? "";
+    dateController.text = widget.fun_tk["date"] ?? "";
+    locationController.text = widget.fun_tk["location"];
+    mapController.text = widget.fun_tk["map_url"] ?? '-';
+
     return Scaffold(
       drawer: const Drawer(
         width: 200,
@@ -33,8 +132,6 @@ class _TambahActivtyState extends State<EditFunTk> {
         child: DrawerScren(),
       ),
       appBar: AppBar(
-        // title: const Text("GeeksforGeeks"),
-        // titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 200,
         // toolbarOpacity: 0.8,
@@ -45,7 +142,8 @@ class _TambahActivtyState extends State<EditFunTk> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
+                  MaterialPageRoute(
+                      builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
@@ -56,7 +154,8 @@ class _TambahActivtyState extends State<EditFunTk> {
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0),
+                child: const Text('Hello, Ivan'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -84,7 +183,7 @@ class _TambahActivtyState extends State<EditFunTk> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
                 child: const Text(
-                  'Kosongkan jika tidak ingiin mengubah data',
+                  'Kosongkan jika tidak ingin mengubah data',
                   style: TextStyle(fontSize: 12),
                 ),
               ),
@@ -92,7 +191,8 @@ class _TambahActivtyState extends State<EditFunTk> {
           ),
           Container(
             margin: const EdgeInsets.all(20),
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   blurRadius: 1,
@@ -124,7 +224,7 @@ class _TambahActivtyState extends State<EditFunTk> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Tanggal Pelaksanaan",
+                      "Judul",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
@@ -135,16 +235,20 @@ class _TambahActivtyState extends State<EditFunTk> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 30,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
+                      child: TextField(
+                        controller: titleController,
                         decoration: InputDecoration(
+                          // hintText: widget.fun_tk["title"],
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 10),
                         ),
                       ),
                     ),
@@ -152,8 +256,50 @@ class _TambahActivtyState extends State<EditFunTk> {
                       height: 10,
                       width: 10,
                     ),
+                    //tampil
+                    Container(
+                      height: 250,
+                      width: 400,
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2.0,
+                        ),
+                      ),
+                      child: image != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.file(
+                                image!,
+                                width:
+                                    400, // Lebar gambar diatur agar mengisi keseluruhan kontainer
+                                height:
+                                    250, // Tinggi gambar diatur agar mengisi keseluruhan kontainer
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : widget.fun_tk["img_url"] != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    widget.fun_tk["img_url"],
+                                    width:
+                                        400, // Lebar gambar diatur agar mengisi keseluruhan kontainer
+                                    height:
+                                        250, // Tinggi gambar diatur agar mengisi keseluruhan kontainer
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                              : const Icon(
+                                  Icons.image,
+                                  size: 50,
+                                  color: Colors.black,
+                                ),
+                    ),
                     const Text(
-                      "Uploud Foto",
+                      "Upload Foto",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
@@ -205,6 +351,38 @@ class _TambahActivtyState extends State<EditFunTk> {
                       width: 10,
                     ),
                     const Text(
+                      "Tanggal Pelaksanaan",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: TextField(
+                        controller: dateController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 10),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
                       "Waktu Pelaksanaan",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -216,45 +394,19 @@ class _TambahActivtyState extends State<EditFunTk> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 30,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
+                      child: TextField(
+                        controller: timeController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                      width: 10,
-                    ),
-                    const Text(
-                      "Lokasi",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.only(left: 10),
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                        border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                          width: 2.0,
-                        ),
-                      ),
-                      child: const TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 10),
                         ),
                       ),
                     ),
@@ -274,16 +426,80 @@ class _TambahActivtyState extends State<EditFunTk> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 30,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
+                      child: TextField(
+                        controller: contentController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 10),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    const Text(
+                      "Lokasi",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: TextField(
+                        controller: locationController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 10),
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      "Maps",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: TextField(
+                        controller: mapController,
+                        decoration: InputDecoration(
+                          // hintText: widget.fun_tk["map_url"],
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 10),
                         ),
                       ),
                     ),
@@ -291,15 +507,11 @@ class _TambahActivtyState extends State<EditFunTk> {
                       alignment: Alignment.center,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 1, 122, 5),
+                            backgroundColor:
+                                const Color.fromARGB(255, 1, 122, 5),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              // DetailPage adalah halaman yang dituju
-                              MaterialPageRoute(
-                                  builder: (context) => const DaftarFuntk()),
-                            );
+                            _uploadDataFun(widget.fun_tk["id"]);
                           },
                           child: const Text('Edit')),
                     )
@@ -311,5 +523,43 @@ class _TambahActivtyState extends State<EditFunTk> {
         ],
       ),
     );
+  }
+
+  Future<Response> postEditDataFunTK(
+      int fun_tk_id,
+      String title,
+      String content,
+      String date,
+      String time,
+      String location,
+      String? map,
+      String? imgUrl) async {
+    try {
+      Map<String, String> params = {
+        'title': title,
+        'description': content,
+        'date': date,
+        'time': time,
+        'location': location,
+        if (map != null) 'map_url': map,
+        if (imgUrl != null) 'img_url': imgUrl,
+      };
+
+      var response = await http.put(
+        Uri(
+            scheme: 'https',
+            host: 'myhmtk.jeyy.xyz',
+            path: '/fun_tk/$fun_tk_id',
+            queryParameters: params),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+        },
+        body: params,
+      );
+
+      return response;
+    } catch (e) {
+      throw Exception('Failed to load: $e');
+    }
   }
 }

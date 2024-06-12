@@ -19,15 +19,6 @@ class EditAktivity extends StatefulWidget {
   State<EditAktivity> createState() => _TambahActivtyState();
 }
 
-// File? image;
-// Future getImage() async {
-//   final ImagePicker picker = ImagePicker();
-//   final XFile? imagePicked =
-//       await picker.pickImage(source: ImageSource.gallery);
-//   image = File(imagePicked!.path);
-//   // setState(() {});
-// }
-
 class _TambahActivtyState extends State<EditAktivity> {
   String? imagePath;
   File? image;
@@ -65,24 +56,13 @@ class _TambahActivtyState extends State<EditAktivity> {
     String title = judulController.text;
     String content = contentController.text;
 
-    // if (image == null) {
-    //   return AwesomeDialog(
-    //     context: context,
-    //     dialogType: DialogType.error,
-    //     animType: AnimType.rightSlide,
-    //     title: 'Error',
-    //     desc: 'Please select an image.',
-    //     btnOkOnPress: () {},
-    //   ).show();
-    // }
-
     String? imgUrl;
     if (image != null) {
       imgUrl = await uploadFileToCDN(image!);
     }
 
     try {
-      var response = await postEditData(id, title, content, imgUrl);
+      var response = await postEditDataActivity(id, title, content, imgUrl);
 
       if (response.statusCode == 200) {
         AwesomeDialog(
@@ -247,6 +227,7 @@ class _TambahActivtyState extends State<EditAktivity> {
                         decoration: InputDecoration(
                           hintText: widget.activity['title'],
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 8),
                         ),
                       ),
                     ),
@@ -372,6 +353,7 @@ class _TambahActivtyState extends State<EditAktivity> {
                         maxLines: 4,
                         decoration: InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 8),
                         ),
                       ),
                     ),
@@ -399,31 +381,13 @@ class _TambahActivtyState extends State<EditAktivity> {
     );
   }
 
-  Future<Response> fetchData(int activity_id) async {
-    try {
-      var response = await get(
-          Uri(
-            scheme: 'https',
-            host: 'myhmtk.jeyy.xyz',
-            path: '/activity/$activity_id',
-          ),
-          headers: {
-            HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
-          });
-
-      return response;
-    } catch (e) {
-      throw Exception('Failed to load: $e');
-    }
-  }
-
-  Future<Response> postEditData(
+  Future<Response> postEditDataActivity(
       int activity_id, String title, String content, String? imgUrl) async {
     try {
       Map<String, String> params = {
         'title': title,
         'content': content,
-        if(imgUrl != null) 'img_url': imgUrl,
+        if (imgUrl != null) 'img_url': imgUrl,
       };
 
       var response = await http.put(
