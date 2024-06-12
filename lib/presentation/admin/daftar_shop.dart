@@ -228,7 +228,9 @@ class _DaftarShopState extends State<DaftarShop> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const EditShop(),
+                                              EditShop(
+                                                shop: product,
+                                              ),
                                         ));
                                   },
                                   child: Icon(Icons.edit),
@@ -243,8 +245,6 @@ class _DaftarShopState extends State<DaftarShop> {
                 ),
               ),
             )
-            //   )
-            // ),
           ],
         ));
   }

@@ -221,7 +221,9 @@ class _DaftarFuntkState extends State<DaftarFuntk> {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const EditFunTk(),
+                                        builder: (context) => EditFunTk(
+                                          fun_tk: fun_tks,
+                                        ),
                                       ));
                                 },
                                 child: Icon(Icons.edit),

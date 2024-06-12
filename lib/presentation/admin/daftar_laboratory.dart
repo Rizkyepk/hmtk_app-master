@@ -232,7 +232,8 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
                                     ),
                             ),
                           ),
-                          DataCell(Text(lab_post["post_date"] ?? '')),
+                          DataCell(Text(
+                              formatDateTime(lab_post["post_date"] ?? ''))),
                           DataCell(
                             Row(
                               children: [
@@ -249,7 +250,9 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const EditLab(),
+                                        builder: (context) => EditLab(
+                                          lab: lab_post,
+                                        ),
                                       ),
                                     );
                                   },
