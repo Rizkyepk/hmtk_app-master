@@ -26,32 +26,32 @@ class _DetailActivityState extends State<DetailActivity> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          CircleAvatar(
-            backgroundColor: Colors.grey.shade50.withOpacity(0.5),
-            child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    tapFavorite = !tapFavorite;
-                  });
-                },
-                icon: tapFavorite
-                    ? const Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                        size: 25,
-                      )
-                    : const Icon(
-                        Icons.favorite,
-                        color: Colors.white,
-                        size: 25,
-                      )),
+          // actions: [
+          //   CircleAvatar(
+          //     backgroundColor: Colors.grey.shade50.withOpacity(0.5),
+          //     child: IconButton(
+          //         onPressed: () {
+          //           setState(() {
+          //             tapFavorite = !tapFavorite;
+          //           });
+          //         },
+          //         icon: tapFavorite
+          //             ? const Icon(
+          //                 Icons.favorite,
+          //                 color: Colors.red,
+          //                 size: 25,
+          //               )
+          //             : const Icon(
+          //                 Icons.favorite,
+          //                 color: Colors.white,
+          //                 size: 25,
+          //               )),
+          //   ),
+          //   const SizedBox(
+          //     width: 10,
+          //   )
+          // ],
           ),
-          const SizedBox(
-            width: 10,
-          )
-        ],
-      ),
       body: SizedBox(
           width: double.maxFinite,
           height: double.maxFinite,

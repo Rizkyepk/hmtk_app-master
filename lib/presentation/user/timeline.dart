@@ -557,311 +557,324 @@ class _TimelineState extends State<Timeline> {
                               ),
                             ),
                             // komentar
-                            InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(35))),
-                                    builder: (context) {
-                                      return Container(
-                                        height: 60.h,
-                                        // MediaQuery.of(context)
-                                        //         .size
-                                        //         .height *
-                                        //     0.6,
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10, horizontal: 20),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            const Expanded(
-                                              flex: 1,
+                            (posts[index]['can_comment'] == true)
+                                ? InkWell(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          shape: const RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                      top:
+                                                          Radius.circular(35))),
+                                          builder: (context) {
+                                            return Container(
+                                              height: 60.h,
+                                              // MediaQuery.of(context)
+                                              //         .size
+                                              //         .height *
+                                              //     0.6,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 20),
                                               child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
                                                 children: [
-                                                  SizedBox(
-                                                      width: 40,
-                                                      child: Divider(
-                                                        thickness: 4,
-                                                      )),
-                                                  Text(
-                                                    'Komentar',
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                  const Expanded(
+                                                    flex: 1,
+                                                    child: Column(
+                                                      children: [
+                                                        SizedBox(
+                                                            width: 40,
+                                                            child: Divider(
+                                                              thickness: 4,
+                                                            )),
+                                                        Text(
+                                                          'Komentar',
+                                                          style: TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        Divider(
+                                                          thickness: 0.8,
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
-                                                  Divider(
-                                                    thickness: 0.8,
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(5),
-                                                margin: const EdgeInsets.all(5),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15),
-                                                    color:
-                                                        Colors.grey.shade300),
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: CircleAvatar(
-                                                          radius: 38,
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          child: ClipOval(
-                                                              child:
-                                                                  Image.network(
-                                                            auth["user"]
-                                                                ["avatar_url"],
-                                                            fit: BoxFit.cover,
-                                                            width: 60,
-                                                            height: 60,
-                                                          ))),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Expanded(
-                                                      flex: 7,
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5),
+                                                      margin:
+                                                          const EdgeInsets.all(
+                                                              5),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                          color: Colors
+                                                              .grey.shade300),
                                                       child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
                                                         children: [
                                                           Expanded(
-                                                            flex: 4,
-                                                            child: TextField(
-                                                              controller:
-                                                                  addCommentController,
-                                                              maxLength: 100,
-                                                              decoration: const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  hintStyle:
-                                                                      TextStyle(
-                                                                          fontSize:
-                                                                              12),
-                                                                  hintText:
-                                                                      'Tambahkan komentar anda..'),
-                                                            ),
+                                                            flex: 1,
+                                                            child: CircleAvatar(
+                                                                radius: 38,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                child: ClipOval(
+                                                                    child: Image
+                                                                        .network(
+                                                                  auth["user"][
+                                                                      "avatar_url"],
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                  width: 60,
+                                                                  height: 60,
+                                                                ))),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 10,
                                                           ),
                                                           Expanded(
-                                                              flex: 1,
-                                                              child: IconButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    addComment(posts[
-                                                                            index]
-                                                                        ["id"]);
-                                                                  },
-                                                                  icon:
-                                                                      const Icon(
-                                                                    Icons.send,
-                                                                    color: Colors
-                                                                        .blue,
-                                                                  )))
+                                                            flex: 7,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Expanded(
+                                                                  flex: 4,
+                                                                  child:
+                                                                      TextField(
+                                                                    controller:
+                                                                        addCommentController,
+                                                                    maxLength:
+                                                                        100,
+                                                                    decoration: const InputDecoration(
+                                                                        border: InputBorder
+                                                                            .none,
+                                                                        hintStyle: TextStyle(
+                                                                            fontSize:
+                                                                                12),
+                                                                        hintText:
+                                                                            'Tambahkan komentar anda..'),
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                    flex: 1,
+                                                                    child: IconButton(
+                                                                        onPressed: () {
+                                                                          addComment(posts[index]
+                                                                              [
+                                                                              "id"]);
+                                                                        },
+                                                                        icon: const Icon(
+                                                                          Icons
+                                                                              .send,
+                                                                          color:
+                                                                              Colors.blue,
+                                                                        )))
+                                                              ],
+                                                            ),
+                                                          )
                                                         ],
                                                       ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 5,
-                                              child: FutureBuilder(
-                                                  future: fetchComment(
-                                                      posts[index]["id"]),
-                                                  builder: (BuildContext
-                                                          context,
-                                                      AsyncSnapshot snapshot) {
-                                                    if (snapshot
-                                                            .connectionState ==
-                                                        ConnectionState
-                                                            .waiting) {
-                                                      return const Center(
-                                                        child: SizedBox(
-                                                            width: 30,
-                                                            height: 30,
-                                                            child:
-                                                                CircularProgressIndicator()),
-                                                      ); // Show loading indicator while data is being fetched
-                                                    } else if (snapshot
-                                                        .hasError) {
-                                                      return Text(
-                                                          'Error: ${snapshot.error}');
-                                                    } else {
-                                                      var comments =
-                                                          snapshot.data;
-                                                      return ListView.builder(
-                                                        shrinkWrap: true,
-                                                        itemCount:
-                                                            comments.length,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 15),
-                                                        itemBuilder:
-                                                            (context, index) {
-                                                          var comment =
-                                                              comments[index];
-                                                          return InkWell(
-                                                            child: Padding(
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 5,
+                                                    child: FutureBuilder(
+                                                        future: fetchComment(
+                                                            posts[index]["id"]),
+                                                        builder: (BuildContext
+                                                                context,
+                                                            AsyncSnapshot
+                                                                snapshot) {
+                                                          if (snapshot
+                                                                  .connectionState ==
+                                                              ConnectionState
+                                                                  .waiting) {
+                                                            return const Center(
+                                                              child: SizedBox(
+                                                                  width: 30,
+                                                                  height: 30,
+                                                                  child:
+                                                                      CircularProgressIndicator()),
+                                                            ); // Show loading indicator while data is being fetched
+                                                          } else if (snapshot
+                                                              .hasError) {
+                                                            return Text(
+                                                                'Error: ${snapshot.error}');
+                                                          } else {
+                                                            var comments =
+                                                                snapshot.data;
+                                                            return ListView
+                                                                .builder(
+                                                              shrinkWrap: true,
+                                                              itemCount:
+                                                                  comments
+                                                                      .length,
                                                               padding:
                                                                   const EdgeInsets
                                                                       .only(
-                                                                      bottom:
-                                                                          25),
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Row(
-                                                                    children: [
-                                                                      CircleAvatar(
-                                                                          radius:
-                                                                              38,
-                                                                          backgroundColor:
-                                                                              Colors.transparent,
-                                                                          child: ClipOval(
-                                                                              child: Image.network(
-                                                                            comment["commenter"]["avatar_url"],
-                                                                            fit:
-                                                                                BoxFit.cover,
-                                                                            width:
-                                                                                60,
-                                                                            height:
-                                                                                60,
-                                                                          ))),
-                                                                      const SizedBox(
-                                                                        width:
-                                                                            10,
-                                                                      ),
-                                                                      Column(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Column(
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              SizedBox(
-                                                                                width: 200,
-                                                                                child: SingleChildScrollView(
-                                                                                  scrollDirection: Axis.horizontal,
+                                                                      top: 15),
+                                                              itemBuilder:
+                                                                  (context,
+                                                                      index) {
+                                                                var comment =
+                                                                    comments[
+                                                                        index];
+                                                                return InkWell(
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        bottom:
+                                                                            25),
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Row(
+                                                                          children: [
+                                                                            CircleAvatar(
+                                                                                radius: 38,
+                                                                                backgroundColor: Colors.transparent,
+                                                                                child: ClipOval(
+                                                                                    child: Image.network(
+                                                                                  comment["commenter"]["avatar_url"],
+                                                                                  fit: BoxFit.cover,
+                                                                                  width: 60,
+                                                                                  height: 60,
+                                                                                ))),
+                                                                            const SizedBox(
+                                                                              width: 10,
+                                                                            ),
+                                                                            Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Column(
+                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                  children: [
+                                                                                    SizedBox(
+                                                                                      width: 200,
+                                                                                      child: SingleChildScrollView(
+                                                                                        scrollDirection: Axis.horizontal,
+                                                                                        child: Text(
+                                                                                          comment["commenter"]["name"],
+                                                                                          style: const TextStyle(fontWeight: FontWeight.bold),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    // const SizedBox(
+                                                                                    //   width: 10,
+                                                                                    // ),
+                                                                                    Text(
+                                                                                      timeAgoFromIso(comment["comment_date"]),
+                                                                                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  width: 200,
                                                                                   child: Text(
-                                                                                    comment["commenter"]["name"],
-                                                                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                                                                    comment["content"],
+                                                                                    softWrap: true,
+                                                                                    style: const TextStyle(fontSize: 12),
                                                                                   ),
                                                                                 ),
-                                                                              ),
-                                                                              // const SizedBox(
-                                                                              //   width: 10,
-                                                                              // ),
-                                                                              Text(
-                                                                                timeAgoFromIso(comment["comment_date"]),
-                                                                                style: const TextStyle(color: Colors.grey, fontSize: 12),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                200,
-                                                                            child:
-                                                                                Text(
-                                                                              comment["content"],
-                                                                              softWrap: true,
-                                                                              style: const TextStyle(fontSize: 12),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  if (auth["user"]
-                                                                          [
-                                                                          "nim"] ==
-                                                                      comment["commenter"]
-                                                                          [
-                                                                          "nim"])
-                                                                    PopupMenuButton(
-                                                                      onSelected:
-                                                                          (value) {
-                                                                        setState(
-                                                                            () {
-                                                                          deleteComment(
-                                                                              posts[index]["id"],
-                                                                              comment["id"]);
-                                                                          // hapusKomentar =
-                                                                          //     value
-                                                                          //         .toString();
-                                                                        });
-                                                                      },
-                                                                      itemBuilder:
-                                                                          (BuildContext
-                                                                              context) {
-                                                                        return const [
-                                                                          PopupMenuItem(
-                                                                            value:
-                                                                                '1',
-                                                                            child:
-                                                                                Row(
-                                                                              children: [
-                                                                                Text(
-                                                                                  "Hapus",
-                                                                                  style: TextStyle(color: Colors.red),
-                                                                                ),
-                                                                                Icon(Icons.delete, color: Colors.red)
                                                                               ],
                                                                             ),
-                                                                          ),
-                                                                        ];
-                                                                      },
-                                                                    )
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
-                                                    }
-                                                  }),
-                                            ),
-                                          ],
+                                                                          ],
+                                                                        ),
+                                                                        if (auth["user"]["nim"] ==
+                                                                            comment["commenter"]["nim"])
+                                                                          PopupMenuButton(
+                                                                            onSelected:
+                                                                                (value) {
+                                                                              setState(() {
+                                                                                deleteComment(posts[index]["id"], comment["id"]);
+                                                                                // hapusKomentar =
+                                                                                //     value
+                                                                                //         .toString();
+                                                                              });
+                                                                            },
+                                                                            itemBuilder:
+                                                                                (BuildContext context) {
+                                                                              return const [
+                                                                                PopupMenuItem(
+                                                                                  value: '1',
+                                                                                  child: Row(
+                                                                                    children: [
+                                                                                      Text(
+                                                                                        "Hapus",
+                                                                                        style: TextStyle(color: Colors.red),
+                                                                                      ),
+                                                                                      Icon(Icons.delete, color: Colors.red)
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ];
+                                                                            },
+                                                                          )
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          }
+                                                        }),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                            //   }
+                                            // });
+                                          });
+                                    },
+                                    child: const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.mode_comment_outlined,
                                         ),
-                                      );
-                                      //   }
-                                      // });
-                                    });
-                              },
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.mode_comment_outlined,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    'Komentar',
-                                  ),
-                                ],
-                              ),
-                            ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          'Komentar',
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.mode_comment_outlined,
+                                          color: Colors.grey,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          'Komentar',            
+                                        ),
+                                      ],
+                                      
+                                    ),
                             // share
                             InkWell(
                               onTap: () {
