@@ -227,7 +227,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       ),
                       child: TextField(
                         controller: titleController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
                       ),
@@ -340,7 +340,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       ),
                       child: TextField(
                         controller: dateController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
                       ),
@@ -371,7 +371,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       ),
                       child: TextField(
                         controller: timeController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
                       ),
@@ -402,7 +402,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       ),
                       child: TextField(
                         controller: contentController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
                       ),
@@ -433,7 +433,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       ),
                       child: TextField(
                         controller: mapController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
                       ),

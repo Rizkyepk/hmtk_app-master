@@ -26,13 +26,13 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
     _fetchActivity();
   }
 
-  Future<void> deleteActivity(int activity_id) async {
+  Future<void> deleteActivity(int activityId) async {
     try {
       var response = await delete(
           Uri(
             scheme: 'https',
             host: 'myhmtk.jeyy.xyz',
-            path: '/activity/$activity_id',
+            path: '/activity/$activityId',
           ),
           headers: {
             HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
@@ -143,6 +143,7 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
         children: [
           Container(
             padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+            height: 55,
             child: const Text(
               "Daftar Aktivity",
               style: TextStyle(
@@ -150,7 +151,6 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            height: 55,
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -175,7 +175,7 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
                     cells: [
                       DataCell(Text(activities["title"] ?? '')),
                       DataCell(
-                        Container(
+                        SizedBox(
                           width: 100, // Lebar gambar
                           height: 100, // Tinggi gambar
                           child: activities["img_url"] != null
@@ -184,7 +184,7 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
                                   fit: BoxFit
                                       .contain, // Mengatur agar gambar pas ke dalam kontainer
                                 )
-                              : Text(
+                              : const Text(
                                   'Null',
                                   textAlign: TextAlign.center,
                                 ), // Placeholder text for null image
@@ -213,7 +213,7 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
                               child:
                                   const Icon(Icons.delete, color: Colors.red),
                             ),
-                            SizedBox(
+                            const SizedBox(
                                 width: 8), // Jarak antara ikon delete dan edit
                             InkWell(
                               onTap: () {
@@ -225,7 +225,7 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
                                           const EditAktivity(),
                                     ));
                               },
-                              child: Icon(Icons.edit),
+                              child: const Icon(Icons.edit),
                             ),
                           ],
                         ),

@@ -23,7 +23,7 @@ class MenuRiwayatAspirasi extends StatelessWidget {
         future: fetchData(nim), // Call fetchData with the obtained NIM
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
@@ -93,12 +93,12 @@ class MenuRiwayatAspirasi extends StatelessWidget {
                           2: FixedColumnWidth(80),
                           3: FixedColumnWidth(80),
                         },
-                        border: TableBorder.symmetric(
+                        border: const TableBorder.symmetric(
                           outside: BorderSide.none,
-                          inside: const BorderSide(),
+                          inside: BorderSide(),
                         ),
                         children: [
-                          TableRow(children: [
+                          const TableRow(children: [
                             Text(
                               'No',
                               textAlign: TextAlign.center,

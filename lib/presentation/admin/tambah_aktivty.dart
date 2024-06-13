@@ -219,7 +219,7 @@ class _TambahActivtyState extends State<TambahActivty> {
                       ),
                       child: TextField(
                         controller: judulController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
                       ),
@@ -332,7 +332,7 @@ class _TambahActivtyState extends State<TambahActivty> {
                       child: TextField(
                         controller: contentController,
                         maxLines: 4,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
                       ),

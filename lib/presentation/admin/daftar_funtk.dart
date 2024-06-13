@@ -26,13 +26,13 @@ class _DaftarFuntkState extends State<DaftarFuntk> {
     _fetchFun();
   }
 
-  Future<void> deleteProduct(int fun_tk_id) async {
+  Future<void> deleteProduct(int funTkId) async {
     try {
       var response = await delete(
           Uri(
             scheme: 'https',
             host: 'myhmtk.jeyy.xyz',
-            path: '/fun_tk/$fun_tk_id',
+            path: '/fun_tk/$funTkId',
           ),
           headers: {
             HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
@@ -143,6 +143,7 @@ class _DaftarFuntkState extends State<DaftarFuntk> {
         body: ListView(children: [
           Container(
             padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+            height: 55,
             child: const Text(
               "Daftar Fun TK",
               style: TextStyle(
@@ -150,7 +151,6 @@ class _DaftarFuntkState extends State<DaftarFuntk> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            height: 55,
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -170,32 +170,32 @@ class _DaftarFuntkState extends State<DaftarFuntk> {
                     DataColumn(label: Text('Informasi')),
                     DataColumn(label: Text('Aksi')),
                   ],
-                  rows: _funData.map((fun_tks) {
+                  rows: _funData.map((funTks) {
                     return DataRow(
                       cells: [
-                        DataCell(Text(fun_tks["date"] ?? '')),
-                        DataCell(Text(fun_tks["time"] ?? '')),
+                        DataCell(Text(funTks["date"] ?? '')),
+                        DataCell(Text(funTks["time"] ?? '')),
                         DataCell(
-                          Container(
+                          SizedBox(
                             width: 100, // Lebar gambar
                             height: 100, // Tinggi gambar
-                            child: fun_tks["img_url"] != null
+                            child: funTks["img_url"] != null
                                 ? Image.network(
-                                    fun_tks["img_url"],
+                                    funTks["img_url"],
                                     fit: BoxFit
                                         .contain, // Mengatur agar gambar pas ke dalam kontainer
                                   )
-                                : Text(
+                                : const Text(
                                     'Null'), // Placeholder text for null image
                           ),
                         ),
-                        DataCell(Text(fun_tks["location"] ?? '')),
+                        DataCell(Text(funTks["location"] ?? '')),
                         // DataCell(Text(fun_tks["description"] ?? '')),
                         DataCell(
                           SizedBox(
                             width: 250,
                             child: Text(
-                              fun_tks["description"],
+                              funTks["description"],
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -207,12 +207,12 @@ class _DaftarFuntkState extends State<DaftarFuntk> {
                               InkWell(
                                 onTap: () {
                                   // Implementasi untuk menghapus barang
-                                  deleteProduct(fun_tks['id']);
+                                  deleteProduct(funTks['id']);
                                 },
                                 child:
                                     const Icon(Icons.delete, color: Colors.red),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                   width:
                                       8), // Jarak antara ikon delete dan edit
                               InkWell(
@@ -224,7 +224,7 @@ class _DaftarFuntkState extends State<DaftarFuntk> {
                                         builder: (context) => const EditFunTk(),
                                       ));
                                 },
-                                child: Icon(Icons.edit),
+                                child: const Icon(Icons.edit),
                               ),
                             ],
                           ),

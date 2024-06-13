@@ -382,7 +382,7 @@ class _TambahActivtyState extends State<TambahLab> {
                       ),
                       child: TextField(
                         controller: contentController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
                       ),
