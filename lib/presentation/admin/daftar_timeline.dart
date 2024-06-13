@@ -25,13 +25,13 @@ class _DaftarTimelineState extends State<DaftarTimeline> {
     _fetchPosts();
   }
 
-  Future<void> deletePost(int post_id) async {
+  Future<void> deletePost(int postId) async {
     try {
       var response = await delete(
           Uri(
             scheme: 'https',
             host: 'myhmtk.jeyy.xyz',
-            path: '/post/$post_id',
+            path: '/post/$postId',
           ),
           headers: {
             HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
@@ -139,6 +139,7 @@ class _DaftarTimelineState extends State<DaftarTimeline> {
         children: [
           Container(
             padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+            height: 55,
             child: const Text(
               "Daftar Timeline",
               style: TextStyle(
@@ -146,7 +147,6 @@ class _DaftarTimelineState extends State<DaftarTimeline> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            height: 55,
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -185,7 +185,7 @@ class _DaftarTimelineState extends State<DaftarTimeline> {
                                 width: 100,
                                 height: 100,
                               )
-                            : Text('Null'), // Placeholder text for null image
+                            : const Text('Null'), // Placeholder text for null image
                       ),
                       DataCell(Text(post["post_date"])),
                       DataCell(

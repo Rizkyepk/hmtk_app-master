@@ -85,7 +85,7 @@ class _DetailActivityState extends State<DetailActivity> {
                         fontWeight: FontWeight.bold,
                         color: Colors.green[400]),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 150,
                   )
                 ],
@@ -120,7 +120,7 @@ class _DetailActivityState extends State<DetailActivity> {
                         ),
                         Text(
                           widget.activity['content'],
-                          style: TextStyle(fontSize: 14, color: Colors.green),
+                          style: const TextStyle(fontSize: 14, color: Colors.green),
                         ),
                         const SizedBox(
                           height: 10,

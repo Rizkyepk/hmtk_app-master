@@ -28,13 +28,13 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
     _fetchDataLab(selectedLab);
   }
 
-  Future<void> deleteDataLab(int lab_post_id) async {
+  Future<void> deleteDataLab(int labPostId) async {
     try {
       var response = await http.delete(
           Uri(
             scheme: 'https',
             host: 'myhmtk.jeyy.xyz',
-            path: '/lab_post/$lab_post_id',
+            path: '/lab_post/$labPostId',
           ),
           headers: {
             HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
@@ -171,7 +171,7 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
                     value: lab,
                     child: Text(
                       '${lab[0].toUpperCase()}${lab.substring(1)} Lab',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 18,
                           color: Colors.blue), // Atur ukuran dan warna teks
                     ),
@@ -183,7 +183,7 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
                     _fetchDataLab(selectedLab);
                   });
                 },
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 18,
                     color: Colors
                         .blue), // Atur ukuran dan warna teks tombol dropdown
@@ -204,42 +204,41 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
                       DataColumn(label: Text('Waktu Post')),
                       DataColumn(label: Text('Aksi')),
                     ],
-                    rows: _postDatalab.map((lab_post) {
+                    rows: _postDatalab.map((labPost) {
                       return DataRow(
                         cells: [
                           DataCell(
                             SizedBox(
                               width: 250,
                               child: Text(
-                                lab_post["content"],
+                                labPost["content"],
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ),
                           DataCell(
-                            Container(
+                            SizedBox(
                               width: 100,
                               height: 100,
-                              child: lab_post["img_url"] != null
+                              child: labPost["img_url"] != null
                                   ? Image.network(
-                                      lab_post["img_url"],
+                                      labPost["img_url"],
                                       fit: BoxFit.fill,
                                     )
-                                  : Text(
+                                  : const Text(
                                       'Null',
                                       textAlign: TextAlign.center,
                                     ),
                             ),
                           ),
-                          DataCell(Text(
-                              formatDateTime(lab_post["post_date"] ?? ''))),
+                          DataCell(Text(labPost["post_date"] ?? '')),
                           DataCell(
                             Row(
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    deleteDataLab(lab_post['id']);
+                                    deleteDataLab(labPost['id']);
                                   },
                                   child: const Icon(Icons.delete,
                                       color: Colors.red),
@@ -251,7 +250,7 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => EditLab(
-                                          lab: lab_post,
+                                          lab: labPost,
                                         ),
                                       ),
                                     );

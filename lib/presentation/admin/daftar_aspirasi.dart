@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/activity.dart';
@@ -99,6 +98,7 @@ class _DaftarAspirasiState extends State<DaftarAspirasi> {
         children: [
           Container(
             padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+            height: 55,
             child: const Text(
               "Daftar Aspiration",
               style: TextStyle(
@@ -106,7 +106,6 @@ class _DaftarAspirasiState extends State<DaftarAspirasi> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            height: 55,
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,

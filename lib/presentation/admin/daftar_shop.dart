@@ -25,13 +25,13 @@ class _DaftarShopState extends State<DaftarShop> {
     _fetchProducts();
   }
 
-  Future<void> deleteProduct(int product_id) async {
+  Future<void> deleteProduct(int productId) async {
     try {
       var response = await delete(
           Uri(
             scheme: 'https',
             host: 'myhmtk.jeyy.xyz',
-            path: '/product/$product_id',
+            path: '/product/$productId',
           ),
           headers: {
             HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
@@ -130,6 +130,7 @@ class _DaftarShopState extends State<DaftarShop> {
           children: [
             Container(
               padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+              height: 55,
               child: const Text(
                 "Daftar Shop",
                 style: TextStyle(
@@ -137,7 +138,6 @@ class _DaftarShopState extends State<DaftarShop> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              height: 55,
             ),
 
             SingleChildScrollView(
@@ -179,7 +179,7 @@ class _DaftarShopState extends State<DaftarShop> {
                           DataCell(
                             SizedBox(
                               width: 50,
-                              child: Container(
+                              child: SizedBox(
                                 width: 200, // Lebar gambar
                                 height: 200, // Tinggi gambar
                                 child: product["img_url"] != null
@@ -188,7 +188,7 @@ class _DaftarShopState extends State<DaftarShop> {
                                         fit: BoxFit
                                             .contain, // Mengatur agar gambar pas ke dalam kontainer
                                       )
-                                    : Text(
+                                    : const Text(
                                         'Null'), // Placeholder text for null image
                               ),
                             ),
@@ -218,7 +218,7 @@ class _DaftarShopState extends State<DaftarShop> {
                                   child: const Icon(Icons.delete,
                                       color: Colors.red),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                     width:
                                         8), // Jarak antara ikon delete dan edit
                                 InkWell(
@@ -233,7 +233,7 @@ class _DaftarShopState extends State<DaftarShop> {
                                               ),
                                         ));
                                   },
-                                  child: Icon(Icons.edit),
+                                  child: const Icon(Icons.edit),
                                 ),
                               ],
                             ),

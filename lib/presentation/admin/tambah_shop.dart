@@ -301,7 +301,7 @@ class _TambahShopState extends State<TambahShop> {
                                   color: Colors.white.withOpacity(0.7),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.close,
                                   color: Colors.black,
                                   size: 20,

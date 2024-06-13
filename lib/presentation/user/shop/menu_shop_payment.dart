@@ -45,7 +45,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     change.url ==
                         "https://myhmtk.jeyy.xyz/transaction/pending")) {
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => MenuShopHistory()));
+                  MaterialPageRoute(builder: (context) => const MenuShopHistory()));
             }
           },
         ),
