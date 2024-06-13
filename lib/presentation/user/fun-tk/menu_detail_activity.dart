@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MenuDetailActivity extends StatefulWidget {
   final int funTkId;
@@ -15,6 +16,14 @@ class MenuDetailActivity extends StatefulWidget {
 
 class _MenuDetailActivityState extends State<MenuDetailActivity> {
   bool tapFavorite = false;
+  void _openGoogleMaps(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Future<Map<String, dynamic>> funTks(int funTkId) async {
@@ -142,7 +151,14 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
                                 //   height: 180,
                                 //   fit: BoxFit.cover,
                                 // )
-                                
+                                Center(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      _openGoogleMaps(funTk['map_url']);
+                                    },
+                                    child: Text('Open Google Maps'),
+                                  ),
+                                )
                               ],
                             ),
                           ),
