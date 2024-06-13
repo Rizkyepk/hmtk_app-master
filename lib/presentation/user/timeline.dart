@@ -8,6 +8,7 @@ import 'package:hmtk_app/widget/post_button.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 import 'package:http/http.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:sizer/sizer.dart';
 // import 'package:sizer/sizer.dart';
 
 import 'drawer/drawer_user.dart';
@@ -565,7 +566,7 @@ class _TimelineState extends State<Timeline> {
                                             top: Radius.circular(35))),
                                     builder: (context) {
                                       return Container(
-                                        height: 60,
+                                        height: 60.h,
                                         // MediaQuery.of(context)
                                         //         .size
                                         //         .height *

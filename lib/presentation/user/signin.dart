@@ -95,15 +95,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
               (route) => false,
             );
           }
-          // else {
-          //   AwesomeDialog(
-          //     context: context,
-          //     dialogType: DialogType.error,
-          //     animType: AnimType.rightSlide,
-          //     title: 'Email dan password yang anda masukkan salah!',
-          //     btnOkOnPress: () {},
-          //   ).show();
-          // }
         } else {
           AwesomeDialog(
             context: context,
@@ -119,7 +110,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
-        // title: 'Terjadi kesalahan: $e',
         title: 'Email dan password yang anda masukkan salah!',
         btnOkOnPress: () {},
       ).show();
@@ -179,7 +169,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                     borderRadius: BorderRadius.circular(15),
                     color: ColorPallete.greenprim.withOpacity(0.3),
                   ),
-                  child: TextFormField(
+                  child: 
+                  TextFormField(
                     controller: email,
                     decoration: InputDecoration(
                       hintText: 'example@gmail.com',
@@ -201,7 +192,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                     borderRadius: BorderRadius.circular(15),
                     color: ColorPallete.greenprim.withOpacity(0.3),
                   ),
-                  child: TextFormField(
+                  child: 
+                  TextFormField(
                     controller: password,
                     obscureText: !isVisible,
                     decoration: InputDecoration(

@@ -249,7 +249,9 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const EditLab(),
+                                        builder: (context) => EditLab(
+                                          lab: lab_post,
+                                        ),
                                       ),
                                     );
                                   },

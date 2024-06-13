@@ -22,6 +22,9 @@ class _TambahActivtyState extends State<TambahFunTk> {
   String? imagePath;
   File? image;
 
+  double? latitude;
+  double? longitude;
+  
   var contentController = TextEditingController();
   var timeController = TextEditingController();
   var dateController = TextEditingController();
@@ -432,6 +435,33 @@ class _TambahActivtyState extends State<TambahFunTk> {
                         ),
                       ),
                       child: TextField(
+                        controller: locationController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      "Maps",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(left: 10),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: TextField(
                         controller: mapController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
@@ -483,7 +513,7 @@ Future<Response> postData(
       'description': content,
       'date': date,
       'time': time,
-      'location': map,
+      'location': location,
       'map_url': map,
       'img_url': imgUrl,
     };

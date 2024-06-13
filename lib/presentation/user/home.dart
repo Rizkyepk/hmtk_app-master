@@ -370,34 +370,35 @@ class Home extends StatelessWidget {
                       List<Map<String, dynamic>> activities = snapshot.data;
 
                       return Container(
-  child: SingleChildScrollView(
-    child: Column(
-      children: activities.map((activity) {
-        return Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailActivity(activity: activity),
-                  ),
-                );
-              },
-              child: ItemActivity(
-                title: activity["title"],
-                imgUrl: activity["img_url"],
-              ),
-            ),
-          ],
-        );
-      }).toList(),
-    ),
-  ),
-);
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: activities.map((activity) {
+                              return Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => DetailActivity(
+                                              activity: activity),
+                                        ),
+                                      );
+                                    },
+                                    child: ItemActivity(
+                                      title: activity["title"],
+                                      imgUrl: activity["img_url"],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      );
                     }
                   }),
 

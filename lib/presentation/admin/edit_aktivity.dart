@@ -1,31 +1,109 @@
 import 'dart:io';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/presentation/admin/daftar_aktivity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditAktivity extends StatefulWidget {
-  const EditAktivity({super.key});
+  final Map<String, dynamic> activity;
+  const EditAktivity({super.key, required this.activity});
 
   @override
   State<EditAktivity> createState() => _TambahActivtyState();
 }
 
-File? image;
-Future getImage() async {
-  final ImagePicker picker = ImagePicker();
-  final XFile? imagePicked =
-      await picker.pickImage(source: ImageSource.gallery);
-  image = File(imagePicked!.path);
-  // setState(() {});
-}
-
 class _TambahActivtyState extends State<EditAktivity> {
+  String? imagePath;
+  File? image;
+  var judulController = TextEditingController();
+  var contentController = TextEditingController();
+
+  Future<void> getImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (imagePicked == null) {
+      return;
+    }
+
+    final File imageFile = File(imagePicked.path);
+    double fileSizeMb = await imageFile.length() / (1024 * 1024);
+
+    if (fileSizeMb > 10) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: Batas ukuran file 10MB',
+        btnOkOnPress: () {},
+      ).show();
+    }
+
+    setState(() {
+      image = File(imagePicked.path);
+    });
+  }
+
+  Future<void> _uploadData(int id) async {
+    String title = judulController.text;
+    String content = contentController.text;
+
+    String? imgUrl;
+    if (image != null) {
+      imgUrl = await uploadFileToCDN(image!);
+    }
+
+    try {
+      var response = await postEditDataActivity(id, title, content, imgUrl);
+
+      if (response.statusCode == 200) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.success,
+          animType: AnimType.rightSlide,
+          title: 'Success',
+          desc: 'Activity successfully edited!',
+          btnOkOnPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const DaftarAktivity()),
+            );
+          },
+        ).show();
+      } else {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.rightSlide,
+          title: 'Failed',
+          desc: 'Failed to edit activity. Please try again later.',
+          btnOkOnPress: () {},
+        ).show();
+      }
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed',
+        desc: 'Failed to edit activity: $e',
+        btnOkOnPress: () {},
+      ).show();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    contentController.text = widget.activity["content"];
+    judulController.text = widget.activity["title"];
     return Scaffold(
       drawer: const Drawer(
         width: 200,
@@ -33,8 +111,6 @@ class _TambahActivtyState extends State<EditAktivity> {
         child: DrawerScren(),
       ),
       appBar: AppBar(
-        // title: const Text("GeeksforGeeks"),
-        // titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 200,
         // toolbarOpacity: 0.8,
@@ -45,7 +121,8 @@ class _TambahActivtyState extends State<EditAktivity> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
+                  MaterialPageRoute(
+                      builder: (context) => const ActivityFrame()),
                 );
               },
               child: ClipOval(
@@ -56,7 +133,8 @@ class _TambahActivtyState extends State<EditAktivity> {
               ),
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0),
+                child: const Text('Hello, Ivan'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -92,7 +170,8 @@ class _TambahActivtyState extends State<EditAktivity> {
           ),
           Container(
             margin: const EdgeInsets.all(20),
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   blurRadius: 1,
@@ -135,22 +214,67 @@ class _TambahActivtyState extends State<EditAktivity> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 30,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
+                      child: TextField(
+                        controller: judulController,
                         decoration: InputDecoration(
+                          hintText: widget.activity['title'],
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 8),
                         ),
                       ),
                     ),
                     const SizedBox(
                       height: 10,
                       width: 10,
+                    ),
+                    Container(
+                      height: 250,
+                      width: 400,
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2.0,
+                        ),
+                      ),
+                      child: image != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.file(
+                                image!,
+                                width:
+                                    400, // Lebar gambar diatur agar mengisi keseluruhan kontainer
+                                height:
+                                    250, // Tinggi gambar diatur agar mengisi keseluruhan kontainer
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : widget.activity["img_url"] != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    widget.activity["img_url"],
+                                    width:
+                                        400, // Lebar gambar diatur agar mengisi keseluruhan kontainer
+                                    height:
+                                        250, // Tinggi gambar diatur agar mengisi keseluruhan kontainer
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                              : const Icon(
+                                  Icons.image,
+                                  size: 50,
+                                  color: Colors.black,
+                                ),
                     ),
                     const Text(
                       "Uploud Foto",
@@ -216,17 +340,20 @@ class _TambahActivtyState extends State<EditAktivity> {
                       padding: const EdgeInsets.only(left: 10),
                       height: 90,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
+                      child: TextField(
+                        controller: contentController,
                         maxLines: 4,
                         decoration: InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 8),
                         ),
                       ),
                     ),
@@ -234,45 +361,14 @@ class _TambahActivtyState extends State<EditAktivity> {
                       height: 10,
                       width: 10,
                     ),
-                    const Text(
-                      "Link Lokasi",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.only(left: 10),
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                        border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                          width: 2.0,
-                        ),
-                      ),
-                      child: const TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
                     Container(
                       alignment: Alignment.center,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 1, 122, 5),
+                            backgroundColor:
+                                const Color.fromARGB(255, 1, 122, 5),
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              // DetailPage adalah halaman yang dituju
-                              MaterialPageRoute(
-                                  builder: (context) => const DaftarAktivity()),
-                            );
-                          },
+                          onPressed: () => _uploadData(widget.activity["id"]),
                           child: const Text('Edit')),
                     )
                   ],
@@ -283,5 +379,32 @@ class _TambahActivtyState extends State<EditAktivity> {
         ],
       ),
     );
+  }
+
+  Future<Response> postEditDataActivity(
+      int activity_id, String title, String content, String? imgUrl) async {
+    try {
+      Map<String, String> params = {
+        'title': title,
+        'content': content,
+        if (imgUrl != null) 'img_url': imgUrl,
+      };
+
+      var response = await http.put(
+        Uri(
+          scheme: 'https',
+          host: 'myhmtk.jeyy.xyz',
+          path: '/activity/$activity_id',
+          queryParameters: params,
+        ),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+        },
+      );
+
+      return response;
+    } catch (e) {
+      throw Exception('Failed to load: $e');
+    }
   }
 }
