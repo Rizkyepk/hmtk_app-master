@@ -222,7 +222,7 @@ class _DaftarFuntkState extends State<DaftarFuntk> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => EditFunTk(
-                                          fun_tk: fun_tks,
+                                          fun_tk: funTks,
                                         ),
                                       ));
                                 },

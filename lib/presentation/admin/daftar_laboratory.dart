@@ -250,7 +250,7 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => EditLab(
-                                          lab: lab_post,
+                                          lab: labPost,
                                         ),
                                       ),
                                     );
