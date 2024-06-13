@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:hmtk_app/presentation/user/sso/sso_checking.dart';
 import 'package:hmtk_app/presentation/user/start.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -91,11 +94,20 @@ class _SsoLoginState extends State<SsoLogin> {
                             showLoginLoading = false;
                           });
 
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const Start(),
-                              ));
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            title:
+                                'Login Gagal: SSO Error, silahkan coba beberapa saat lagi',
+                            btnOkOnPress: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const Start(),
+                                  ));
+                            },
+                          ).show();
                         }
                       }
 
@@ -108,19 +120,27 @@ class _SsoLoginState extends State<SsoLogin> {
                       print(profile);
                       print(profile["fullname"]);
 
-                      AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.info,
-                        animType: AnimType.rightSlide,
-                        title: 'SSO Login Info: ${profile.toString()}',
-                        btnOkOnPress: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const Start(),
-                              ));
-                        },
-                      ).show();
+                      print(
+                          "--------------------------- GOT DATA ----------------");
+
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SsoChecking(ssoData: profile),
+                          ));
+                      // AwesomeDialog(
+                      //   context: context,
+                      //   dialogType: DialogType.info,
+                      //   animType: AnimType.rightSlide,
+                      //   title: 'SSO Login Info: ${profile.toString()}',
+                      //   btnOkOnPress: () {
+                      //     Navigator.pushReplacement(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //           builder: (context) => const Start(),
+                      //         ));
+                      //   },
+                      // ).show();
 
                       // jsonDecode(Map<String, dynamic>.from(localStorageData)["profile_situ"]);
                     }
@@ -158,7 +178,8 @@ class _SsoLoginState extends State<SsoLogin> {
           ),
           if (showLoginLoading)
             Container(
-              height: MediaQuery.of(context).size.height - AppBar().preferredSize.height,
+              height: MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(color: ColorPallete.greensec),
               child: const Text("Getting SSO Login Information...",
