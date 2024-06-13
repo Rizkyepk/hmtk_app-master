@@ -42,30 +42,30 @@ class _ItemActivityState extends State<ItemActivity> {
             ),
           ),
         ),
-        Positioned(
-          top: 10,
-          right: 10,
-          child: CircleAvatar(
-            backgroundColor: Colors.grey.shade50.withOpacity(0.5),
-            child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    tapFavorite = !tapFavorite;
-                  });
-                },
-                icon: tapFavorite
-                    ? const Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                        size: 25,
-                      )
-                    : const Icon(
-                        Icons.favorite,
-                        color: Colors.white,
-                        size: 25,
-                      )),
-          ),
-        )
+        // Positioned(
+        //   top: 10,
+        //   right: 10,
+        //   child: CircleAvatar(
+        //     backgroundColor: Colors.grey.shade50.withOpacity(0.5),
+        //     child: IconButton(
+        //         onPressed: () {
+        //           setState(() {
+        //             tapFavorite = !tapFavorite;
+        //           });
+        //         },
+        //         icon: tapFavorite
+        //             ? const Icon(
+        //                 Icons.favorite,
+        //                 color: Colors.red,
+        //                 size: 25,
+        //               )
+        //             : const Icon(
+        //                 Icons.favorite,
+        //                 color: Colors.white,
+        //                 size: 25,
+        //               )),
+        //   ),
+        // )
       ],
     );
   }
