@@ -153,50 +153,88 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
         children: [
           Container(
             padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
-            child: const Text(
-              "Daftar Laboratory",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Row(
+              children: [
+                const Text(
+                  "Daftar Laboratory",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(width: 10), // Beri jarak antara teks dan dropdown
+                DropdownButton<String>(
+                  value: selectedLab,
+                  items: [
+                    'magics',
+                    'sea',
+                    'evconn',
+                    'ismile',
+                    'rnest',
+                    'security',
+                  ].map((lab) {
+                    return DropdownMenuItem<String>(
+                      value: lab,
+                      child: Text(
+                        '${lab[0].toUpperCase()}${lab.substring(1)} Lab',
+                        style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold), // Atur ukuran dan warna teks
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedLab = value;
+                      _fetchDataLab(selectedLab);
+                    });
+                  },
+                  style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.blue), // Atur ukuran dan warna teks tombol dropdown
+                  dropdownColor: Colors.grey[200], // Atur warna latar belakang dropdown
+                ),
+              ],
             ),
           ),
+          SizedBox(height: 10,),
           Column(
             children: [
               // Drop-down menu for lab selection
-              DropdownButton<String>(
-                value: selectedLab,
-                items: [
-                  'magics',
-                  'sea',
-                  'evconn',
-                  'ismile',
-                  'rnest',
-                  'security',
-                ].map((lab) {
-                  return DropdownMenuItem<String>(
-                    value: lab,
-                    child: Text(
-                      '${lab[0].toUpperCase()}${lab.substring(1)} Lab',
-                      style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.blue), // Atur ukuran dan warna teks
-                    ),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    selectedLab = value;
-                    _fetchDataLab(selectedLab);
-                  });
-                },
-                style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors
-                        .blue), // Atur ukuran dan warna teks tombol dropdown
-                dropdownColor:
-                    Colors.grey[200], // Atur warna latar belakang dropdown
-              ),
+              // DropdownButton<String>(
+              //   value: selectedLab,
+              //   items: [
+              //     'magics',
+              //     'sea',
+              //     'evconn',
+              //     'ismile',
+              //     'rnest',
+              //     'security',
+              //   ].map((lab) {
+              //     return DropdownMenuItem<String>(
+              //       value: lab,
+              //       child: Text(
+              //         '${lab[0].toUpperCase()}${lab.substring(1)} Lab',
+              //         style: const TextStyle(
+              //             fontSize: 18,
+              //             color: Colors.blue), // Atur ukuran dan warna teks
+              //       ),
+              //     );
+              //   }).toList(),
+              //   onChanged: (value) {
+              //     setState(() {
+              //       selectedLab = value;
+              //       _fetchDataLab(selectedLab);
+              //     });
+              //   },
+              //   style: const TextStyle(
+              //       fontSize: 18,
+              //       color: Colors
+              //           .blue), // Atur ukuran dan warna teks tombol dropdown
+              //   dropdownColor:
+              //       Colors.grey[200], // Atur warna latar belakang dropdown
+              // ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(
