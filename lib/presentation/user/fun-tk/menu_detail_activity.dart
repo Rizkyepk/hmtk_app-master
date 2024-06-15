@@ -47,7 +47,9 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
     }
 
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text("Kegiatan Fun TK"),
+        ),
         body: FutureBuilder(
             future: funTks(widget.funTkId),
             builder: (BuildContext context,

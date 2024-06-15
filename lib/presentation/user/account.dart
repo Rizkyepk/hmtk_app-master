@@ -68,20 +68,33 @@ class _AccountState extends State<Account> {
                               fit: BoxFit.cover,
                               width: 76,
                               height: 76,
+                              loadingBuilder: (BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                } else {
+                                  return SizedBox(
+                                    height: 200,
+                                    width: double.maxFinite,
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                loadingProgress
+                                                    .expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
                             ))),
-                        // Image.asset(
-                        //   'assets/profile.png',
-                        //   height: 100,
-                        // ),
                       ],
                     ),
-                    // Text(
-                    //   getFirstLimit(user["name"]),
-                    //   style: const TextStyle(
-                    //       fontSize: 30,
-                    //       fontWeight: FontWeight.bold,
-                    //       color: Colors.white),
-                    // ),
                     SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Text(

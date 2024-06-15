@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/aspiration/menu_riwayat_aspirasi.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/button.dart';
-import 'package:hmtk_app/widget/main_navigator.dart';
 import 'package:hmtk_app/widget/template_page.dart';
 import 'package:http/http.dart';
 
@@ -47,7 +46,7 @@ class _MenuAspirationState extends State<MenuAspiration> {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const MainNavigator(),
+                  builder: (context) => const MenuAspiration(),
                 ),
                 (route) => false);
           },

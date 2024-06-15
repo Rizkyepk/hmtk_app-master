@@ -26,74 +26,43 @@ class _DetailActivityState extends State<DetailActivity> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          // actions: [
-          //   CircleAvatar(
-          //     backgroundColor: Colors.grey.shade50.withOpacity(0.5),
-          //     child: IconButton(
-          //         onPressed: () {
-          //           setState(() {
-          //             tapFavorite = !tapFavorite;
-          //           });
-          //         },
-          //         icon: tapFavorite
-          //             ? const Icon(
-          //                 Icons.favorite,
-          //                 color: Colors.red,
-          //                 size: 25,
-          //               )
-          //             : const Icon(
-          //                 Icons.favorite,
-          //                 color: Colors.white,
-          //                 size: 25,
-          //               )),
-          //   ),
-          //   const SizedBox(
-          //     width: 10,
-          //   )
-          // ],
-          ),
+        title: const Text("Aktivitas Terkini"),
+      ),
       body: SizedBox(
           width: double.maxFinite,
           height: double.maxFinite,
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Image.network(
-                  widget.activity['img_url'],
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  width: double.maxFinite,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Text(
-                  //   'Watch a match!',
-                  //   style: TextStyle(
-                  //       fontSize: 20,
-                  //       fontWeight: FontWeight.bold,
-                  //       color: Colors.white),
-                  // ),
-                  Text(
-                    widget.activity['title'],
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green[400]),
-                  ),
-                  const SizedBox(
-                    height: 150,
-                  )
-                ],
-              ),
+              // Align(
+              //   alignment: Alignment.topCenter,
+              //   child: Image.network(
+              //     widget.activity['img_url'],
+              //     height: MediaQuery.of(context).size.height * 0.6,
+              //     width: double.maxFinite,
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
+              // Column(
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Text(
+              //       widget.activity['title'],
+              //       style: TextStyle(
+              //           fontSize: 30,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.green[400]),
+              //     ),
+              //     const SizedBox(
+              //       height: 150,
+              //     )
+              //   ],
+              // ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 0.45,
+                  // height: MediaQuery.of(context).size.height * 0.45,
                   width: double.maxFinite,
                   padding: const EdgeInsets.only(
                       left: 20, top: 20, right: 20, bottom: 10),
@@ -107,34 +76,85 @@ class _DetailActivityState extends State<DetailActivity> {
                       children: [
                         const Align(
                           alignment: Alignment.center,
-                          // child: Text(
-                          //   'KBAA Champion',
-                          //   style: TextStyle(
-                          //       fontSize: 20, fontWeight: FontWeight.bold),
-                          // ),
-                        ),
-                        const Text(
-                          'Informasi',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          widget.activity['content'],
-                          style: const TextStyle(fontSize: 14, color: Colors.green),
+                          // 'Informasi',
+                          widget.activity["title"],
+                          style: const TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Admin"),
+                            Text(
+                              timeAgoFromIso(widget.activity["post_date"]),
+                              textAlign: TextAlign.end,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Stack(
+                            children: [
+                              Image.network(
+                                widget.activity["img_url"],
+                                height: 200,
+                                width: double.maxFinite,
+                                fit: BoxFit.cover,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  } else {
+                                    return Container(
+                                      height: 200,
+                                      width: double.maxFinite,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          value: loadingProgress
+                                                      .expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text(
-                          'Lokasi',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                        Text(
+                          widget.activity['content'],
+                          textAlign: TextAlign.justify,
+                          style: const TextStyle(
+                              fontSize: 14, color: Colors.black),
                         ),
-                        Image.asset(
-                          'assets/maps.png',
-                          height: 180,
-                          fit: BoxFit.cover,
-                        )
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
+                        // const Text(
+                        //   'Lokasi',
+                        //   style: TextStyle(
+                        //       fontSize: 16, fontWeight: FontWeight.bold),
+                        // ),
+                        // Image.asset(
+                        //   'assets/maps.png',
+                        //   height: 180,
+                        //   fit: BoxFit.cover,
+                        // )
                       ],
                     ),
                   ),

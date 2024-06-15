@@ -136,10 +136,8 @@ class _HomeState extends State<Home> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => const Account()));
-                                
-                                setState(() {
 
-                                });
+                                setState(() {});
                               },
                               child: CircleAvatar(
                                 radius: 38,
@@ -173,6 +171,33 @@ class _HomeState extends State<Home> {
                                             fit: BoxFit.cover,
                                             width: 66,
                                             height: 66,
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent?
+                                                        loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              } else {
+                                                return SizedBox(
+                                                  height: 200,
+                                                  width: double.maxFinite,
+                                                  child: Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      value: loadingProgress
+                                                                  .expectedTotalBytes !=
+                                                              null
+                                                          ? loadingProgress
+                                                                  .cumulativeBytesLoaded /
+                                                              loadingProgress
+                                                                  .expectedTotalBytes!
+                                                          : null,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            },
                                           );
                                         }
                                       }),
@@ -365,7 +390,7 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Activity',
+                'Aktivitas Terkini',
                 style: TextStyle(color: Colors.green),
               ),
               FutureBuilder(
@@ -378,34 +403,32 @@ class _HomeState extends State<Home> {
                     } else {
                       List<Map<String, dynamic>> activities = snapshot.data;
 
-                      return Container(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: activities.map((activity) {
-                              return Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 20,
+                      return SingleChildScrollView(
+                        child: Column(
+                          children: activities.map((activity) {
+                            return Column(
+                              children: [
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            DetailActivity(activity: activity),
+                                      ),
+                                    );
+                                  },
+                                  child: ItemActivity(
+                                    title: activity["title"],
+                                    imgUrl: activity["img_url"],
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => DetailActivity(
-                                              activity: activity),
-                                        ),
-                                      );
-                                    },
-                                    child: ItemActivity(
-                                      title: activity["title"],
-                                      imgUrl: activity["img_url"],
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }).toList(),
-                          ),
+                                ),
+                              ],
+                            );
+                          }).toList(),
                         ),
                       );
                     }
