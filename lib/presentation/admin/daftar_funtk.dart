@@ -134,6 +134,7 @@ class _DaftarFuntkState extends State<DaftarFuntk> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
+                    fontSize: 30,
                   ),
                 ),
               )
