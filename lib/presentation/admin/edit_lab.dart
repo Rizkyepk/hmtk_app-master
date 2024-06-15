@@ -114,24 +114,31 @@ class _TambahActivtyState extends State<EditLab> {
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ActivityFrame()),
-                );
-              },
-              child: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => const ActivityFrame()),
+            //     );
+            //   },
+            //   child: ClipOval(
+            //     child: SizedBox.fromSize(
+            //       size: const Size.fromRadius(38), // Image radius
+            //       child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+            //     ),
+            //   ),
+            // ),
             Container(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Hello, Ivan'))
+                child: const Text(
+                  'Laboratory',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -314,10 +321,10 @@ class _TambahActivtyState extends State<EditLab> {
                       ),
                       child: TextField(
                         controller: contentController,
+                        maxLines: 4,
                         decoration: InputDecoration(
-                          // hintText: widget.lab['content'],
-                          enabledBorder: InputBorder.none,
-                          // contentPadding: EdgeInsets.symmetric(vertical: 8),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 8),
                         ),
                       ),
                     ),
@@ -335,7 +342,7 @@ class _TambahActivtyState extends State<EditLab> {
                           onPressed: () {
                             _uploadDatalab(widget.lab['id']);
                           },
-                          child: const Text('Edit')),
+                          child: const Text('Edit', style: TextStyle(color: Colors.white),)),
                     )
                   ],
                 ),

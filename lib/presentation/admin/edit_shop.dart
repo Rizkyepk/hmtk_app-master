@@ -122,24 +122,31 @@ class _TambahActivtyState extends State<EditShop> {
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ActivityFrame()),
-                );
-              },
-              child: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => const ActivityFrame()),
+            //     );
+            //   },
+            //   child: ClipOval(
+            //     child: SizedBox.fromSize(
+            //       size: const Size.fromRadius(38), // Image radius
+            //       child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+            //     ),
+            //   ),
+            // ),
             Container(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Hello, Ivan'))
+                child: const Text(
+                  'Shop',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -354,7 +361,7 @@ class _TambahActivtyState extends State<EditShop> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.only(left: 10),
-                      height: 100,
+                      height: 90,
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5.0)),
@@ -364,10 +371,10 @@ class _TambahActivtyState extends State<EditShop> {
                           width: 2.0,
                         ),
                       ),
-                      child: TextFormField(
+                      child: TextField(
                         controller: contentController,
+                        maxLines: 4,
                         decoration: InputDecoration(
-                          hintText: widget.shop["description"],
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 8),
                         ),
@@ -389,7 +396,7 @@ class _TambahActivtyState extends State<EditShop> {
                             //       builder: (context) => const DaftarShop()),
                             // );
                           },
-                          child: const Text('Edit')),
+                          child: const Text('Edit',style: TextStyle(color: Colors.white),)),
                     )
                   ],
                 ),
