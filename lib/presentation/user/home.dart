@@ -15,9 +15,14 @@ import 'package:http/http.dart';
 import 'laboratory/menu_laboratory.dart';
 import 'shop/menu_shop.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   Future<List<Map<String, dynamic>>> fetchActivities() async {
     try {
       var response = await get(
@@ -126,11 +131,15 @@ class Home extends StatelessWidget {
                               ],
                             ),
                             InkWell(
-                              onTap: () {
-                                Navigator.push(
+                              onTap: () async {
+                                await Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => const Account()));
+                                
+                                setState(() {
+
+                                });
                               },
                               child: CircleAvatar(
                                 radius: 38,
