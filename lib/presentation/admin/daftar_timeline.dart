@@ -124,7 +124,14 @@ class _DaftarTimelineState extends State<DaftarTimeline> {
             // ),
             Container(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Timeline'))
+                child: const Text(
+                  'Timeline',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -145,6 +152,7 @@ class _DaftarTimelineState extends State<DaftarTimeline> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
+                
               ),
             ),
           ),
@@ -188,7 +196,7 @@ class _DaftarTimelineState extends State<DaftarTimeline> {
                             : const Text(
                                 'Null'), // Placeholder text for null image
                       ),
-                      DataCell(Text(post["post_date"])),
+                      DataCell(Text(formatDateTime(post["post_date"]))),
                       DataCell(
                         InkWell(
                           onTap: () {

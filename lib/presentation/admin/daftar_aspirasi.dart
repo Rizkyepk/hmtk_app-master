@@ -66,24 +66,31 @@ class _DaftarAspirasiState extends State<DaftarAspirasi> {
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ActivityFrame()),
-                );
-              },
-              child: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => const ActivityFrame()),
+            //     );
+            //   },
+            //   child: ClipOval(
+            //     child: SizedBox.fromSize(
+            //       size: const Size.fromRadius(38), // Image radius
+            //       child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+            //     ),
+            //   ),
+            // ),
             Container(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Hello, Ivan'))
+                child: const Text(
+                  'Aspirasi',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -100,7 +107,7 @@ class _DaftarAspirasiState extends State<DaftarAspirasi> {
             padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
             height: 55,
             child: const Text(
-              "Daftar Aspiration",
+              "Daftar Aspirasi",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -136,7 +143,8 @@ class _DaftarAspirasiState extends State<DaftarAspirasi> {
                           ),
                         ),
                       ),
-                      DataCell(Text(aspirations["datetime"] ?? '')),
+                      DataCell(
+                          Text(formatDateTime(aspirations["datetime"] ?? ''))),
                     ],
                   );
                 }).toList(),

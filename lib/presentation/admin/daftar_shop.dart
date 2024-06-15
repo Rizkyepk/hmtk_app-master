@@ -115,7 +115,14 @@ class _DaftarShopState extends State<DaftarShop> {
               // ),
               Container(
                   padding: const EdgeInsets.all(8.0),
-                  child: const Text('Shop'))
+                  child: const Text(
+                    'Shop',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 30,
+                    ),
+                  ))
             ],
           ),
           shape: const RoundedRectangleBorder(
@@ -139,7 +146,6 @@ class _DaftarShopState extends State<DaftarShop> {
                 ),
               ),
             ),
-
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: SingleChildScrollView(
@@ -211,42 +217,43 @@ class _DaftarShopState extends State<DaftarShop> {
                             Row(
                               children: [
                                 InkWell(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Konfirmasi'),
-                                        content: const Text(
-                                            'Apakah Anda yakin ingin menghapus aktivitas ini?'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context)
-                                                  .pop(); // Tutup dialog
-                                            },
-                                            child: const Text('Batal'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context)
-                                                  .pop(); // Tutup dialog
-                                              deleteProduct(product['id']); // Panggil fungsi delete
-                                            },
-                                            child: const Text(
-                                              'Hapus',
-                                              style:
-                                                  TextStyle(color: Colors.red),
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text('Konfirmasi'),
+                                          content: const Text(
+                                              'Apakah Anda yakin ingin menghapus aktivitas ini?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context)
+                                                    .pop(); // Tutup dialog
+                                              },
+                                              child: const Text('Batal'),
                                             ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                child:
-                                    const Icon(Icons.delete, color: Colors.red),
-                              ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context)
+                                                    .pop(); // Tutup dialog
+                                                deleteProduct(product[
+                                                    'id']); // Panggil fungsi delete
+                                              },
+                                              child: const Text(
+                                                'Hapus',
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: const Icon(Icons.delete,
+                                      color: Colors.red),
+                                ),
                                 // InkWell(
                                 //   onTap: () {
                                 //     // Implementasi untuk menghapus barang
@@ -264,10 +271,9 @@ class _DaftarShopState extends State<DaftarShop> {
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              EditShop(
-                                                shop: product,
-                                              ),
+                                          builder: (context) => EditShop(
+                                            shop: product,
+                                          ),
                                         ));
                                   },
                                   child: const Icon(Icons.edit),

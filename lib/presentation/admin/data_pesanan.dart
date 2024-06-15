@@ -112,7 +112,14 @@ class _DataPesananState extends State<DataPesanan> {
             // ),
             Container(
               padding: const EdgeInsets.all(8.0),
-              child: const Text('Pesanan'),
+              child: const Text(
+                'Pesanan',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 30,
+                ),
+              ),
             ),
           ],
         ),

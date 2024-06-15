@@ -128,7 +128,14 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
             // ),
             Container(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Activity'))
+                child: const Text(
+                  'Activity',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -208,21 +215,58 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
                           children: [
                             InkWell(
                               onTap: () {
-                                AwesomeDialog(
+                                showDialog(
                                   context: context,
-                                  dialogType: DialogType.question,
-                                  animType: AnimType.rightSlide,
-                                  title: 'Yakin akan menghapus Activity ini?',
-                                  btnCancelOnPress: () {},
-                                  btnOkOnPress: () {
-                                    deleteActivity(activities['id']);
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Konfirmasi'),
+                                      content: const Text(
+                                          'Apakah Anda yakin ingin menghapus aktivitas ini?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(); // Tutup dialog
+                                          },
+                                          child: const Text('Batal'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(); // Tutup dialog
+                                            deleteActivity(activities[
+                                                'id']); // Panggil fungsi delete
+                                          },
+                                          child: const Text(
+                                            'Hapus',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ),
+                                      ],
+                                    );
                                   },
-                                ).show();
-                                // Implementasi untuk menghapus barang
+                                );
                               },
                               child:
                                   const Icon(Icons.delete, color: Colors.red),
                             ),
+                            // InkWell(
+                            //   onTap: () {
+                            //     AwesomeDialog(
+                            //       context: context,
+                            //       dialogType: DialogType.question,
+                            //       animType: AnimType.rightSlide,
+                            //       title: 'Yakin akan menghapus Activity ini?',
+                            //       btnCancelOnPress: () {},
+                            //       btnOkOnPress: () {
+                            //         deleteActivity(activities['id']);
+                            //       },
+                            //     ).show();
+                            //     // Implementasi untuk menghapus barang
+                            //   },
+                            //   child:
+                            //       const Icon(Icons.delete, color: Colors.red),
+                            // ),
 
                             const SizedBox(
                                 width: 8), // Jarak antara ikon delete dan edit

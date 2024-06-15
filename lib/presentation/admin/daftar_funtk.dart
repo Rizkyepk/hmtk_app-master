@@ -111,25 +111,32 @@ class _DaftarFuntkState extends State<DaftarFuntk> {
           title: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ActivityFrame()),
-                  );
-                },
-                child: ClipOval(
-                  child: SizedBox.fromSize(
-                    size: const Size.fromRadius(38), // Image radius
-                    child:
-                        Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //           builder: (context) => const ActivityFrame()),
+              //     );
+              //   },
+              //   child: ClipOval(
+              //     child: SizedBox.fromSize(
+              //       size: const Size.fromRadius(38), // Image radius
+              //       child:
+              //           Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+              //     ),
+              //   ),
+              // ),
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                child: const Text(
+                  'Fun TK',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
-              ),
-              Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: const Text('Hello, Ivan'))
+              )
             ],
           ),
           shape: const RoundedRectangleBorder(

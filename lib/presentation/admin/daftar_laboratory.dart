@@ -129,7 +129,14 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
             // ),
             Container(
               padding: const EdgeInsets.all(8.0),
-              child: const Text('Laboratory'),
+              child: const Text(
+                'Laboratory',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 30,
+                ),
+              ),
             ),
           ],
         ),
@@ -232,47 +239,49 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
                                     ),
                             ),
                           ),
-                          DataCell(Text(labPost["post_date"] ?? '')),
+                          DataCell(
+                              Text(formatDateTime(labPost["post_date"] ?? ''))),
                           DataCell(
                             Row(
                               children: [
                                 InkWell(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Konfirmasi'),
-                                        content: const Text(
-                                            'Apakah Anda yakin ingin menghapus aktivitas ini?'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context)
-                                                  .pop(); // Tutup dialog
-                                            },
-                                            child: const Text('Batal'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context)
-                                                  .pop(); // Tutup dialog
-                                              deleteDataLab(labPost['id']); // Panggil fungsi delete
-                                            },
-                                            child: const Text(
-                                              'Hapus',
-                                              style:
-                                                  TextStyle(color: Colors.red),
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text('Konfirmasi'),
+                                          content: const Text(
+                                              'Apakah Anda yakin ingin menghapus aktivitas ini?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context)
+                                                    .pop(); // Tutup dialog
+                                              },
+                                              child: const Text('Batal'),
                                             ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                child:
-                                    const Icon(Icons.delete, color: Colors.red),
-                              ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context)
+                                                    .pop(); // Tutup dialog
+                                                deleteDataLab(labPost[
+                                                    'id']); // Panggil fungsi delete
+                                              },
+                                              child: const Text(
+                                                'Hapus',
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: const Icon(Icons.delete,
+                                      color: Colors.red),
+                                ),
                                 // InkWell(
                                 //   onTap: () {
                                 //     deleteDataLab(labPost['id']);
