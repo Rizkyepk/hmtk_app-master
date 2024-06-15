@@ -19,6 +19,7 @@ class _SsoLoginState extends State<SsoLogin> {
   WebViewController? _webViewController;
   var loadingPercentage = 0;
   bool showLoginLoading = false;
+  int loginSeconds = 0;
 
   Future<String> getUrl() async {
     var response = await post(Uri.parse(
@@ -81,13 +82,13 @@ class _SsoLoginState extends State<SsoLogin> {
                       }
 
                       var localStorage = await getLocalStorage();
-                      var i = 0;
+                      // var i = 0;
                       while (!localStorage.containsKey("profile_situ")) {
                         await Future.delayed(const Duration(seconds: 1));
                         localStorage = await getLocalStorage();
-                        i += 1;
+                        loginSeconds += 1;
 
-                        if (i == 20) {
+                        if (loginSeconds == 60) {
                           setState(() {
                             showLoginLoading = false;
                           });
@@ -180,8 +181,22 @@ class _SsoLoginState extends State<SsoLogin> {
                   AppBar().preferredSize.height,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(color: ColorPallete.greensec),
-              child: const Text("Getting SSO Login Information...",
-                  style: TextStyle(color: Colors.white)),
+              child: loginSeconds < 30
+                  ? const Row(
+                      children: [
+                        Text("Getting SSO Login Information...",
+                            style: TextStyle(color: Colors.white)),
+                        CircularProgressIndicator()
+                      ],
+                    )
+                  : const Row(
+                      children: [
+                        Text(
+                            "Getting SSO Login Information... Telkom's server might have a meltdown, might take longer..",
+                            style: TextStyle(color: Colors.white)),
+                        CircularProgressIndicator()
+                      ],
+                    ),
             )
         ],
       ),
