@@ -69,7 +69,7 @@ class _HomeState extends State<Home> {
                 Container(
                   padding:
                       const EdgeInsets.only(bottom: 25, left: 20, right: 20),
-                  height: 240,
+                  height: 140,
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.vertical(
                         bottom: Radius.circular(30),
@@ -207,30 +207,30 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: Container(
-                          height: 50,
-                          margin: const EdgeInsets.only(top: 20, bottom: 20),
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.white),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                  flex: 9,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        hintText: 'Search',
-                                        border: InputBorder.none),
-                                  )),
-                              Expanded(flex: 1, child: Icon(Icons.search))
-                            ],
-                          ),
-                        ),
-                      )
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 20, right: 20),
+                      //   child: Container(
+                      //     height: 50,
+                      //     margin: const EdgeInsets.only(top: 20, bottom: 20),
+                      //     padding: const EdgeInsets.only(left: 20, right: 20),
+                      //     decoration: BoxDecoration(
+                      //         borderRadius: BorderRadius.circular(30),
+                      //         color: Colors.white),
+                      //     child: const Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       children: [
+                      //         Expanded(
+                      //             flex: 9,
+                      //             child: TextField(
+                      //               decoration: InputDecoration(
+                      //                   hintText: 'Search',
+                      //                   border: InputBorder.none),
+                      //             )),
+                      //         Expanded(flex: 1, child: Icon(Icons.search))
+                      //       ],
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),
