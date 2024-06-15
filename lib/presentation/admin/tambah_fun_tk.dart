@@ -138,24 +138,32 @@ class _TambahActivtyState extends State<TambahFunTk> {
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ActivityFrame()),
-                );
-              },
-              child: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => const ActivityFrame()),
+            //     );
+            //   },
+            //   child: ClipOval(
+            //     child: SizedBox.fromSize(
+            //       size: const Size.fromRadius(38), // Image radius
+            //       child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+            //     ),
+            //   ),
+            // ),
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              child: const Text(
+                'Fun TK',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 30,
                 ),
               ),
-            ),
-            Container(
-                padding: const EdgeInsets.all(8.0),
-                child: const Text('Hello, Ivan'))
+            )
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -233,7 +241,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.only(left: 10),
-                      height: 30,
+                      height: 40,
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5.0)),
@@ -243,11 +251,11 @@ class _TambahActivtyState extends State<TambahFunTk> {
                           width: 2.0,
                         ),
                       ),
-                      child: TextField(
+                      child: TextFormField(
                         controller: titleController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 12),
+                          contentPadding: EdgeInsets.only(bottom: 16.0),
                         ),
                       ),
                     ),
@@ -348,7 +356,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.only(left: 10),
-                      height: 30,
+                      height: 40,
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5.0)),
@@ -361,9 +369,9 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       child: TextField(
                         controller: dateController,
                         decoration: const InputDecoration(
-                          hintText: 'YY-MM-DD',
+                          // hintText: 'YY-MM-DD',
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 7),
+                          contentPadding: EdgeInsets.symmetric(vertical: 14),
                         ),
                         onTap: () {
                           showDatePicker(
@@ -393,7 +401,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.only(left: 10),
-                      height: 30,
+                      height: 40,
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5.0)),
@@ -407,6 +415,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                           controller: timeController,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(vertical: 14),
                           ),
                           onTap: () {
                             showTimePicker(
@@ -434,7 +443,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.only(left: 10),
-                      height: 30,
+                      height: 40,
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5.0)),
@@ -444,11 +453,11 @@ class _TambahActivtyState extends State<TambahFunTk> {
                           width: 2.0,
                         ),
                       ),
-                      child: TextField(
+                      child: TextFormField(
                         controller: contentController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 12),
+                          contentPadding: EdgeInsets.only(bottom: 16.0),
                         ),
                       ),
                     ),
@@ -466,7 +475,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.only(left: 10),
-                      height: 30,
+                      height: 40,
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5.0)),
@@ -476,11 +485,11 @@ class _TambahActivtyState extends State<TambahFunTk> {
                           width: 2.0,
                         ),
                       ),
-                      child: TextField(
+                      child: TextFormField(
                         controller: locationController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 12),
+                          contentPadding: EdgeInsets.only(bottom: 16.0),
                         ),
                       ),
                     ),
@@ -494,7 +503,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.only(left: 10),
-                      height: 30,
+                      height: 40,
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5.0)),
@@ -504,11 +513,11 @@ class _TambahActivtyState extends State<TambahFunTk> {
                           width: 2.0,
                         ),
                       ),
-                      child: TextField(
+                      child: TextFormField(
                         controller: mapController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 12),
+                          contentPadding: EdgeInsets.only(bottom: 16.0),
                         ),
                       ),
                     ),
@@ -528,7 +537,10 @@ class _TambahActivtyState extends State<TambahFunTk> {
                             //       builder: (context) => const DaftarFuntk()),
                             // );
                           },
-                          child: const Text('Tambah')),
+                          child: const Text(
+                            'Tambah',
+                            style: TextStyle(color: Colors.white),
+                          )),
                     )
                   ],
                 ),

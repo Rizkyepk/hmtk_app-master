@@ -54,6 +54,17 @@ class _TambahActivtyState extends State<TambahLab> {
 
   Future<void> tambahLabPost() async {
     String? imgUrl;
+    String content = contentController.text;
+
+    if (content.isEmpty || image == null) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Pastikan semua kolom terisi dengan benar!',
+        btnOkOnPress: () {},
+      ).show();
+    }
     if (image != null) {
       imgUrl = await uploadFileToCDN(image!);
     }
@@ -111,24 +122,31 @@ class _TambahActivtyState extends State<TambahLab> {
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ActivityFrame()),
-                );
-              },
-              child: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => const ActivityFrame()),
+            //     );
+            //   },
+            //   child: ClipOval(
+            //     child: SizedBox.fromSize(
+            //       size: const Size.fromRadius(38), // Image radius
+            //       child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+            //     ),
+            //   ),
+            // ),
             Container(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Hello, Ivan'))
+                child: const Text(
+                  'Laboratory',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -383,8 +401,10 @@ class _TambahActivtyState extends State<TambahLab> {
                       ),
                       child: TextField(
                         controller: contentController,
+                        maxLines: 4,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 8),
                         ),
                       ),
                     ),
@@ -400,7 +420,7 @@ class _TambahActivtyState extends State<TambahLab> {
                                 const Color.fromARGB(255, 1, 122, 5),
                           ),
                           onPressed: tambahLabPost,
-                          child: const Text('Tambah')),
+                          child: const Text('Tambah', style: TextStyle(color: Colors.white),)),
                     )
                   ],
                 ),

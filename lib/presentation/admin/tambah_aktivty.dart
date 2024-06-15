@@ -131,15 +131,22 @@ class _TambahActivtyState extends State<TambahActivty> {
                 );
               },
               child: ClipOval(
-                // child: SizedBox.fromSize(
-                //   size: const Size.fromRadius(38), // Image radius
-                //   child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
-                // ),
-              ),
+                  // child: SizedBox.fromSize(
+                  //   size: const Size.fromRadius(38), // Image radius
+                  //   child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+                  // ),
+                  ),
             ),
             Container(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Menu Activity'))
+                child: const Text(
+                  'Activity',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -217,7 +224,7 @@ class _TambahActivtyState extends State<TambahActivty> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.only(left: 10),
-                      height: 30,
+                      height: 40,
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5.0)),
@@ -227,11 +234,11 @@ class _TambahActivtyState extends State<TambahActivty> {
                           width: 2.0,
                         ),
                       ),
-                      child: TextField(
+                      child: TextFormField(
                         controller: judulController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 12),
+                          contentPadding: EdgeInsets.only(bottom: 16.0),
                         ),
                       ),
                     ),
@@ -396,7 +403,7 @@ class _TambahActivtyState extends State<TambahActivty> {
                             //       builder: (context) => const DaftarAktivity()),
                             // );
                           },
-                          child: const Text('Tambah')),
+                          child: const Text('Tambah', style: TextStyle(color: Colors. white),)),
                     )
                   ],
                 ),
