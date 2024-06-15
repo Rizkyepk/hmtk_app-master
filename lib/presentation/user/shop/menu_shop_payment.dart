@@ -43,7 +43,7 @@ class _PaymentPageState extends State<PaymentPage> {
             if (change.url != null &&
                 (change.url == "https://myhmtk.jeyy.xyz/transaction/success" ||
                     change.url ==
-                        "https://myhmtk.jeyy.xyz/transaction/pending")) {
+                        "https://myhmtk.jeyy.xyz/transaction/pending" || change.url!.startsWith("https://gwa.sandbox.gopayapi.com"))) {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const MenuShopHistory()));
             }

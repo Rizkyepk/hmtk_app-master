@@ -15,9 +15,14 @@ import 'package:http/http.dart';
 import 'laboratory/menu_laboratory.dart';
 import 'shop/menu_shop.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   Future<List<Map<String, dynamic>>> fetchActivities() async {
     try {
       var response = await get(
@@ -64,7 +69,7 @@ class Home extends StatelessWidget {
                 Container(
                   padding:
                       const EdgeInsets.only(bottom: 25, left: 20, right: 20),
-                  height: 240,
+                  height: 140,
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.vertical(
                         bottom: Radius.circular(30),
@@ -126,11 +131,13 @@ class Home extends StatelessWidget {
                               ],
                             ),
                             InkWell(
-                              onTap: () {
-                                Navigator.push(
+                              onTap: () async {
+                                await Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => const Account()));
+
+                                setState(() {});
                               },
                               child: CircleAvatar(
                                 radius: 38,
@@ -164,6 +171,33 @@ class Home extends StatelessWidget {
                                             fit: BoxFit.cover,
                                             width: 66,
                                             height: 66,
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent?
+                                                        loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              } else {
+                                                return SizedBox(
+                                                  height: 200,
+                                                  width: double.maxFinite,
+                                                  child: Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      value: loadingProgress
+                                                                  .expectedTotalBytes !=
+                                                              null
+                                                          ? loadingProgress
+                                                                  .cumulativeBytesLoaded /
+                                                              loadingProgress
+                                                                  .expectedTotalBytes!
+                                                          : null,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            },
                                           );
                                         }
                                       }),
@@ -173,30 +207,30 @@ class Home extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: Container(
-                          height: 50,
-                          margin: const EdgeInsets.only(top: 20, bottom: 20),
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.white),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                  flex: 9,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        hintText: 'Search',
-                                        border: InputBorder.none),
-                                  )),
-                              Expanded(flex: 1, child: Icon(Icons.search))
-                            ],
-                          ),
-                        ),
-                      )
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 20, right: 20),
+                      //   child: Container(
+                      //     height: 50,
+                      //     margin: const EdgeInsets.only(top: 20, bottom: 20),
+                      //     padding: const EdgeInsets.only(left: 20, right: 20),
+                      //     decoration: BoxDecoration(
+                      //         borderRadius: BorderRadius.circular(30),
+                      //         color: Colors.white),
+                      //     child: const Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       children: [
+                      //         Expanded(
+                      //             flex: 9,
+                      //             child: TextField(
+                      //               decoration: InputDecoration(
+                      //                   hintText: 'Search',
+                      //                   border: InputBorder.none),
+                      //             )),
+                      //         Expanded(flex: 1, child: Icon(Icons.search))
+                      //       ],
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),
@@ -356,7 +390,7 @@ class Home extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Activity',
+                'Aktivitas Terkini',
                 style: TextStyle(color: Colors.green),
               ),
               FutureBuilder(
@@ -369,34 +403,32 @@ class Home extends StatelessWidget {
                     } else {
                       List<Map<String, dynamic>> activities = snapshot.data;
 
-                      return Container(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: activities.map((activity) {
-                              return Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 20,
+                      return SingleChildScrollView(
+                        child: Column(
+                          children: activities.map((activity) {
+                            return Column(
+                              children: [
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            DetailActivity(activity: activity),
+                                      ),
+                                    );
+                                  },
+                                  child: ItemActivity(
+                                    title: activity["title"],
+                                    imgUrl: activity["img_url"],
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => DetailActivity(
-                                              activity: activity),
-                                        ),
-                                      );
-                                    },
-                                    child: ItemActivity(
-                                      title: activity["title"],
-                                      imgUrl: activity["img_url"],
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }).toList(),
-                          ),
+                                ),
+                              ],
+                            );
+                          }).toList(),
                         ),
                       );
                     }

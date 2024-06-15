@@ -128,7 +128,7 @@ class MenuRiwayatAspirasi extends StatelessWidget {
                                 textAlign: TextAlign.center,
                               ),
                               Text(
-                                aspirations[i]['datetime'],
+                                formatDateTime(aspirations[i]['datetime']),
                                 textAlign: TextAlign.center,
                               ),
                               Text(

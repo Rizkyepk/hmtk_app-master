@@ -44,12 +44,12 @@ class _EditFunTkState extends State<EditFunTk> {
     final File imageFile = File(imagePicked.path);
     double fileSizeMb = await imageFile.length() / (1024 * 1024);
 
-    if (fileSizeMb > 10) {
+    if (fileSizeMb > 5) {
       return AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
-        title: 'Failed: Batas ukuran file 10MB',
+        title: 'Failed: Batas ukuran file 5MB',
         btnOkOnPress: () {},
       ).show();
     }
@@ -245,7 +245,7 @@ class _EditFunTkState extends State<EditFunTk> {
                       ),
                       child: TextField(
                         controller: titleController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           // hintText: widget.fun_tk["title"],
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 10),
@@ -372,10 +372,22 @@ class _EditFunTkState extends State<EditFunTk> {
                       ),
                       child: TextField(
                         controller: dateController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 10),
                         ),
+                        onTap: () {
+                          showDatePicker(
+                            context: context,
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100),
+                          ).then((selectedDate) {
+                            if (selectedDate != null) {
+                              dateController.text =
+                                  formatDate(selectedDate.toIso8601String());
+                            }
+                          });
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -403,12 +415,22 @@ class _EditFunTkState extends State<EditFunTk> {
                         ),
                       ),
                       child: TextField(
-                        controller: timeController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 10),
-                        ),
-                      ),
+                          controller: timeController,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(vertical: 10),
+                          ),
+                          onTap: () {
+                            showTimePicker(
+                              context: context,
+                              initialTime:
+                                  TimeOfDay.fromDateTime(DateTime.now()),
+                            ).then((selectedTime) {
+                              if (selectedTime != null) {
+                                timeController.text = formatTime(selectedTime);
+                              }
+                            });
+                          }),
                     ),
                     const SizedBox(
                       height: 10,
@@ -436,7 +458,7 @@ class _EditFunTkState extends State<EditFunTk> {
                       ),
                       child: TextField(
                         controller: contentController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 10),
                         ),
@@ -468,7 +490,7 @@ class _EditFunTkState extends State<EditFunTk> {
                       ),
                       child: TextField(
                         controller: locationController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 10),
                         ),
@@ -496,7 +518,7 @@ class _EditFunTkState extends State<EditFunTk> {
                       ),
                       child: TextField(
                         controller: mapController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           // hintText: widget.fun_tk["map_url"],
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 10),

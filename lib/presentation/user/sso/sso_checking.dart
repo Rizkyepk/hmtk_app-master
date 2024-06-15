@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hmtk_app/presentation/user/home.dart';
 import 'package:hmtk_app/presentation/user/start.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
@@ -66,7 +65,7 @@ class _SsoCheckingState extends State<SsoChecking> {
     try {
       Map<String, dynamic> params = {
         'nim': widget.ssoData["numberid"],
-        'name': widget.ssoData["fullname"],
+        'name': toTitleCase(widget.ssoData["fullname"]),
         'tel': widget.ssoData["phone"],
         'email': widget.ssoData["email"],
         'avatar_url': widget.ssoData["photo"],
@@ -92,9 +91,9 @@ class _SsoCheckingState extends State<SsoChecking> {
           await SaveData.saveAuth({
             "user_type": "mahasiswa",
             "user": {
-              'nim': widget.ssoData["numberid"],
-              'name': widget.ssoData["fullname"],
-              'tel': int.tryParse(widget.ssoData["phone"]),
+              'nim': int.parse(widget.ssoData["numberid"]),
+              'name': toTitleCase(widget.ssoData["fullname"]),
+              'tel': int.parse(widget.ssoData["phone"]),
               'email': widget.ssoData["email"],
               'avatar_url': widget.ssoData["photo"],
               'address':

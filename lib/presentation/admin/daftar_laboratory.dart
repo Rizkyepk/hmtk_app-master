@@ -24,7 +24,7 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
   @override
   void initState() {
     super.initState();
-    selectedLab = 'sea';
+    selectedLab = 'magics';
     _fetchDataLab(selectedLab);
   }
 
@@ -160,8 +160,8 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
               DropdownButton<String>(
                 value: selectedLab,
                 items: [
-                  'sea',
                   'magics',
+                  'sea',
                   'evconn',
                   'ismile',
                   'rnest',

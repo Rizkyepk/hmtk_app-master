@@ -132,7 +132,7 @@ class _DaftarShopState extends State<DaftarShop> {
               padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
               height: 55,
               child: const Text(
-                "Daftar Shop",
+                "Daftar Produk",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

@@ -5,6 +5,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../widget/show_more_text.dart';
 
@@ -168,12 +169,64 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                     fontWeight: FontWeight.bold),
                               ),
                               if (posts[index]["img_url"] != null)
-                                SizedBox(
-                                    height: 200,
-                                    width: double.infinity,
-                                    child: Image.network(
+                                GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Container(
+                                            color: Colors.black54,
+                                            child: Center(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Image.network(
+                                                  posts[index]["img_url"],
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: SizedBox(
+                                      height: 200,
+                                      width: double.infinity,
+                                      child: Image.network(
                                         posts[index]["img_url"],
-                                        fit: BoxFit.cover)),
+                                        fit: BoxFit.cover,
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          } else {
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               // Container(
                               //   color: Colors.grey.shade300,
                               //   height: 200,
@@ -449,7 +502,12 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
                                             MainAxisAlignment.center,
                                         children: [
                                           IconButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Share.share(
+                                                    '${widget.title} memposting pada aplikasi MyHMTK ${timeAgoFromIso(posts[index]["post_date"])}:\n\n${posts[index]["content"]}\n',
+                                                    subject:
+                                                        'Postingan ${widget.title} di MyHMTK');
+                                              },
                                               icon: const Icon(
                                                 Icons.share,
                                               )),

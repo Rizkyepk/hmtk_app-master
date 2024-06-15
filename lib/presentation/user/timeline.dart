@@ -404,6 +404,30 @@ class _TimelineState extends State<Timeline> {
                                       fit: BoxFit.cover,
                                       width: 60,
                                       height: 60,
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return SizedBox(
+                                            height: 200,
+                                            width: double.maxFinite,
+                                            child: Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      },
                                     ))),
                                 const SizedBox(
                                   width: 2,
@@ -478,33 +502,62 @@ class _TimelineState extends State<Timeline> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              SizedBox(
-                                  height: 198,
-                                  width: 352,
-                                  child: Image.network(
-                                    posts[index]["img_url"],
-                                    fit: BoxFit.cover,
-                                    loadingBuilder: (BuildContext context,
-                                        Widget child,
-                                        ImageChunkEvent? loadingProgress) {
-                                      if (loadingProgress == null) {
-                                        return child;
-                                      } else {
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
+                              if (posts[index]["img_url"] != null)
+                                GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Container(
+                                            color: Colors.black54,
+                                            child: Center(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Image.network(
+                                                  posts[index]["img_url"],
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         );
-                                      }
-                                    },
-                                  )),
+                                      },
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    height: 198,
+                                    width: 352,
+                                    child: Image.network(
+                                      posts[index]["img_url"],
+                                      fit: BoxFit.cover,
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              value: loadingProgress
+                                                          .expectedTotalBytes !=
+                                                      null
+                                                  ? loadingProgress
+                                                          .cumulativeBytesLoaded /
+                                                      loadingProgress
+                                                          .expectedTotalBytes!
+                                                  : null,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ),
                             ],
                           ),
                         const SizedBox(
@@ -859,27 +912,25 @@ class _TimelineState extends State<Timeline> {
                                     ),
                                   )
                                 : const Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.mode_comment_outlined,
-                                          color: Colors.grey,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          'Komentar',            
-                                        ),
-                                      ],
-                                      
-                                    ),
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.mode_comment_outlined,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        'Komentar',
+                                      ),
+                                    ],
+                                  ),
                             // share
                             InkWell(
                               onTap: () {
                                 Share.share(
-                                    '${posts[index]["poster"]["name"]} memposting pada aplikasi MyHMTK ${timeAgoFromIso(posts[index]["post_date"])}:\n\n${posts[index]["content"]}\n[${posts[index]["img_url"]}]',
+                                    '${posts[index]["poster"]["name"]} memposting pada aplikasi MyHMTK ${timeAgoFromIso(posts[index]["post_date"])}:\n\n${posts[index]["content"]}\n',
                                     subject:
                                         'Postingan ${posts[index]["poster"]["name"]} di MyHMTK');
                               },

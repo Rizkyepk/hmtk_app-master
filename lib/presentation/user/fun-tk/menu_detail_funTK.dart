@@ -49,7 +49,9 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
     }
 
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text("Kegiatan Fun TK"),
+        ),
         body: FutureBuilder(
             future: funTks(widget.funTkId),
             builder: (BuildContext context,
@@ -140,18 +142,14 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
                                 const SizedBox(
                                   height: 10,
                                 ),
+                                if (!funTk["map_url"].isEmpty)
                                 const Text(
                                   'Lokasi',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                //menampilkan maps
-                                // Image.asset(
-                                //   'assets/maps.png',
-                                //   height: 180,
-                                //   fit: BoxFit.cover,
-                                // )
+                                if (!funTk["map_url"].isEmpty)
                                 //test display and button
                                 // SizedBox(height: 20),
                                 // ElevatedButton(
@@ -171,7 +169,7 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
                                     onPressed: () {
                                       _openGoogleMaps(funTk['map_url']);
                                     },
-                                    child: Text('Open Google Maps'),
+                                    child: const Text('Open Google Maps'),
                                   ),
                                 )
                               ],

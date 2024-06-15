@@ -26,129 +26,45 @@ class _DetailActivityState extends State<DetailActivity> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          // actions: [
-          //   CircleAvatar(
-          //     backgroundColor: Colors.grey.shade50.withOpacity(0.5),
-          //     child: IconButton(
-          //         onPressed: () {
-          //           setState(() {
-          //             tapFavorite = !tapFavorite;
-          //           });
-          //         },
-          //         icon: tapFavorite
-          //             ? const Icon(
-          //                 Icons.favorite,
-          //                 color: Colors.red,
-          //                 size: 25,
-          //               )
-          //             : const Icon(
-          //                 Icons.favorite,
-          //                 color: Colors.white,
-          //                 size: 25,
-          //               )),
-          //   ),
-          //   const SizedBox(
-          //     width: 10,
-          //   )
-          // ],
-          ),
+        title: const Text("Aktivitas Terkini"),
+      ),
       body: SizedBox(
           width: double.maxFinite,
           height: double.maxFinite,
           child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              width: double.maxFinite,
+              height: double.maxFinite,
+              padding: const EdgeInsets.only(
+                  left: 20, top: 20, right: 20, bottom: 10),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(30))),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.network(
-                      widget.activity['img_url'],
-                      height: MediaQuery.of(context).size.height * 0.6,
-                      width: double.maxFinite,
-                      fit: BoxFit.cover,
+                    const Align(
+                      alignment: Alignment.center,
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.6,
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.black.withOpacity(0.8), 
-                          ],
-                        ),
-                      ),
+                    Text(
+                      // 'Informasi',
+                      widget.activity["title"],
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                  ],
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Text(
-                  //   'Watch a match!',
-                  //   style: TextStyle(
-                  //       fontSize: 20,
-                  //       fontWeight: FontWeight.bold,
-                  //       color: Colors.white),
-                  // ),
-                  Text(
-                    widget.activity['title'],
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green[400],
-                      // shadows: [
-                      //   Shadow(
-                      //     blurRadius: 10.0,
-                      //     color: Colors.black.withOpacity(0.5),
-                      //     offset: Offset(2.0, 2.0),
-                      //   ),
-                      // ],
-                    ),
-                  ),
-
-                  const SizedBox(
-                    height: 150,
-                  )
-                ],
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.45,
-                  width: double.maxFinite,
-                  padding: const EdgeInsets.only(
-                      left: 20, top: 20, right: 20, bottom: 10),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(30))),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Align(
-                          alignment: Alignment.center,
-                          // child: Text(
-                          //   'KBAA Champion',
-                          //   style: TextStyle(
-                          //       fontSize: 20, fontWeight: FontWeight.bold),
-                          // ),
-                        ),
-                        const Text(
-                          'Informasi',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
+                        const Text("Admin"),
                         Text(
                           widget.activity['content'],
-                          style: const TextStyle(
-                              fontSize: 14, color: Colors.green),
+                          style: const TextStyle(fontSize: 14, color: Colors.green),
                         ),
                         const SizedBox(
                           height: 10,

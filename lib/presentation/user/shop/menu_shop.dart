@@ -71,7 +71,7 @@ class MenuShop extends StatelessWidget {
                               const Padding(
                                 padding: EdgeInsets.only(left: 20),
                                 child: Text(
-                                  'Categories',
+                                  'Products',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -119,12 +119,47 @@ class MenuShop extends StatelessWidget {
                                             children: [
                                               // Image.asset('assets/jersey pemain.png'),
                                               SizedBox(
-                                                  height: 400,
-                                                  width: 273,
-                                                  child: Image.network(
-                                                    products[index]["img_url"],
-                                                    fit: BoxFit.contain,
-                                                  )),
+                                                height: 400,
+                                                width: 273,
+                                                child: Image.network(
+                                                  products[index]["img_url"],
+                                                  height: 200,
+                                                  width: double.maxFinite,
+                                                  fit: BoxFit.contain,
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    } else {
+                                                      return SizedBox(
+                                                        height: 200,
+                                                        width: double.maxFinite,
+                                                        child: Center(
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            value: loadingProgress
+                                                                        .expectedTotalBytes !=
+                                                                    null
+                                                                ? loadingProgress
+                                                                        .cumulativeBytesLoaded /
+                                                                    loadingProgress
+                                                                        .expectedTotalBytes!
+                                                                : null,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                  },
+                                                ),
+                                                // Image.network(
+                                                //                                               products[index]["img_url"],
+                                                //                                               fit: BoxFit.contain,
+                                                //                                             )
+                                              ),
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.all(20.0),

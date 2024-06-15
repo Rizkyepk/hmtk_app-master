@@ -1,12 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/sso/sso_checking.dart';
 import 'package:hmtk_app/presentation/user/start.dart';
 import 'package:hmtk_app/utils/color_pallete.dart';
-import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

@@ -378,7 +378,7 @@ class ShopDialog extends StatelessWidget {
               // ),
               GestureDetector(
                 child: const Text(
-                  'Daftar Shop',
+                  'Daftar Produk',
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () {
