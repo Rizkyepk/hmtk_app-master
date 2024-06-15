@@ -63,29 +63,78 @@ class _DetailActivityState extends State<DetailActivity> {
                       children: [
                         const Text("Admin"),
                         Text(
-                          widget.activity['content'],
-                          style: const TextStyle(fontSize: 14, color: Colors.green),
+                          timeAgoFromIso(widget.activity["post_date"]),
+                          textAlign: TextAlign.end,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          'Lokasi',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        Image.asset(
-                          'assets/maps.png',
-                          height: 180,
-                          fit: BoxFit.cover,
-                        )
                       ],
                     ),
-                  ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Stack(
+                        children: [
+                          Image.network(
+                            widget.activity["img_url"],
+                            height: 200,
+                            width: double.maxFinite,
+                            fit: BoxFit.cover,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              } else {
+                                return Container(
+                                  height: 200,
+                                  width: double.maxFinite,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      widget.activity['content'],
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(fontSize: 14, color: Colors.black),
+                    ),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
+                    // const Text(
+                    //   'Lokasi',
+                    //   style: TextStyle(
+                    //       fontSize: 16, fontWeight: FontWeight.bold),
+                    // ),
+                    // Image.asset(
+                    //   'assets/maps.png',
+                    //   height: 180,
+                    //   fit: BoxFit.cover,
+                    // )
+                  ],
                 ),
               ),
-            ],
-          )),
+            ),
+          ),
+        ],
+      )),
     );
   }
 
