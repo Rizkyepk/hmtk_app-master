@@ -42,7 +42,10 @@ class _WebviewMapsState extends State<WebviewMaps> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WebViewWidget.new(controller: _controller!),
+      appBar: AppBar(
+        title: Text('Maps'),
+      ),
+      body: WebViewWidget(controller: _controller!),
     );
   }
 }

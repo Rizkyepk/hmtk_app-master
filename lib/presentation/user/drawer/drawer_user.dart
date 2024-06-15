@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hmtk_app/presentation/user/account.dart';
@@ -14,6 +15,7 @@ import 'package:hmtk_app/presentation/user/start.dart';
 
 import 'package:hmtk_app/presentation/user/timeline.dart';
 import 'package:hmtk_app/utils/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerUserScren extends StatefulWidget {
   const DrawerUserScren({super.key});
@@ -161,7 +163,28 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
               color: Colors.red,
             ),
             onTap: logout,
-          )
+          ),
+          IconButton(
+                onPressed: () {
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.question,
+                    animType: AnimType.rightSlide,
+                    title: 'Butuh bantuan?',
+                    btnOkText: 'Hubungi',
+                    btnOkOnPress: () async {
+                      if (!await launchUrl(
+                          Uri.parse('https://linktr.ee/HMTK_TELU'))) {
+                        throw Exception('Ada masalah');
+                      }
+                    },
+                  ).show();
+                },
+                icon: const Icon(
+                  Icons.help_outline_rounded,
+                  color: Colors.grey,
+                  size: 20,
+                )),
         ],
       ),
     );

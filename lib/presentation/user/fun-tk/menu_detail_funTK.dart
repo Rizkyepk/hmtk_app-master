@@ -149,21 +149,12 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                if (!funTk["map_url"].isEmpty)
-                                //test display and button
-                                // SizedBox(height: 20),
-                                // ElevatedButton(
-                                //   onPressed: () {
-                                //     Navigator.push(
-                                //       context,
-                                //       MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             WebviewMaps(url: funTk['map_url']),
-                                //       ),
-                                //     );
-                                //   },
-                                //   child: Text('Open Google Maps'),
-                                // ),
+                                //menampilkan maps
+                                // Image.asset(
+                                //   'assets/maps.png',
+                                //   height: 180,
+                                //   fit: BoxFit.cover,
+                                // )
                                 Center(
                                   child: ElevatedButton(
                                     onPressed: () {

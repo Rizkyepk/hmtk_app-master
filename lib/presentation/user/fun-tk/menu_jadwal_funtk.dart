@@ -54,7 +54,12 @@ class MenuJadwalFunTK extends StatelessWidget {
             builder: (BuildContext context,
                 AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Text('Loading data...');
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const CircularProgressIndicator(),
+                  ),
+                );
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
@@ -68,7 +73,8 @@ class MenuJadwalFunTK extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MenuDetailActivity(funTkId: funTks[index]["id"]),
+                            builder: (context) => MenuDetailActivity(
+                                funTkId: funTks[index]["id"]),
                           ));
                     },
                     child: Container(
@@ -85,14 +91,14 @@ class MenuJadwalFunTK extends StatelessWidget {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
+                            padding: const EdgeInsets.only(
+                                left: 20, top: 10, right: 20),
                             child: Text(
                               funTks[index]["title"],
                               style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 28
-                              ),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 28),
                             ),
                           ),
                           Padding(
@@ -122,7 +128,9 @@ class MenuJadwalFunTK extends StatelessWidget {
                                             BorderRadius.circular(15)),
                                     child: Text(
                                       // '12\nDes',
-                                      DateFormat('dd\nMMM', 'id').format(DateTime.parse(funTks[index]["date"])),
+                                      DateFormat('dd\nMMM', 'id').format(
+                                          DateTime.parse(
+                                              funTks[index]["date"])),
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
                                         color: Colors.white,

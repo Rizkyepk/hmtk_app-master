@@ -923,6 +923,7 @@ class _TimelineState extends State<Timeline> {
                                       ),
                                       Text(
                                         'Komentar',
+                                        style: TextStyle(color: Colors.grey),
                                       ),
                                     ],
                                   ),
