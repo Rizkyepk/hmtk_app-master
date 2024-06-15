@@ -107,7 +107,7 @@ class _TambahActivtyState extends State<EditShop> {
   Widget build(BuildContext context) {
     contentController.text = widget.shop["description"] ?? '';
     nameController.text = widget.shop["name"] ?? '';
-    priceController.text = widget.shop["price"].toString() ?? '';
+    priceController.text = widget.shop["price"].toString();
 
     return Scaffold(
       drawer: const Drawer(

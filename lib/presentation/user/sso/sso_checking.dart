@@ -65,7 +65,7 @@ class _SsoCheckingState extends State<SsoChecking> {
     try {
       Map<String, dynamic> params = {
         'nim': widget.ssoData["numberid"],
-        'name': widget.ssoData["fullname"],
+        'name': toTitleCase(widget.ssoData["fullname"]),
         'tel': widget.ssoData["phone"],
         'email': widget.ssoData["email"],
         'avatar_url': widget.ssoData["photo"],
@@ -92,7 +92,7 @@ class _SsoCheckingState extends State<SsoChecking> {
             "user_type": "mahasiswa",
             "user": {
               'nim': widget.ssoData["numberid"],
-              'name': widget.ssoData["fullname"],
+              'name': toTitleCase(widget.ssoData["fullname"]),
               'tel': int.tryParse(widget.ssoData["phone"]),
               'email': widget.ssoData["email"],
               'avatar_url': widget.ssoData["photo"],

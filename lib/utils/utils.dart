@@ -68,6 +68,16 @@ String getFirstLimit(String name, {int limit = 7}) {
   return getFirstString(limitString(name, limit));
 }
 
+String toTitleCase(String text) {
+  if (text.isEmpty) {
+    return text;
+  }
+
+  return text.toLowerCase().split(' ').map((word) {
+    return word.isNotEmpty ? '${word[0].toUpperCase()}${word.substring(1)}' : '';
+  }).join(' ');
+}
+
 class SaveData {
   static const _mapKey = 'user_data';
 

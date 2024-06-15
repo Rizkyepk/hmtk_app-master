@@ -73,6 +73,7 @@ class Start extends StatelessWidget {
                           ));
                     },
                     child: const MyButton(
+                      width: 120,
                       txt: 'Login Admin',
                     ),
                   ),

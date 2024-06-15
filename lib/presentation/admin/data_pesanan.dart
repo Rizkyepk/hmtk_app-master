@@ -172,8 +172,8 @@ class _DataPesananState extends State<DataPesanan> {
                         itemBuilder: (BuildContext context, int index) {
                           final order = transaction['orders'][index];
                           final productName = order['product']['name'] ?? '';
-                          final quantity = order['quantity']?.toString() ?? '';
-                          final size = order['size'] ?? '';
+                          // final quantity = order['quantity']?.toString() ?? '';
+                          // final size = order['size'] ?? '';
 
                           return Text(
                             '$productName',
