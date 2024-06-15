@@ -111,25 +111,25 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ActivityFrame(),
-                  ),
-                );
-              },
-              child: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => const ActivityFrame(),
+            //       ),
+            //     );
+            //   },
+            //   child: ClipOval(
+            //     child: SizedBox.fromSize(
+            //       size: const Size.fromRadius(38), // Image radius
+            //       child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+            //     ),
+            //   ),
+            // ),
             Container(
               padding: const EdgeInsets.all(8.0),
-              child: const Text('Hello, Ivan'),
+              child: const Text('Laboratory'),
             ),
           ],
         ),
@@ -237,12 +237,49 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
                             Row(
                               children: [
                                 InkWell(
-                                  onTap: () {
-                                    deleteDataLab(labPost['id']);
-                                  },
-                                  child: const Icon(Icons.delete,
-                                      color: Colors.red),
-                                ),
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Konfirmasi'),
+                                        content: const Text(
+                                            'Apakah Anda yakin ingin menghapus aktivitas ini?'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pop(); // Tutup dialog
+                                            },
+                                            child: const Text('Batal'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pop(); // Tutup dialog
+                                              deleteDataLab(labPost['id']); // Panggil fungsi delete
+                                            },
+                                            child: const Text(
+                                              'Hapus',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                child:
+                                    const Icon(Icons.delete, color: Colors.red),
+                              ),
+                                // InkWell(
+                                //   onTap: () {
+                                //     deleteDataLab(labPost['id']);
+                                //   },
+                                //   child: const Icon(Icons.delete,
+                                //       color: Colors.red),
+                                // ),
                                 const SizedBox(width: 8),
                                 InkWell(
                                   onTap: () {

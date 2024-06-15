@@ -103,7 +103,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
         title: 'Failed',
-        desc: 'Gagal menambahkan Fun TK: $e',
+        desc: 'Gagal menambahkan: $e',
         btnOkOnPress: () {},
       ).show();
     }
@@ -232,6 +232,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                         controller: titleController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 12),
                         ),
                       ),
                     ),
@@ -344,7 +345,9 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       child: TextField(
                         controller: dateController,
                         decoration: const InputDecoration(
+                          hintText: 'YY-MM-DD',
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 7),
                         ),
                       ),
                     ),
@@ -375,7 +378,9 @@ class _TambahActivtyState extends State<TambahFunTk> {
                       child: TextField(
                         controller: timeController,
                         decoration: const InputDecoration(
+                          hintText: 'HH:MM:SS',
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 7),
                         ),
                       ),
                     ),
@@ -407,6 +412,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                         controller: contentController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 12),
                         ),
                       ),
                     ),
@@ -438,6 +444,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                         controller: locationController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 12),
                         ),
                       ),
                     ),
@@ -465,6 +472,7 @@ class _TambahActivtyState extends State<TambahFunTk> {
                         controller: mapController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 12),
                         ),
                       ),
                     ),

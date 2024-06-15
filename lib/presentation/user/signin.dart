@@ -235,22 +235,22 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                   ],
                 ),
                 //user memilih untuk mengingat login-nya
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _rememberMe,
-                      onChanged: (value) {
-                        setState(() {
-                          _rememberMe = value!;
-                        });
-                      },
-                    ),
-                    const Text(
-                      'Remember Me',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     Checkbox(
+                //       value: _rememberMe,
+                //       onChanged: (value) {
+                //         setState(() {
+                //           _rememberMe = value!;
+                //         });
+                //       },
+                //     ),
+                //     const Text(
+                //       'Remember Me',
+                //       style: TextStyle(fontSize: 16),
+                //     ),
+                //   ],
+                // ),
                 Align(
                   alignment: Alignment.center,
                   child: InkWell(

@@ -60,11 +60,29 @@ class _DetailActivityState extends State<DetailActivity> {
             children: [
               Align(
                 alignment: Alignment.topCenter,
-                child: Image.network(
-                  widget.activity['img_url'],
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  width: double.maxFinite,
-                  fit: BoxFit.cover,
+                child: Stack(
+                  children: [
+                    Image.network(
+                      widget.activity['img_url'],
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      width: double.maxFinite,
+                      fit: BoxFit.cover,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withOpacity(0.8), 
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Column(
@@ -81,10 +99,19 @@ class _DetailActivityState extends State<DetailActivity> {
                   Text(
                     widget.activity['title'],
                     style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green[400]),
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green[400],
+                      // shadows: [
+                      //   Shadow(
+                      //     blurRadius: 10.0,
+                      //     color: Colors.black.withOpacity(0.5),
+                      //     offset: Offset(2.0, 2.0),
+                      //   ),
+                      // ],
+                    ),
                   ),
+
                   const SizedBox(
                     height: 150,
                   )
@@ -120,7 +147,8 @@ class _DetailActivityState extends State<DetailActivity> {
                         ),
                         Text(
                           widget.activity['content'],
-                          style: const TextStyle(fontSize: 14, color: Colors.green),
+                          style: const TextStyle(
+                              fontSize: 14, color: Colors.green),
                         ),
                         const SizedBox(
                           height: 10,

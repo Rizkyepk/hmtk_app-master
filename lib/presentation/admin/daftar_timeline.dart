@@ -107,24 +107,24 @@ class _DaftarTimelineState extends State<DaftarTimeline> {
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ActivityFrame()),
-                );
-              },
-              child: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => const ActivityFrame()),
+            //     );
+            //   },
+            //   child: ClipOval(
+            //     child: SizedBox.fromSize(
+            //       size: const Size.fromRadius(38), // Image radius
+            //       child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+            //     ),
+            //   ),
+            // ),
             Container(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Hello, Ivan'))
+                child: const Text('Timeline'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -185,17 +185,54 @@ class _DaftarTimelineState extends State<DaftarTimeline> {
                                 width: 100,
                                 height: 100,
                               )
-                            : const Text('Null'), // Placeholder text for null image
+                            : const Text(
+                                'Null'), // Placeholder text for null image
                       ),
                       DataCell(Text(post["post_date"])),
                       DataCell(
                         InkWell(
                           onTap: () {
-                            deletePost(post[
-                                "id"]); // Memanggil deletePost dengan postId
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Konfirmasi'),
+                                  content: const Text(
+                                      'Apakah Anda yakin ingin menghapus aktivitas ini?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pop(); // Tutup dialog
+                                      },
+                                      child: const Text('Batal'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pop(); // Tutup dialog
+                                        deletePost(post[
+                                            "id"]); // Panggil fungsi delete
+                                      },
+                                      child: const Text(
+                                        'Hapus',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           },
                           child: const Icon(Icons.delete, color: Colors.red),
                         ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     deletePost(post[
+                        //         "id"]); // Memanggil deletePost dengan postId
+                        //   },
+                        //   child: const Icon(Icons.delete, color: Colors.red),
+                        // ),
                       ),
                     ],
                   );

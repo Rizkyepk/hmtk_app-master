@@ -111,24 +111,24 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ActivityFrame()),
-                );
-              },
-              child: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => const ActivityFrame()),
+            //     );
+            //   },
+            //   child: ClipOval(
+            //     child: SizedBox.fromSize(
+            //       size: const Size.fromRadius(38), // Image radius
+            //       child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+            //     ),
+            //   ),
+            // ),
             Container(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Hello, Ivan'))
+                child: const Text('Activity'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -208,12 +208,42 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
                           children: [
                             InkWell(
                               onTap: () {
-                                // Implementasi untuk menghapus barang
-                                deleteActivity(activities['id']);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Konfirmasi'),
+                                      content: const Text(
+                                          'Apakah Anda yakin ingin menghapus aktivitas ini?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(); // Tutup dialog
+                                          },
+                                          child: const Text('Batal'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(); // Tutup dialog
+                                            deleteActivity(activities[
+                                                'id']); // Panggil fungsi delete
+                                          },
+                                          child: const Text(
+                                            'Hapus',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               },
                               child:
                                   const Icon(Icons.delete, color: Colors.red),
                             ),
+
                             const SizedBox(
                                 width: 8), // Jarak antara ikon delete dan edit
                             InkWell(
@@ -261,238 +291,3 @@ class _DaftarAktivityState extends State<DaftarAktivity> {
     }
   }
 }
-            // child: Column(
-            //   children: [
-            //     Container(
-            //       margin: const EdgeInsets.fromLTRB(10, 10, 10, 2),
-            //       child: Row(
-            //         children: [
-            //           Container(
-            //             padding: const EdgeInsets.all(15),
-            //             height: 50,
-            //             width: 150,
-            //             decoration: BoxDecoration(
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       blurRadius: 1,
-            //                       spreadRadius: 1,
-            //                       color: Colors.black.withOpacity(0.1))
-            //                 ],
-            //                 color: Colors.white,
-            //                 borderRadius: const BorderRadius.only(
-            //                     topLeft: Radius.circular(10))),
-            //             child: const Text(
-            //               'Judul',
-            //               textAlign: TextAlign.center,
-            //             ),
-            //           ),
-            //           Container(
-            //             padding: const EdgeInsets.all(15),
-            //             height: 50,
-            //             width: 100,
-            //             decoration: BoxDecoration(
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       blurRadius: 1,
-            //                       spreadRadius: 1,
-            //                       color: Colors.black.withOpacity(0.1))
-            //                 ],
-            //                 color: Colors.white,
-            //                 borderRadius: const BorderRadius.only(
-            //                     topLeft: Radius.circular(0))),
-            //             child: const Text(
-            //               'File Foto',
-            //               textAlign: TextAlign.center,
-            //             ),
-            //           ),
-            //           Container(
-            //             padding: const EdgeInsets.all(15),
-            //             height: 50,
-            //             width: 150,
-            //             decoration: BoxDecoration(
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       blurRadius: 1,
-            //                       spreadRadius: 1,
-            //                       color: Colors.black.withOpacity(0.1))
-            //                 ],
-            //                 color: Colors.white,
-            //                 borderRadius: const BorderRadius.only(
-            //                     topLeft: Radius.circular(0))),
-            //             child: const Text(
-            //               'Link Lokasi',
-            //               textAlign: TextAlign.center,
-            //             ),
-            //           ),
-            //           Container(
-            //             padding: const EdgeInsets.all(15),
-            //             height: 50,
-            //             width: 150,
-            //             decoration: BoxDecoration(
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       blurRadius: 1,
-            //                       spreadRadius: 1,
-            //                       color: Colors.black.withOpacity(0.1))
-            //                 ],
-            //                 color: Colors.white,
-            //                 borderRadius: const BorderRadius.only(
-            //                     topLeft: Radius.circular(0))),
-            //             child: const Text(
-            //               'Deskripsi',
-            //               textAlign: TextAlign.center,
-            //             ),
-            //           ),
-            //           Container(
-            //             padding: const EdgeInsets.all(15),
-            //             height: 50,
-            //             width: 100,
-            //             decoration: BoxDecoration(
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       blurRadius: 1,
-            //                       spreadRadius: 1,
-            //                       color: Colors.black.withOpacity(0.1))
-            //                 ],
-            //                 color: Colors.white,
-            //                 borderRadius: const BorderRadius.only(
-            //                     topRight: Radius.circular(10))),
-            //             child: const Text(
-            //               'Aksi',
-            //               textAlign: TextAlign.center,
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //     Container(
-            //       margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            //       child: Row(
-            //         children: [
-            //           Container(
-            //             height: 100,
-            //             width: 150,
-            //             decoration: BoxDecoration(
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       blurRadius: 1,
-            //                       spreadRadius: 1,
-            //                       color: Colors.black.withOpacity(0.1))
-            //                 ],
-            //                 color: Colors.white,
-            //                 borderRadius: const BorderRadius.only(
-            //                     topLeft: Radius.circular(0))),
-            //           ),
-            //           Container(
-            //             height: 100,
-            //             width: 100,
-            //             decoration: BoxDecoration(
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       blurRadius: 1,
-            //                       spreadRadius: 1,
-            //                       color: Colors.black.withOpacity(0.1))
-            //                 ],
-            //                 color: Colors.white,
-            //                 borderRadius: const BorderRadius.only(
-            //                     topLeft: Radius.circular(0))),
-            //           ),
-            //           Container(
-            //             height: 100,
-            //             width: 150,
-            //             decoration: BoxDecoration(
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       blurRadius: 1,
-            //                       spreadRadius: 1,
-            //                       color: Colors.black.withOpacity(0.1))
-            //                 ],
-            //                 color: Colors.white,
-            //                 borderRadius: const BorderRadius.only(
-            //                     topLeft: Radius.circular(0))),
-            //           ),
-            //           Container(
-            //             height: 100,
-            //             width: 150,
-            //             decoration: BoxDecoration(
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       blurRadius: 1,
-            //                       spreadRadius: 1,
-            //                       color: Colors.black.withOpacity(0.1))
-            //                 ],
-            //                 color: Colors.white,
-            //                 borderRadius: const BorderRadius.only(
-            //                     topLeft: Radius.circular(0))),
-            //           ),
-            //           Container(
-            //             height: 100,
-            //             width: 100,
-            //             decoration: BoxDecoration(
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                       blurRadius: 1,
-            //                       spreadRadius: 1,
-            //                       color: Colors.black.withOpacity(0.1))
-            //                 ],
-            //                 color: Colors.white,
-            //                 borderRadius: const BorderRadius.only(
-            //                     topRight: Radius.circular(0))),
-            //             child: Row(
-            //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //               children: [
-            //                 InkWell(
-            //                     onTap: () {
-            //                       AwesomeDialog(
-            //                               context: context,
-            //                               dialogType: DialogType.question,
-            //                               animType: AnimType.rightSlide,
-            //                               title:
-            //                                   'Yakin ingin menghapus data?',
-            //                               btnOkOnPress: () {},
-            //                               btnCancelOnPress: () {})
-            //                           .show();
-            //                     },
-            //                     child: const Image(
-            //                         image: AssetImage('assets/Vector.png'))),
-            //                 InkWell(
-            //                     onTap: () {
-            //                       Navigator.pushReplacement(
-            //                           context,
-            //                           MaterialPageRoute(
-            //                             builder: (context) => const EditAktivity(),
-            //                           ));
-            //                     },
-            //                     child: const Image(
-            //                         image: AssetImage('assets/icon.png'))),
-            //               ],
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ],
-            // ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//   Future<Response> fetchData() async {
-//     try {
-//       var response = await get(
-//           Uri(
-//             scheme: 'https',
-//             host: 'myhmtk.jeyy.xyz',
-//             path: '/fun_tk',
-//           ),
-//           headers: {
-//             HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
-//           });
-
-//       return response;
-//     } catch (e) {
-//       throw Exception('Failed to load: $e');
-//     }
-//   }
-// }

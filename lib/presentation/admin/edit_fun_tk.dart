@@ -83,7 +83,7 @@ class _EditFunTkState extends State<EditFunTk> {
             dialogType: DialogType.success,
             animType: AnimType.rightSlide,
             title: 'Success',
-            desc: 'Activity successfully edited!',
+            desc: 'Fun TK successfully edited!',
             btnOkOnPress: () {
               Navigator.push(
                 context,
@@ -100,7 +100,7 @@ class _EditFunTkState extends State<EditFunTk> {
           dialogType: DialogType.error,
           animType: AnimType.rightSlide,
           title: 'Failed',
-          desc: 'Failed to edit activity. Please try again later.',
+          desc: 'Failed to edit Fun TK. Please try again later.',
           btnOkOnPress: () {},
         ).show();
       }
@@ -110,7 +110,7 @@ class _EditFunTkState extends State<EditFunTk> {
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
         title: 'Failed',
-        desc: 'Failed to edit activity: $e',
+        desc: 'Failed to edit Fun TK: $e',
         btnOkOnPress: () {},
       ).show();
     }

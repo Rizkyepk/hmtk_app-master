@@ -43,7 +43,6 @@ class Start extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -73,7 +72,7 @@ class Start extends StatelessWidget {
                           ));
                     },
                     child: const MyButton(
-                      txt: 'Login Admin',
+                      txt: 'Admin',
                     ),
                   ),
                   // const Padding(

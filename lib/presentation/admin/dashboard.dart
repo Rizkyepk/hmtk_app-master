@@ -36,7 +36,7 @@ class Dashboard extends StatelessWidget {
               child: ClipOval(
                 child: SizedBox.fromSize(
                   size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+                  child: Image.asset('assets/default-avatar.png', fit: BoxFit.cover),
                 ),
               ),
             ),

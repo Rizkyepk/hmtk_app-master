@@ -68,7 +68,7 @@ class _TambahActivtyState extends State<EditLab> {
           dialogType: DialogType.success,
           animType: AnimType.rightSlide,
           title: 'Success',
-          desc: 'Activity successfully edited!',
+          desc: 'Lab successfully edited!',
           btnOkOnPress: () {
             Navigator.push(
               context,
@@ -82,7 +82,7 @@ class _TambahActivtyState extends State<EditLab> {
           dialogType: DialogType.error,
           animType: AnimType.rightSlide,
           title: 'Failed',
-          desc: 'Failed to edit activity. Please try again later.',
+          desc: 'Failed to edit Lab. Please try again later.',
           btnOkOnPress: () {},
         ).show();
       }
@@ -92,7 +92,7 @@ class _TambahActivtyState extends State<EditLab> {
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
         title: 'Failed',
-        desc: 'Failed to edit activity: $e',
+        desc: 'Failed to edit Lab: $e',
         btnOkOnPress: () {},
       ).show();
     }

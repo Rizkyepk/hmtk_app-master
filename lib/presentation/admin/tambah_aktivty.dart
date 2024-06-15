@@ -68,7 +68,7 @@ class _TambahActivtyState extends State<TambahActivty> {
           dialogType: DialogType.success,
           animType: AnimType.rightSlide,
           title: 'Success',
-          desc: 'Fun TK berhasil ditambahkan!',
+          desc: 'Activity berhasil ditambahkan!',
           btnOkOnPress: () {
             Navigator.push(
               context,
@@ -82,7 +82,7 @@ class _TambahActivtyState extends State<TambahActivty> {
           dialogType: DialogType.error,
           animType: AnimType.rightSlide,
           title: 'Failed',
-          desc: 'Gagal menambahkan Fun TK',
+          desc: 'Gagal menambahkan Aktivity',
           btnOkOnPress: () {},
         ).show();
       }
@@ -92,7 +92,7 @@ class _TambahActivtyState extends State<TambahActivty> {
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
         title: 'Failed',
-        desc: 'Gagal menambahkan Fun TK: $e',
+        desc: 'Gagal menambahkan: $e',
         btnOkOnPress: () {},
       ).show();
     }
@@ -121,15 +121,15 @@ class _TambahActivtyState extends State<TambahActivty> {
                 );
               },
               child: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
-                ),
+                // child: SizedBox.fromSize(
+                //   size: const Size.fromRadius(38), // Image radius
+                //   child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+                // ),
               ),
             ),
             Container(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Hello, Ivan'))
+                child: const Text('Menu Activity'))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -221,6 +221,7 @@ class _TambahActivtyState extends State<TambahActivty> {
                         controller: judulController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 12),
                         ),
                       ),
                     ),
@@ -334,6 +335,7 @@ class _TambahActivtyState extends State<TambahActivty> {
                         maxLines: 4,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 8),
                         ),
                       ),
                     ),

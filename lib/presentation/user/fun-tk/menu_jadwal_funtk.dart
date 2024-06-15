@@ -10,7 +10,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
 import '../drawer/drawer_user.dart';
-import 'menu_detail_activity.dart';
+import 'menu_detail_funTK.dart';
 
 class MenuJadwalFunTK extends StatelessWidget {
   const MenuJadwalFunTK({super.key});

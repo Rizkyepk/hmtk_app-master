@@ -206,12 +206,50 @@ class _DaftarFuntkState extends State<DaftarFuntk> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  // Implementasi untuk menghapus barang
-                                  deleteProduct(funTks['id']);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Konfirmasi'),
+                                        content: const Text(
+                                            'Apakah Anda yakin ingin menghapus aktivitas ini?'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pop(); // Tutup dialog
+                                            },
+                                            child: const Text('Batal'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pop(); // Tutup dialog
+                                              deleteProduct(funTks[
+                                                  'id']); // Panggil fungsi delete
+                                            },
+                                            child: const Text(
+                                              'Hapus',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 },
                                 child:
                                     const Icon(Icons.delete, color: Colors.red),
                               ),
+                              // InkWell(
+                              //   onTap: () {
+                              //     // Implementasi untuk menghapus barang
+                              //     deleteProduct(funTks['id']);
+                              //   },
+                              //   child:
+                              //       const Icon(Icons.delete, color: Colors.red),
+                              // ),
                               const SizedBox(
                                   width:
                                       8), // Jarak antara ikon delete dan edit
