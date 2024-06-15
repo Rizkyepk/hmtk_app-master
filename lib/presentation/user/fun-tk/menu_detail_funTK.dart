@@ -41,8 +41,8 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
 
           return Map<String, dynamic>.from(data["fun_tk"]);
         } else {
-          throw Exception("error");
-        }
+        throw "Status code: ${response.statusCode}";
+      }
       } catch (e) {
         throw Exception('Error: $e');
       }

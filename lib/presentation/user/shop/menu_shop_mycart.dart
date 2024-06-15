@@ -154,7 +154,7 @@ class _MenuShopMycartState extends State<MenuShopMycart> {
           throw data["message"];
         }
       } else {
-        throw "Status code: ${response.statusCode}, ${response.body}";
+        throw "Status code: ${response.statusCode}";
       }
     } catch (e) {
       AwesomeDialog(

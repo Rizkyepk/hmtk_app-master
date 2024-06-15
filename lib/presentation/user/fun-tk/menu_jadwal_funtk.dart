@@ -27,7 +27,7 @@ class MenuJadwalFunTK extends StatelessWidget {
 
         return List<Map<String, dynamic>>.from(data["fun_tks"]);
       } else {
-        throw Exception("error");
+        throw "Status code: ${response.statusCode}";
       }
     } catch (e) {
       throw Exception('Error: $e');

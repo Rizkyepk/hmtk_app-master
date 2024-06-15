@@ -92,8 +92,7 @@ class _DaftarLaboratoryState extends State<DaftarLaboratory> {
         throw Exception("error");
       }
     } catch (e) {
-      // ignore: avoid_print
-      print('Error fetching products: $e');
+      throw 'Error fetching products: $e';
     }
   }
 

@@ -61,23 +61,27 @@ class _ForgotPasswordState extends State<ForgotPassword>
 
       Map data = json.decode(response.body);
 
-      if (response.statusCode == 200 && data["success"]) {
+      if (response.statusCode == 200) {
+        if (data["Success"]) {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.rightSlide,
+            title: 'Email dikirim!\n!CEK FOLDER SPAM ANDA!',
+            btnOkOnPress: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const SignIn()),
+              );
+            },
+          ).show();
+        } else {
+          throw data["message"];
+        }
         // Show success dialog
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.success,
-          animType: AnimType.rightSlide,
-          title: 'Email dikirim!\n!CEK FOLDER SPAM ANDA!',
-          btnOkOnPress: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const SignIn()),
-            );
-          },
-        ).show();
       } else {
         // Show error dialog
-        throw data["message"];
+        throw "Status Code: ${response.statusCode}";
       }
     } catch (e) {
       // Show error dialog

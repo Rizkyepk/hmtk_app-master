@@ -39,15 +39,13 @@ class _DataPesananState extends State<DataPesanan> {
             _transactionData = datapesanan;
           });
         } else {
-          print('Request not successful: ${data["message"]}');
           throw Exception("Request not successful");
         }
       } else {
-        print('Error: ${response.statusCode} - ${response.body}');
         throw Exception("Error: ${response.statusCode}");
       }
     } catch (e) {
-      print('Error fetching data: $e');
+      throw 'Error fetching data: $e';
     }
   }
 

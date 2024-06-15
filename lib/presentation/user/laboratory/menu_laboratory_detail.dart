@@ -39,8 +39,8 @@ class _MenuLaboratoryDetailState extends State<MenuLaboratoryDetail> {
 
           return List<Map<String, dynamic>>.from(data["lab_posts"]);
         } else {
-          throw Exception("error");
-        }
+        throw "Status code: ${response.statusCode}";
+      }
       } catch (e) {
         AwesomeDialog(
           context: context,

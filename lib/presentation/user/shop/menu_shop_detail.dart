@@ -40,7 +40,7 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
 
         return Map<String, dynamic>.from(data["product"]);
       } else {
-        throw Exception("error");
+        throw "Status code: ${response.statusCode}";
       }
     } catch (e) {
       throw Exception("error: $e");
@@ -83,8 +83,8 @@ class _MenuShopDetailState extends State<MenuShopDetail> {
             },
           ).show();
         } else {
-          throw data["message"];
-        }
+        throw "Status code: ${response.statusCode}";
+      }
       } else {
         throw "Status code: ${response.statusCode}";
       }
