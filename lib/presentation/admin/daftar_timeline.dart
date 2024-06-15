@@ -89,7 +89,7 @@ class _DaftarTimelineState extends State<DaftarTimeline> {
         throw Exception("error");
       }
     } catch (e) {
-      print('Error fetching posts: $e');
+      throw 'Error fetching posts: $e';
     }
   }
 

@@ -89,7 +89,7 @@ class _DaftarShopState extends State<DaftarShop> {
         throw Exception("error");
       }
     } catch (e) {
-      print('Error fetching products: $e');
+      throw 'Error fetching products: $e';
     }
   }
 

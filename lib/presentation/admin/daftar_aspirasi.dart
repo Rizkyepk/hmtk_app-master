@@ -45,7 +45,7 @@ class _DaftarAspirasiState extends State<DaftarAspirasi> {
         throw Exception("error");
       }
     } catch (e) {
-      print('Error fetching products: $e');
+      throw 'Error fetching products: $e';
     }
   }
 

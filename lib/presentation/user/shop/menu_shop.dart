@@ -28,7 +28,7 @@ class MenuShop extends StatelessWidget {
 
         return List<Map<String, dynamic>>.from(data["products"]);
       } else {
-        throw Exception("error");
+        throw "Status code: ${response.statusCode}";
       }
     } catch (e) {
       throw Exception("error: $e");

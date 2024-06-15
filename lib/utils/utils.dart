@@ -147,7 +147,7 @@ Future<String> uploadFileToCDN(File file,
     var url = parsedResponse['url'];
     return url;
   } else {
-    throw Exception('Failed to upload file: ${response.reasonPhrase}');
+    throw Exception('Failed to upload file: ${response.statusCode}');
   }
 }
 

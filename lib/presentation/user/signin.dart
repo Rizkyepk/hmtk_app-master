@@ -104,6 +104,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
             btnOkOnPress: () {},
           ).show();
         }
+      } else {
+        throw "Status code: ${response.statusCode}";
       }
     } catch (e) {
       AwesomeDialog(
