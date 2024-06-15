@@ -36,12 +36,12 @@ class _TambahShopState extends State<TambahShop> {
     final File imageFile = File(imagePicked.path);
     double fileSizeMb = await imageFile.length() / (1024 * 1024);
 
-    if (fileSizeMb > 10) {
+    if (fileSizeMb > 5) {
       return AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
-        title: 'Failed: Batas ukuran file 10MB',
+        title: 'Failed: Batas ukuran file 5MB',
         btnOkOnPress: () {},
       ).show();
     }
@@ -56,27 +56,28 @@ class _TambahShopState extends State<TambahShop> {
     final String inputPrice = priceController.text;
     final String inputDescription = descriptionController.text;
 
-    try {
-      String? imgUrl;
-      if (image != null) {
-        imgUrl = await uploadFileToCDN(image!);
-      } else {
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.success,
-          animType: AnimType.rightSlide,
-          title: 'Berhasil menambahkan product baru!',
-          btnOkOnPress: () {},
-        ).show();
-      }
+    if (inputName.isEmpty ||
+        inputPrice.isEmpty ||
+        inputDescription.isEmpty ||
+        image == null ||
+        int.tryParse(inputPrice) == null) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Pastikan semua kolom terisi dengan benar!',
+        btnOkOnPress: () {},
+      ).show();
+    }
 
-      // var auth = await SaveData.getAuth();
+    try {
+      String imgUrl = await uploadFileToCDN(image!);
 
       Map<String, String> params = {
         'name': inputName,
         'price': inputPrice,
         'description': inputDescription,
-        if (imgUrl != null) 'img_url': imgUrl
+        'img_url': imgUrl
       };
 
       var response = await post(
@@ -114,7 +115,13 @@ class _TambahShopState extends State<TambahShop> {
         throw 'Gagal menambahkan produk: ${response.statusCode}';
       }
     } catch (e) {
-      throw Exception("Errors: $e");
+      throw AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: e.toString(),
+        btnOkOnPress: () {},
+      ).show();
     }
   }
 
@@ -250,7 +257,7 @@ class _TambahShopState extends State<TambahShop> {
                       width: 10,
                     ),
                     const Text(
-                      "Uploud Foto",
+                      "Upload Foto",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,

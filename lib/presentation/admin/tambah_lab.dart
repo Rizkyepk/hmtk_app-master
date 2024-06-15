@@ -37,12 +37,12 @@ class _TambahActivtyState extends State<TambahLab> {
     final File imageFile = File(imagePicked.path);
     double fileSizeMb = await imageFile.length() / (1024 * 1024);
 
-    if (fileSizeMb > 10) {
+    if (fileSizeMb > 5) {
       return AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
-        title: 'Failed: Batas ukuran file 10MB',
+        title: 'Failed: Batas ukuran file 5MB',
         btnOkOnPress: () {},
       ).show();
     }
@@ -306,7 +306,7 @@ class _TambahActivtyState extends State<TambahLab> {
                             ),
                     ),
                     const Text(
-                      "Uploud Foto",
+                      "Upload Foto",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
@@ -340,12 +340,13 @@ class _TambahActivtyState extends State<TambahLab> {
                             });
                           },
                         ),
-                        Container(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                            child: const Text(
-                              'no file chosen',
-                              style: TextStyle(fontSize: 11),
-                            ))
+                        if (image == null)
+                          Container(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                              child: const Text(
+                                'no file chosen',
+                                style: TextStyle(fontSize: 11),
+                              ))
                       ],
                     ),
                     const Column(

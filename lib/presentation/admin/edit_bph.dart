@@ -150,7 +150,7 @@ class _TambahActivtyState extends State<EditBph> {
                       width: 10,
                     ),
                     const Text(
-                      "Uploud  Logo BPH HMTK",
+                      "Upload  Logo BPH HMTK",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
@@ -232,7 +232,7 @@ class _TambahActivtyState extends State<EditBph> {
                       width: 10,
                     ),
                     const Text(
-                      "Uploud Foto",
+                      "Upload Foto",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,

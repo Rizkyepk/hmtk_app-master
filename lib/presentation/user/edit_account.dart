@@ -33,12 +33,12 @@ class _EditAccountState extends State<EditAccount> {
     final File imageFile = File(imagePicked.path);
     double fileSizeMb = await imageFile.length() / (1024 * 1024);
 
-    if (fileSizeMb > 10) {
+    if (fileSizeMb > 5) {
       return AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.rightSlide,
-        title: 'Failed: Batas ukuran file 10MB',
+        title: 'Failed: Batas ukuran file 5MB',
         btnOkOnPress: () {},
       ).show();
     }
@@ -166,6 +166,7 @@ class _EditAccountState extends State<EditAccount> {
   @override
   Widget build(BuildContext context) {
     return snap((user) {
+      print(user["nim"].runtimeType);
       final String name = user['name'];
       final int nim = user['nim'];
       final int telp = user['tel'];

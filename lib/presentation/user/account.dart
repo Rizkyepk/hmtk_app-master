@@ -123,9 +123,10 @@ class _AccountState extends State<Account> {
                 ),
                 TextFormField(
                   readOnly: true,
-                  decoration: InputDecoration(
+                  initialValue: user['name'],
+                  style: TextStyle(color: Colors.grey[600]),
+                  decoration: const InputDecoration(
                       filled: true,
-                      hintText: user['name'],
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
@@ -144,9 +145,10 @@ class _AccountState extends State<Account> {
                 ),
                 TextFormField(
                   readOnly: true,
-                  decoration: InputDecoration(
+                  initialValue: nim,
+                  style: TextStyle(color: Colors.grey[600]),
+                  decoration: const InputDecoration(
                       filled: true,
-                      hintText: nim,
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
@@ -165,9 +167,10 @@ class _AccountState extends State<Account> {
                 ),
                 TextFormField(
                   readOnly: true,
-                  decoration: InputDecoration(
+                  initialValue: tel,
+                  style: TextStyle(color: Colors.grey[600]),
+                  decoration: const InputDecoration(
                       filled: true,
-                      hintText: tel,
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
@@ -186,9 +189,10 @@ class _AccountState extends State<Account> {
                 ),
                 TextFormField(
                   readOnly: true,
-                  decoration: InputDecoration(
+                  initialValue: user['email'],
+                  style: TextStyle(color: Colors.grey[600]),
+                  decoration: const InputDecoration(
                       filled: true,
-                      hintText: user['email'],
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),
@@ -207,9 +211,10 @@ class _AccountState extends State<Account> {
                 ),
                 TextFormField(
                   readOnly: true,
-                  decoration: InputDecoration(
+                  initialValue: user['address'],
+                  style: TextStyle(color: Colors.grey[600]),
+                  decoration: const InputDecoration(
                       filled: true,
-                      hintText: user['address'],
                       fillColor: Colors.white,
                       border: InputBorder.none),
                 ),

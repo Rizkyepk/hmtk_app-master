@@ -141,24 +141,20 @@ class _MenuDetailActivityState extends State<MenuDetailActivity> {
                                 const SizedBox(
                                   height: 10,
                                 ),
+                                if (!funTk["map_url"].isEmpty)
                                 const Text(
                                   'Lokasi',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                //menampilkan maps
-                                // Image.asset(
-                                //   'assets/maps.png',
-                                //   height: 180,
-                                //   fit: BoxFit.cover,
-                                // )
+                                if (!funTk["map_url"].isEmpty)
                                 Center(
                                   child: ElevatedButton(
                                     onPressed: () {
                                       _openGoogleMaps(funTk['map_url']);
                                     },
-                                    child: Text('Open Google Maps'),
+                                    child: const Text('Open Google Maps'),
                                   ),
                                 )
                               ],

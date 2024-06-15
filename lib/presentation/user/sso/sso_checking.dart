@@ -91,9 +91,9 @@ class _SsoCheckingState extends State<SsoChecking> {
           await SaveData.saveAuth({
             "user_type": "mahasiswa",
             "user": {
-              'nim': widget.ssoData["numberid"],
+              'nim': int.parse(widget.ssoData["numberid"]),
               'name': toTitleCase(widget.ssoData["fullname"]),
-              'tel': int.tryParse(widget.ssoData["phone"]),
+              'tel': int.parse(widget.ssoData["phone"]),
               'email': widget.ssoData["email"],
               'avatar_url': widget.ssoData["photo"],
               'address':

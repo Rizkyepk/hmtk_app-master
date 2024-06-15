@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
@@ -49,6 +50,18 @@ String formatDateTime(String isoDateTime) {
   return formatter.format(dateTime);
 }
 
+String formatDate(String isoDateTime) {
+  DateTime date = DateTime.parse(isoDateTime);
+  DateFormat formatter = DateFormat('yyyy-MM-dd');
+  return formatter.format(date);
+}
+
+String formatTime(TimeOfDay time) {
+  final formatter = DateFormat('HH:mm');
+  final timeString = TimeOfDay(hour: time.hour, minute: time.minute);
+  return formatter.format(DateTime(2020, 1, 1, timeString.hour, timeString.minute));
+}
+
 String getFirstString(String string) {
   return string.split(" ")[0];
 }
@@ -74,7 +87,9 @@ String toTitleCase(String text) {
   }
 
   return text.toLowerCase().split(' ').map((word) {
-    return word.isNotEmpty ? '${word[0].toUpperCase()}${word.substring(1)}' : '';
+    return word.isNotEmpty
+        ? '${word[0].toUpperCase()}${word.substring(1)}'
+        : '';
   }).join(' ');
 }
 
