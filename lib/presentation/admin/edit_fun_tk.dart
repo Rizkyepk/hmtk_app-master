@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 // import 'package:hmtk_app/presentation/admin/daftar_funtk.dart';
 import 'package:hmtk_app/utils/utils.dart';
-import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
 import 'package:http/http.dart';
@@ -553,7 +552,7 @@ class _EditFunTkState extends State<EditFunTk> {
   }
 
   Future<Response> postEditDataFunTK(
-      int fun_tk_id,
+      int funTkId,
       String title,
       String content,
       String date,
@@ -576,7 +575,7 @@ class _EditFunTkState extends State<EditFunTk> {
         Uri(
             scheme: 'https',
             host: 'myhmtk.jeyy.xyz',
-            path: '/fun_tk/$fun_tk_id',
+            path: '/fun_tk/$funTkId',
             queryParameters: params),
         headers: {
           HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',

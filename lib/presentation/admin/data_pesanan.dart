@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:hmtk_app/utils/color_pallete.dart';
-import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
 
@@ -167,7 +166,7 @@ class _DataPesananState extends State<DataPesanan> {
                   return DataRow(cells: [
                     DataCell(Text(transactionId)),
                     DataCell(Text(studentName)),
-                    DataCell(Container(
+                    DataCell(SizedBox(
                       width: 250,
                       child: ListView.separated(
                         shrinkWrap: true,
@@ -188,7 +187,7 @@ class _DataPesananState extends State<DataPesanan> {
                         },
                       ),
                     )),
-                    DataCell(Container(
+                    DataCell(SizedBox(
                       width: 250,
                       child: ListView.separated(
                         shrinkWrap: true,
@@ -202,7 +201,7 @@ class _DataPesananState extends State<DataPesanan> {
                         },
                       ),
                     )),
-                    DataCell(Container(
+                    DataCell(SizedBox(
                       width: 250,
                       child: ListView.separated(
                         shrinkWrap: true,

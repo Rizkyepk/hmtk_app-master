@@ -85,7 +85,7 @@ class _DetailActivityState extends State<DetailActivity> {
                               if (loadingProgress == null) {
                                 return child;
                               } else {
-                                return Container(
+                                return SizedBox(
                                   height: 200,
                                   width: double.maxFinite,
                                   child: Center(

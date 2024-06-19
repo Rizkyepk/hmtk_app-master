@@ -5,7 +5,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/daftar_laboratory.dart';
 import 'package:hmtk_app/utils/utils.dart';
-import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
 import 'package:http/http.dart';
@@ -322,7 +321,7 @@ class _TambahActivtyState extends State<EditLab> {
                       child: TextField(
                         controller: contentController,
                         maxLines: 4,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 8),
                         ),
@@ -355,7 +354,7 @@ class _TambahActivtyState extends State<EditLab> {
   }
 
   Future<Response> postEditDataLab(
-      int lab_post_id, String content, String? imgUrl) async {
+      int labPostId, String content, String? imgUrl) async {
     try {
       Map<String, String> params = {
         'content': content,
@@ -366,7 +365,7 @@ class _TambahActivtyState extends State<EditLab> {
         Uri(
           scheme: 'https',
           host: 'myhmtk.jeyy.xyz',
-          path: '/lab_post/$lab_post_id',
+          path: '/lab_post/$labPostId',
           queryParameters: params,
         ),
         headers: {

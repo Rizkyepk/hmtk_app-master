@@ -4,7 +4,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/daftar_shop.dart';
 import 'package:hmtk_app/utils/utils.dart';
-import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
 import 'package:http/http.dart';
@@ -236,7 +235,7 @@ class _TambahActivtyState extends State<EditShop> {
                       ),
                       child: TextFormField(
                         controller: nameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           // hintText: widget.shop["name"],
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 8),
@@ -346,7 +345,7 @@ class _TambahActivtyState extends State<EditShop> {
                         decoration: InputDecoration(
                           hintText: widget.shop["price"].toString(),
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 8),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 8),
                         ),
                       ),
                     ),
@@ -374,7 +373,7 @@ class _TambahActivtyState extends State<EditShop> {
                       child: TextField(
                         controller: contentController,
                         maxLines: 4,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 8),
                         ),
@@ -408,7 +407,7 @@ class _TambahActivtyState extends State<EditShop> {
     );
   }
 
-  Future<Response> postEditDataProduct(int product_id, String name,
+  Future<Response> postEditDataProduct(int productId, String name,
       String content, String price, String? imgUrl) async {
     try {
       Map<String, dynamic> params = {
@@ -422,7 +421,7 @@ class _TambahActivtyState extends State<EditShop> {
         Uri(
             scheme: 'https',
             host: 'myhmtk.jeyy.xyz',
-            path: '/product/$product_id',
+            path: '/product/$productId',
             queryParameters: params),
         headers: {
           HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',

@@ -26,11 +26,11 @@ class ItemBank extends StatelessWidget {
         padding: const EdgeInsets.only(top: 5, bottom: 5),
         margin: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
         alignment: Alignment.center,
+        color: color,
         child: Text(
           txt,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        color: color,
       ),
     );
   }

@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/utils/utils.dart';
-import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/presentation/admin/daftar_aktivity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
@@ -351,7 +350,7 @@ class _TambahActivtyState extends State<EditAktivity> {
                       child: TextField(
                         controller: contentController,
                         maxLines: 4,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 8),
                         ),
@@ -382,7 +381,7 @@ class _TambahActivtyState extends State<EditAktivity> {
   }
 
   Future<Response> postEditDataActivity(
-      int activity_id, String title, String content, String? imgUrl) async {
+      int activityId, String title, String content, String? imgUrl) async {
     try {
       Map<String, String> params = {
         'title': title,
@@ -394,7 +393,7 @@ class _TambahActivtyState extends State<EditAktivity> {
         Uri(
           scheme: 'https',
           host: 'myhmtk.jeyy.xyz',
-          path: '/activity/$activity_id',
+          path: '/activity/$activityId',
           queryParameters: params,
         ),
         headers: {

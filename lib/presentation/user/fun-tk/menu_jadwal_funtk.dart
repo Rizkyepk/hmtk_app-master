@@ -54,10 +54,10 @@ class MenuJadwalFunTK extends StatelessWidget {
             builder: (BuildContext context,
                 AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: const CircularProgressIndicator(),
+                    padding: EdgeInsets.all(8.0),
+                    child: CircularProgressIndicator(),
                   ),
                 );
               } else if (snapshot.hasError) {

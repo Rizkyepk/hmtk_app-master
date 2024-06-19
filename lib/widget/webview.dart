@@ -43,7 +43,7 @@ class _WebviewMapsState extends State<WebviewMaps> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Maps'),
+        title: const Text('Maps'),
       ),
       body: WebViewWidget(controller: _controller!),
     );

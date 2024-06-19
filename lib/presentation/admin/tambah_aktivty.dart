@@ -130,7 +130,7 @@ class _TambahActivtyState extends State<TambahActivty> {
                       builder: (context) => const ActivityFrame()),
                 );
               },
-              child: ClipOval(
+              child: const ClipOval(
                   // child: SizedBox.fromSize(
                   //   size: const Size.fromRadius(38), // Image radius
                   //   child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
