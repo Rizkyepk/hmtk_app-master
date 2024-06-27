@@ -2,11 +2,25 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/dashboard.dart';
 import 'package:hmtk_app/presentation/user/start.dart';
+import 'package:hmtk_app/utils/utils.dart';
 
 import 'activity.dart';
 
-class DrawerScren extends StatelessWidget {
+class DrawerScren extends StatefulWidget {
   const DrawerScren({super.key});
+
+  @override
+  State<DrawerScren> createState() => _DrawerScrenState();
+}
+
+class _DrawerScrenState extends State<DrawerScren> {
+  Future<void> logout() async {
+    await SaveData.clearAuth();
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const Start()),
+        (route) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,19 +178,12 @@ class DrawerScren extends StatelessWidget {
             ),
             onTap: () {
               AwesomeDialog(
-                context: context,
-                dialogType: DialogType.warning,
-                animType: AnimType.rightSlide,
-                title: 'Ingin logout?',
-                btnOkOnPress: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Start(),
-                      ),
-                      (route) => false);
-                },
-              ).show();
+                      context: context,
+                      dialogType: DialogType.warning,
+                      animType: AnimType.rightSlide,
+                      title: 'Ingin logout?',
+                      btnOkOnPress: logout)
+                  .show();
             },
           ),
         ],

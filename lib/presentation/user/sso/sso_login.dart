@@ -127,21 +127,6 @@ class _SsoLoginState extends State<SsoLogin> {
                           MaterialPageRoute(
                             builder: (context) => SsoChecking(ssoData: profile),
                           ));
-                      // AwesomeDialog(
-                      //   context: context,
-                      //   dialogType: DialogType.info,
-                      //   animType: AnimType.rightSlide,
-                      //   title: 'SSO Login Info: ${profile.toString()}',
-                      //   btnOkOnPress: () {
-                      //     Navigator.pushReplacement(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //           builder: (context) => const Start(),
-                      //         ));
-                      //   },
-                      // ).show();
-
-                      // jsonDecode(Map<String, dynamic>.from(localStorageData)["profile_situ"]);
                     }
                   },
                 ),
