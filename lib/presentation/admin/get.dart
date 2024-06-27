@@ -14,7 +14,8 @@ class Get extends StatelessWidget {
             top: 100,
             child: Center(
                           child: Image(
-            image: AssetImage('assets/LogoTK3.png'),
+            // image: AssetImage('assets/LogoTK3.png'),
+            image: AssetImage('assets/LOGO TK.png'),
                           ),
                         ),
           ),

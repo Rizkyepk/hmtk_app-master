@@ -26,6 +26,8 @@ class Start extends StatelessWidget {
             bottom: 400,
             child: Image.asset(
               'assets/LOGO TK.png',
+              width: 316,
+              height: 308,
             ),
           ),
           Align(

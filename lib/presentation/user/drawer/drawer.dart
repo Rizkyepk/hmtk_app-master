@@ -31,7 +31,8 @@ class _DrawerUserState extends State<DrawerUser> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('assets/LogoTK3.png'),
+                // Image.asset('assets/LogoTK3.png'),
+                Image.asset('assets/LOGO TK.png'),
                 const SizedBox(
                   height: 20,
                 ),
