@@ -60,6 +60,8 @@ flutter_launcher_icons:
   remove_alpha_ios: true
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 
