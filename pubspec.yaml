@@ -51,6 +51,8 @@ dependencies:
   #maps
   google_maps_flutter: ^2.7.0
 
+  awesome_notifications: ^0.9.3+1
+
 flutter_launcher_icons:
   image_path: "assets/LOGO TK.png" 
   android: true

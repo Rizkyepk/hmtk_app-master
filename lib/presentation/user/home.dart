@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/user/account.dart';
 import 'package:hmtk_app/presentation/user/detail_activity.dart';
@@ -23,6 +24,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int? _lastActivityId;
+
   Future<List<Map<String, dynamic>>> fetchActivities() async {
     try {
       var response = await get(
@@ -35,9 +38,29 @@ class _HomeState extends State<Home> {
       );
 
       if (response.statusCode == 200) {
+        List<Map<String, dynamic>> activities = [];
         Map<String, dynamic> data = jsonDecode(response.body);
+
         if (data["success"]) {
-          return List<Map<String, dynamic>>.from(data["activities"]);
+          // Ambil list aktivitas dari respons
+          activities = List<Map<String, dynamic>>.from(data["activities"]);
+
+          // Urutkan aktivitas berdasarkan post_date dari yang terbaru
+          activities.sort((a, b) => DateTime.parse(b["post_date"])
+              .compareTo(DateTime.parse(a["post_date"])));
+
+          // Cek jika ada aktivitas baru yang belum ditampilkan notifikasi
+          if (_lastActivityId != null &&
+              activities.isNotEmpty &&
+              activities[0]["id"] != _lastActivityId) {
+            // Jika ada, tampilkan notifikasi
+            activityNotification(activities[0]);
+          }
+
+          // Simpan ID aktivitas terbaru untuk referensi selanjutnya
+          _lastActivityId = activities.isNotEmpty ? activities[0]["id"] : null;
+
+          return activities;
         } else {
           throw data["message"];
         }
@@ -48,6 +71,29 @@ class _HomeState extends State<Home> {
       throw "Failed: $e";
     }
   }
+
+  void activityNotification(Map<String, dynamic> activity) {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: activity["id"],
+        channelKey: 'basic_channel',
+        title: 'My-HMTK',
+        body: 'Aktivitas Baru: ${activity["title"]}',
+      ),
+    );
+  }
+
+  // void activityNotification(Map<String, dynamic> activity) {
+  //   AwesomeNotifications().createNotification(
+  //     content: NotificationContent(
+  //       id: activity["id"], // Use unique ID for each notification
+  //       channelKey: 'My-HMTK',
+  //       title: 'Aktivitas Baru: ${activity["title"]}',
+  //       body: activity["description"], // Assuming there's a description field
+  //       notificationLayout: NotificationLayout.Default,
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

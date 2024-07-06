@@ -10,6 +10,80 @@ import '../../utils/color_pallete.dart';
 class Start extends StatelessWidget {
   const Start({super.key});
 
+//   void _showPrivacyPolicyDialog(BuildContext context) {
+//     showDialog(
+//       context: context,
+//       builder: (BuildContext context) {
+//         bool isChecked = false;
+//         return StatefulBuilder(
+//           builder: (context, setState) {
+//             return AlertDialog(
+//               title: const Text('Privacy Policy'),
+//               content: SizedBox(
+//                 width: double.maxFinite,
+//                 child: ListView(
+//                   shrinkWrap: true,
+//                   children: [
+//                     const Text(
+//                       '''Please agree to our Privacy Policy to continue
+
+// Dengan menggunakan aplikasi mobile My-HMTK, Anda memberikan persetujuan untuk pengumpulan dan penggunaan informasi pribadi Anda untuk tujuan-tujuan berikut:
+
+// 1. Autentikasi dan Verifikasi : Nama, jurusan, nomor telepon, alamat, email universitas, dan foto profil Anda akan dikumpulkan dan digunakan untuk mengautentikasi bahwa Anda adalah mahasiswa yang valid dari program Teknik Komputer di Universitas Telkom.
+// 2. Penyediaan Layanan : Informasi pribadi Anda akan digunakan untuk menyediakan layanan yang disesuaikan dengan kebutuhan Anda sebagai pengguna aplikasi My-HMTK, termasuk pengelolaan profil dan akses ke informasi yang relevan dengan jurusan Anda.
+// 3. Tujuan E-commerce : Nomor telepon dan alamat Anda akan digunakan untuk keperluan transaksi e-commerce yang terintegrasi dalam aplikasi, seperti pembelian barang atau layanan yang ditawarkan oleh Himpunan Mahasiswa Teknik Komputer.
+// 4. Keamanan : Kami akan menggunakan informasi Anda untuk menjaga keamanan akun Anda dan memantau aktivitas yang mencurigakan atau tidak sah untuk melindungi privasi dan integritas data Anda.
+
+// Kami menjamin bahwa semua data yang dikumpulkan akan ditangani dengan kerahasiaan yang tinggi dan hanya digunakan sesuai dengan tujuan-tujuan yang disebutkan di atas.
+
+// Dengan mencentang kotak "Setuju" berikut ini, Anda mengakui bahwa Anda telah membaca, memahami, dan menyetujui kebijakan privasi ini.
+//                       ''',
+//                     ),
+//                     Row(
+//                       children: [
+//                         Checkbox(
+//                           value: isChecked,
+//                           onChanged: (bool? value) {
+//                             setState(() {
+//                               isChecked = value ?? false;
+//                             });
+//                           },
+//                         ),
+//                         const Text('Setuju'),
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               actions: [
+//                 TextButton(
+//                   onPressed: () {
+//                     Navigator.of(context).pop();
+//                   },
+//                   child: const Text('Cancel'),
+//                 ),
+//                 TextButton(
+//                   onPressed: isChecked
+//                       ? () {
+//                           Navigator.of(context).pop();
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => const SsoLogin(),
+//                             ),
+//                           );
+//                         }
+//                       : null,
+//                   child: const Text('Agree'),
+//                 ),
+//               ],
+//             );
+//           },
+//         );
+//       },
+//     );
+//   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +119,7 @@ class Start extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
+                      // _showPrivacyPolicyDialog(context);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

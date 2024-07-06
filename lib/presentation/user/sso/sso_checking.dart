@@ -18,6 +18,8 @@ class SsoChecking extends StatefulWidget {
 }
 
 class _SsoCheckingState extends State<SsoChecking> {
+  bool _agreeToPrivacyPolicy = false;
+
   Future<void> getStudent() async {
     print("---------------- CHECKING ONE ------------------");
     if (widget.ssoData["studyprogram"] != "S1 Teknik Komputer") {
@@ -51,7 +53,8 @@ class _SsoCheckingState extends State<SsoChecking> {
         if (data["success"]) {
           await loginStudent();
         } else {
-          await registerStudent();
+          // ask privacy
+          showPrivacyPolicyDialog();
         }
       } else {
         throw "Status code: ${response.statusCode}";
@@ -111,10 +114,10 @@ class _SsoCheckingState extends State<SsoChecking> {
             throw data["message"];
           } else {
             Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Home(),
-              ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Home(),
+                ));
           }
         }
       } else {
@@ -163,6 +166,66 @@ class _SsoCheckingState extends State<SsoChecking> {
     } catch (e) {
       throw "Failed: $e";
     }
+  }
+
+  void showPrivacyPolicyDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Privacy Policy'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text(
+                  '''
+Please read and agree to our privacy policy to proceed.
+
+Kebijakan Privasi dan Penggunaan Data
+
+Dengan menggunakan aplikasi mobile My-HMTK, Anda memberikan persetujuan untuk pengumpulan dan penggunaan informasi pribadi Anda untuk tujuan-tujuan berikut:
+
+1. Autentikasi dan Verifikasi : Nama, jurusan, nomor telepon, alamat, email universitas, dan foto profil Anda akan dikumpulkan dan digunakan untuk mengautentikasi bahwa Anda adalah mahasiswa yang valid dari program Teknik Komputer di Universitas Telkom.
+2. Penyediaan Layanan : Informasi pribadi Anda akan digunakan untuk menyediakan layanan yang disesuaikan dengan kebutuhan Anda sebagai pengguna aplikasi My-HMTK, termasuk pengelolaan profil dan akses ke informasi yang relevan dengan jurusan Anda.
+3. Tujuan E-commerce : Nomor telepon dan alamat Anda akan digunakan untuk keperluan transaksi e-commerce yang terintegrasi dalam aplikasi, seperti pembelian barang atau layanan yang ditawarkan oleh Himpunan Mahasiswa Teknik Komputer.
+4. Keamanan : Kami akan menggunakan informasi Anda untuk menjaga keamanan akun Anda dan memantau aktivitas yang mencurigakan atau tidak sah untuk melindungi privasi dan integritas data Anda.
+
+Kami menjamin bahwa semua data yang dikumpulkan akan ditangani dengan kerahasiaan yang tinggi dan hanya digunakan sesuai dengan tujuan-tujuan yang disebutkan di atas. 
+
+Dengan mencentang kotak "Setuju" berikut ini, Anda mengakui bahwa Anda telah membaca, memahami, dan menyetujui kebijakan privasi ini.
+                ''',
+                  textAlign: TextAlign.justify,
+                ),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _agreeToPrivacyPolicy,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _agreeToPrivacyPolicy = value!;
+                        });
+                      },
+                    ),
+                    const Text('Setuju'),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: _agreeToPrivacyPolicy
+                  ? () {
+                      Navigator.of(context).pop();
+                      registerStudent();
+                    }
+                  : null,
+              child: const Text('Agree'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override

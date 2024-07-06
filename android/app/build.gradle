@@ -28,6 +28,8 @@ android {
     // compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
+    // applicationVariants.all { variant -> variant.outputs.all { outputFileName = "My-HMTK.apk"}}
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
