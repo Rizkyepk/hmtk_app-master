@@ -38,28 +38,24 @@ class _HomeState extends State<Home> {
       );
 
       if (response.statusCode == 200) {
-        List<Map<String, dynamic>> activities = [];
         Map<String, dynamic> data = jsonDecode(response.body);
-
         if (data["success"]) {
-          // Ambil list aktivitas dari respons
-          activities = List<Map<String, dynamic>>.from(data["activities"]);
+          List<Map<String, dynamic>> activities =
+              List<Map<String, dynamic>>.from(data["activities"]);
 
-          // Urutkan aktivitas berdasarkan post_date dari yang terbaru
-          activities.sort((a, b) => DateTime.parse(b["post_date"])
-              .compareTo(DateTime.parse(a["post_date"])));
+          // Sort activities based on ID (assuming higher ID means newer activity)
+          activities.sort((a, b) => b["id"].compareTo(a["id"]));
 
-          // Cek jika ada aktivitas baru yang belum ditampilkan notifikasi
-          if (_lastActivityId != null &&
-              activities.isNotEmpty &&
-              activities[0]["id"] != _lastActivityId) {
-            // Jika ada, tampilkan notifikasi
-            activityNotification(activities[0]);
+          if (activities.isNotEmpty) {
+            int latestActivityId = activities.first["id"];
+            if (_lastActivityId == null || latestActivityId > _lastActivityId!) {
+              // New activity detected, update the last activity ID
+              _lastActivityId = latestActivityId;
+              for (var activity in activities) {
+                activityNotification(activity);
+              }
+            }
           }
-
-          // Simpan ID aktivitas terbaru untuk referensi selanjutnya
-          _lastActivityId = activities.isNotEmpty ? activities[0]["id"] : null;
-
           return activities;
         } else {
           throw data["message"];
@@ -72,7 +68,7 @@ class _HomeState extends State<Home> {
     }
   }
 
-  void activityNotification(Map<String, dynamic> activity) {
+  activityNotification(Map<String, dynamic> activity) {
     AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: activity["id"],
@@ -82,18 +78,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
-  // void activityNotification(Map<String, dynamic> activity) {
-  //   AwesomeNotifications().createNotification(
-  //     content: NotificationContent(
-  //       id: activity["id"], // Use unique ID for each notification
-  //       channelKey: 'My-HMTK',
-  //       title: 'Aktivitas Baru: ${activity["title"]}',
-  //       body: activity["description"], // Assuming there's a description field
-  //       notificationLayout: NotificationLayout.Default,
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -113,8 +97,7 @@ class _HomeState extends State<Home> {
             Column(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.only(bottom: 25, left: 20, right: 20),
+                  padding: const EdgeInsets.only(bottom: 25, left: 20, right: 20),
                   height: 140,
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.vertical(
@@ -163,13 +146,11 @@ class _HomeState extends State<Home> {
                                                 child: Text(
                                                   getFirstString(
                                                       student["name"]),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
+                                                  overflow: TextOverflow.ellipsis,
                                                   maxLines: 1,
                                                   style: const TextStyle(
                                                       fontSize: 30,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontWeight: FontWeight.bold,
                                                       color: Colors.white),
                                                 )));
                                       }
@@ -253,30 +234,6 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left: 20, right: 20),
-                      //   child: Container(
-                      //     height: 50,
-                      //     margin: const EdgeInsets.only(top: 20, bottom: 20),
-                      //     padding: const EdgeInsets.only(left: 20, right: 20),
-                      //     decoration: BoxDecoration(
-                      //         borderRadius: BorderRadius.circular(30),
-                      //         color: Colors.white),
-                      //     child: const Row(
-                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //       children: [
-                      //         Expanded(
-                      //             flex: 9,
-                      //             child: TextField(
-                      //               decoration: InputDecoration(
-                      //                   hintText: 'Search',
-                      //                   border: InputBorder.none),
-                      //             )),
-                      //         Expanded(flex: 1, child: Icon(Icons.search))
-                      //       ],
-                      //     ),
-                      //   ),
-                      // )
                     ],
                   ),
                 ),
@@ -286,7 +243,6 @@ class _HomeState extends State<Home> {
               ],
             ),
             Positioned(
-              // alignment: Alignment.bottomCenter,
               bottom: 0,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -390,7 +346,6 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     InkWell(
-                      key: const Key("navigate_to_timeline_button"),
                       onTap: () {
                         Navigator.push(
                             context,
@@ -480,26 +435,6 @@ class _HomeState extends State<Home> {
                       );
                     }
                   }),
-
-              // const SizedBox(
-              //   height: 30,
-              // ),
-              // InkWell(
-              //     onTap: () {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => const DetailActivity()));
-              //     },
-              //     child: const ItemActivity()),
-              // const SizedBox(
-              //   height: 30,
-              // ),
-
-              // const ItemActivity(),
-              // const SizedBox(
-              //   height: 30,
-              // ),
             ],
           ),
         )
