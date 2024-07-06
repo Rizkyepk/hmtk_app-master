@@ -379,6 +379,7 @@ class _TimelineState extends State<Timeline> {
                 var itemCount = posts.length;
 
                 return ListView.builder(
+                  key: const Key("timeline_list_builder"),
                   padding: const EdgeInsets.all(20),
                   itemCount: itemCount,
                   itemBuilder: (context, index) => Container(

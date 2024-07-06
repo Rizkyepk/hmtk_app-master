@@ -51,6 +51,7 @@ dependencies:
   #maps
   google_maps_flutter: ^2.7.0
 
+
 flutter_launcher_icons:
   image_path: "assets/LOGO TK.png" 
   android: true
@@ -58,6 +59,8 @@ flutter_launcher_icons:
   remove_alpha_ios: true
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 

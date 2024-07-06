@@ -344,6 +344,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     InkWell(
+                      key: const Key("navigate_to_timeline_button"),
                       onTap: () {
                         Navigator.push(
                             context,
