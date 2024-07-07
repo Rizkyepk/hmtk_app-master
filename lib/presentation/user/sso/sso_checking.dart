@@ -169,16 +169,16 @@ class _SsoCheckingState extends State<SsoChecking> {
   }
 
   void showPrivacyPolicyDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Privacy Policy'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: [
-                Text(
-                  '''
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Privacy Policy'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: [
+              const Text(
+                '''
 Please read and agree to our privacy policy to proceed.
 
 Kebijakan Privasi dan Penggunaan Data
@@ -194,39 +194,50 @@ Kami menjamin bahwa semua data yang dikumpulkan akan ditangani dengan kerahasiaa
 
 Dengan mencentang kotak "Setuju" berikut ini, Anda mengakui bahwa Anda telah membaca, memahami, dan menyetujui kebijakan privasi ini.
                 ''',
-                  textAlign: TextAlign.justify,
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _agreeToPrivacyPolicy,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _agreeToPrivacyPolicy = value!;
-                        });
-                      },
-                    ),
-                    const Text('Setuju'),
-                  ],
-                ),
-              ],
-            ),
+                textAlign: TextAlign.justify,
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: _agreeToPrivacyPolicy,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _agreeToPrivacyPolicy = value!;
+                      }
+                      );
+                    },
+                  ),
+                  const Text('Setuju'),
+                ],
+              ),
+            ],
           ),
-          actions: [
-            TextButton(
-              onPressed: _agreeToPrivacyPolicy
-                  ? () {
-                      Navigator.of(context).pop();
-                      registerStudent();
-                    }
-                  : null,
-              child: const Text('Agree'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const Start()),
+              );
+            },
+            child: const Text('Back'),
+          ),
+          TextButton(
+            onPressed: _agreeToPrivacyPolicy
+                ? () {
+                    Navigator.of(context).pop();
+                    registerStudent();
+                  }
+                : null,
+            child: const Text('Agree'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
