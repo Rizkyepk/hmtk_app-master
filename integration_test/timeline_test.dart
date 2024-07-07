@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -8,7 +6,6 @@ import 'package:hmtk_app/presentation/user/signin.dart';
 import 'package:hmtk_app/utils/utils.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-// import 'package:your_app/main.dart' as app;
 import 'package:hmtk_app/main.dart' as app;
 
 Future<void> pumpUntilVisible(WidgetTester tester, Finder finder,
@@ -30,7 +27,6 @@ void main() {
 
     app.main();
     await tester.pumpAndSettle();
-    print("---- all loaded");
 
     final response = await fetchData("tester", "tester");
     final Map<String, dynamic> data = json.decode(response.body);
