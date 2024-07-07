@@ -1,12 +1,25 @@
-
+import 'dart:convert';
+import 'dart:io';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/daftar_material_bank.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/activity.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
+import 'package:http/http.dart';
 
-class TambahmaterialBank extends StatelessWidget {
-  const TambahmaterialBank({super.key});
+class TambahmaterialBank extends StatefulWidget {
+  const TambahmaterialBank({Key? key}) : super(key: key);
+
+  @override
+  State<TambahmaterialBank> createState() => _TambahmaterialBankState();
+}
+
+class _TambahmaterialBankState extends State<TambahmaterialBank> {
+  var namaController = TextEditingController();
+  var urlController = TextEditingController();
+  int? valTingkat = 1; // Initial value for the dropdown
 
   @override
   Widget build(BuildContext context) {
@@ -17,30 +30,21 @@ class TambahmaterialBank extends StatelessWidget {
         child: DrawerScren(),
       ),
       appBar: AppBar(
-        // title: const Text("GeeksforGeeks"),
-        // titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 200,
-        // toolbarOpacity: 0.8,
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
-                );
-              },
-              child: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
-                ),
-              ),
-            ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
+                padding: const EdgeInsets.all(8.0),
+                child: const Text(
+                  'Materi Bank',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ))
           ],
         ),
         shape: const RoundedRectangleBorder(
@@ -68,7 +72,7 @@ class TambahmaterialBank extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 5, 0, 10),
                 child: const Text(
-                  'Form yang di unggah akan ditampilkan di halaman Material Bank',
+                  'Form yang diunggah akan ditampilkan di halaman Material Bank',
                   style: TextStyle(fontSize: 12),
                 ),
               ),
@@ -76,7 +80,8 @@ class TambahmaterialBank extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.all(20),
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   blurRadius: 1,
@@ -117,19 +122,43 @@ class TambahmaterialBank extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.only(left: 10),
-                      height: 30,
+                      height: 40,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
+                      child: DropdownButton<int>(
+                        value: valTingkat, // make sure to define this variable
+                        isExpanded: true,
+                        isDense: true,
+                        items: const [
+                          DropdownMenuItem(
+                            value: 1,
+                            child: Text('Tingkat 1'),
+                          ),
+                          DropdownMenuItem(
+                            value: 2,
+                            child: Text('Tingkat 2'),
+                          ),
+                          DropdownMenuItem(
+                            value: 3,
+                            child: Text('Tingkat 3'),
+                          ),
+                          DropdownMenuItem(
+                            value: 4,
+                            child: Text('Tingkat 4'),
+                          ),
+                        ],
+                        onChanged: (val) {
+                          setState(() {
+                            valTingkat = val!;
+                          });
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -146,18 +175,21 @@ class TambahmaterialBank extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.only(left: 10),
-                      height: 30,
+                      height: 40,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
-                        decoration: InputDecoration(
+                      child: TextFormField(
+                        controller: namaController,
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(bottom: 16.0),
                         ),
                       ),
                     ),
@@ -175,18 +207,21 @@ class TambahmaterialBank extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.only(left: 10),
-                      height: 30,
+                      height: 40,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                         border: Border.all(
-                          color:
-                              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.3),
                           width: 2.0,
                         ),
                       ),
-                      child: const TextField(
-                        decoration: InputDecoration(
+                      child: TextFormField(
+                        controller: urlController,
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(bottom: 16.0),
                         ),
                       ),
                     ),
@@ -198,17 +233,14 @@ class TambahmaterialBank extends StatelessWidget {
                       alignment: Alignment.center,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 1, 122, 5),
+                            backgroundColor:
+                                const Color.fromARGB(255, 1, 122, 5),
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              // DetailPage adalah halaman yang dituju
-                              MaterialPageRoute(
-                                  builder: (context) => const DaftarMaterialBank()),
-                            );
-                          },
-                          child: const Text('Tambah')),
+                          onPressed: _addmateri,
+                          child: const Text(
+                            'Tambah',
+                            style: TextStyle(color: Colors.white),
+                          )),
                     )
                   ],
                 ),
@@ -218,5 +250,65 @@ class TambahmaterialBank extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _addmateri() async {
+    final String inputnama = namaController.text;
+    final String inputtingkat = valTingkat.toString(); // Use the dropdown value
+    final String inputurl = urlController.text;
+
+    try {
+      Map<String, String> params = {
+        'level': inputtingkat,
+        'subject': inputnama,
+        'link': inputurl,
+      };
+
+      var response = await post(
+        Uri(
+          scheme: 'https',
+          host: 'myhmtk.jeyy.xyz',
+          path: '/bank_material',
+          queryParameters: params,
+        ),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+        },
+        body: jsonEncode(params),
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        final bool success = data['success'];
+        if (success) {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.rightSlide,
+            title: 'Berhasil menambahkan produk baru!',
+            btnOkOnPress: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const DaftarMaterialBank()),
+              );
+            },
+          ).show();
+        } else {
+          final String errorMessage = data['message'];
+          throw errorMessage;
+        }
+      } else {
+        throw 'Gagal menambahkan produk: ${response.statusCode}';
+      }
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: e.toString(),
+        btnOkOnPress: () {},
+      ).show();
+    }
   }
 }

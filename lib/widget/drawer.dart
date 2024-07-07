@@ -112,17 +112,17 @@ class _DrawerScrenState extends State<DrawerScren> {
               );
             },
           ),
-          // ListTile(
-          //   title: const Text('Material Bank'),
-          //   onTap: () {
-          //     showDialog(
-          //       context: context,
-          //       builder: (BuildContext context) {
-          //         return const MaterialBankDialog(); //
-          //       },
-          //     );
-          //   },
-          // ),
+          ListTile(
+            title: const Text('Material Bank'),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const MaterialBankDialog(); //
+                },
+              );
+            },
+          ),
           ListTile(
             title: const Text('Timeline'),
             onTap: () {
