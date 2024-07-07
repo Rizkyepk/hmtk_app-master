@@ -136,7 +136,7 @@ class _DrawerUserState extends State<DrawerUser> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const BankMateri(),
+                          builder: (context) => BankMateri(),
                         ));
                   },
                   child: Container(

@@ -151,7 +151,7 @@ class _DrawerUserScrenState extends State<DrawerUserScren> {
           ListTile(
             title: const Text('Material Bank'),
             onTap: () {
-              navigateTo(context, const BankMateri());
+              navigateTo(context, BankMateri());
             },
           ),
           ListTile(
