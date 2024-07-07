@@ -1,13 +1,97 @@
-
+import 'dart:convert';
+import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hmtk_app/presentation/admin/edit_material_bank.dart';
-import 'package:hmtk_app/widget/activity.dart';
+import 'package:hmtk_app/utils/utils.dart';
 import 'package:hmtk_app/widget/drawer.dart';
 import 'package:hmtk_app/utils/color_pallete.dart' show ColorPallete;
+import 'package:http/http.dart' as http;
 
-class DaftarMaterialBank extends StatelessWidget {
-  const DaftarMaterialBank({super.key});
+class DaftarMaterialBank extends StatefulWidget {
+  const DaftarMaterialBank({Key? key}) : super(key: key);
+
+  @override
+  State<DaftarMaterialBank> createState() => _DaftarMaterialBankState();
+}
+
+class _DaftarMaterialBankState extends State<DaftarMaterialBank> {
+  List<Map<String, dynamic>> _postDataMaterial = [];
+  String selectedLevel = '1';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchDataMaterial(selectedLevel);
+  }
+
+  Future<void> _fetchDataMaterial(String level) async {
+    try {
+      final response = await fetchData();
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        final bool success = data["success"];
+        if (!success) {
+          throw Exception("Request failed");
+        }
+
+        final List<dynamic> materials = data["bank_materials"];
+        setState(() {
+          _postDataMaterial = materials.cast<Map<String, dynamic>>();
+        });
+      } else {
+        throw Exception("Failed to load data: ${response.statusCode}");
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
+      // Handle error, show dialog, etc.
+    }
+  }
+
+  Future<void> deleteMaterial(int materialId) async {
+    try {
+      var response = await http.delete(
+        Uri(
+          scheme: 'https',
+          host: 'myhmtk.jeyy.xyz',
+          path: '/bank_material/$materialId',
+        ),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        if (data["success"]) {
+          // Show success dialog if successful
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.rightSlide,
+            title: 'Successfully deleted material!',
+            btnOkOnPress: () {
+              _fetchDataMaterial(selectedLevel);
+            },
+          ).show();
+        } else {
+          throw data["message"];
+        }
+      } else {
+        throw "Status code: ${response.statusCode}";
+      }
+    } catch (e) {
+      // Show error dialog if failed
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Failed: $e',
+        btnOkOnPress: () {},
+      ).show();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,36 +102,29 @@ class DaftarMaterialBank extends StatelessWidget {
         child: DrawerScren(),
       ),
       appBar: AppBar(
-        // title: const Text("GeeksforGeeks"),
-        // titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 200,
-        // toolbarOpacity: 0.8,
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ActivityFrame()),
-                );
-              },
-              child: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(38), // Image radius
-                  child: Image.asset('assets/ftprofil.png', fit: BoxFit.cover),
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              child: const Text(
+                'Materi Bank',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 30,
                 ),
               ),
-            ),
-            Container(
-                padding: const EdgeInsets.all(8.0), child: const Text('Hello, Ivan'))
+            )
           ],
         ),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(25),
-              bottomLeft: Radius.circular(25)),
+            bottomRight: Radius.circular(25),
+            bottomLeft: Radius.circular(25),
+          ),
         ),
         elevation: 0.00,
         backgroundColor: ColorPallete.greenprim,
@@ -56,292 +133,189 @@ class DaftarMaterialBank extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
-            child: const Text(
-              "Daftar Material Bank",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Column(
               children: [
                 Container(
-                  margin: const EdgeInsets.fromLTRB(10, 10, 10, 2),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
                   child: Row(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(15),
-                        height: 50,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10))),
-                        child: const Text(
-                          'Tingkat Mata Kuliah',
-                          textAlign: TextAlign.center,
+                      const Text(
+                        "Daftar Materi",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(15),
-                        height: 50,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(0))),
-                        child: const Text(
-                          'Nama Mata Kuliah',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(15),
-                        height: 50,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(0))),
-                        child: const Text(
-                          'Link Bank Materi',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(15),
-                        height: 50,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(10))),
-                        child: const Text(
-                          'Aksi',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                      const SizedBox(width: 10),
+                      // DropdownButton<String>(
+                      //   value: selectedLevel,
+                      //   items: [
+                      //     '1',
+                      //     '2',
+                      //     '3',
+                      //     '4',
+                      //   ].map((level) {
+                      //     return DropdownMenuItem<String>(
+                      //       value: level,
+                      //       child: Text(
+                      //         'Tingkat $level',
+                      //         style: const TextStyle(
+                      //           fontSize: 18,
+                      //           color: Colors.green,
+                      //           fontWeight: FontWeight.bold,
+                      //         ),
+                      //       ),
+                      //     );
+                      //   }).toList(),
+                      //   onChanged: (value) {
+                      //     setState(() {
+                      //       selectedLevel = value!;
+                      //       _fetchDataMaterial(selectedLevel);
+                      //     });
+                      //   },
+                      //   dropdownColor: Colors.grey[200],
+                      // ),
                     ],
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 100,
-                        width: 150,
+                const SizedBox(height: 10),
+                Column(
+                  children: [
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Container(
                         decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(0))),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(0))),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(0))),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(0))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                                onTap: () {
-                                  AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.question,
-                                          animType: AnimType.rightSlide,
-                                          title:
-                                              'Yakin ingin menghapus data?',
-                                          btnOkOnPress: () {},
-                                          btnCancelOnPress: () {})
-                                      .show();
-                                },
-                                child: const Image(
-                                    image: AssetImage('assets/Vector.png'))),
-                            InkWell(
-                                onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const EditMaterialBank(),
-                                      ));
-                                },
-                                child: const Image(
-                                    image: AssetImage('assets/icon.png'))),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.grey.shade200,
+                        ),
+                        child: DataTable(
+                          dataRowHeight: 100,
+                          columns: const [
+                            DataColumn(label: Text('Nama Mata Kuliah')),
+                            DataColumn(label: Text('Link')),
+                            DataColumn(label: Text('Aksi')),
                           ],
+                          rows: _postDataMaterial.map((material) {
+                            return DataRow(
+                              cells: [
+                                DataCell(
+                                  SizedBox(
+                                    width: 250,
+                                    child: Text(
+                                      material["subject"] ?? '',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  SizedBox(
+                                    width: 250,
+                                    child: Text(
+                                      material["link"] ?? '',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text('Konfirmasi'),
+                                                content: const Text(
+                                                  'Apakah Anda yakin ingin menghapus materi ini?',
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text('Batal'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      deleteMaterial(
+                                                          material['id']);
+                                                    },
+                                                    child: const Text(
+                                                      'Hapus',
+                                                      style: TextStyle(
+                                                        color: Colors.red,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: const Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditMaterialBank(
+                                                materi: material,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: const Icon(Icons.edit),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          }).toList(),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 100,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(10))),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(0))),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(0))),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                bottomRight: Radius.circular(10))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                                onTap: () {
-                                  AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.question,
-                                          animType: AnimType.rightSlide,
-                                          title:
-                                              'Yakin ingin menghapus data?',
-                                          btnOkOnPress: () {},
-                                          btnCancelOnPress: () {})
-                                      .show();
-                                },
-                                child: const Image(
-                                    image: AssetImage('assets/Vector.png'))),
-                            InkWell(
-                                onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const EditMaterialBank(),
-                                      ));
-                                },
-                                child: const Image(
-                                    image: AssetImage('assets/icon.png'))),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  Future<http.Response> fetchData() async {
+    try {
+      var response = await http.get(
+        Uri(
+          scheme: 'https',
+          host: 'myhmtk.jeyy.xyz',
+          path: '/bank_material',
+        ),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${Secrets.apiKey}',
+        },
+      );
+
+      return response;
+    } catch (e) {
+      throw Exception('Failed to load data: $e');
+    }
   }
 }
