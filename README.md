@@ -1,6 +1,6 @@
-# hmtk_app
+# Front-End HMTK APP With Flutter
 
-Flutter project for Capstone Project.
+project for Capstone Project or thesiss project.
 
 ## Getting Started
 
